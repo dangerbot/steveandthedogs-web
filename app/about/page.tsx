@@ -24,6 +24,7 @@ const stats = [
 ];
 
 const products = [
+  { name: "Matter", tags: ["iOS", "Android", "Web", "Kiosk"] },
   { name: "FluidLogic GPR50", tags: ["iOS", "Android", "Hardware"] },
   { name: "FluidLogic VMR", tags: ["iOS"] },
   { name: "All Points North Virtual", tags: ["iOS", "Android", "Web"] },

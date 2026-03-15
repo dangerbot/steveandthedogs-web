@@ -94,6 +94,7 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 - Data-driven leader driving growth & retention
 
 **Products list:**
+- Matter [iOS, Android, Web, Kiosk]
 - FluidLogic GPR50 [iOS, Android, Hardware]
 - FluidLogic VMR [iOS]
 - All Points North Virtual [iOS, Android, Web]
