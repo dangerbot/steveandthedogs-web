@@ -128,8 +128,9 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 **Education:**
 - B.S. Physics, University of Oregon
 
-**Skills ticker** (scrolling horizontal marquee on left side):
-Photoshop, Illustrator, Figma, Framer, Agile, Sketch, Design, UX/UI, PRDs, Roadmaps, GTM, Growth, Lovable, etc.
+**Skills ticker** (two-row scrolling horizontal marquee):
+- Row 1 — Tools (scrolls right): Figma, Framer, Sketch, Photoshop, Illustrator, Claude, Gemini, ChatGPT, Cursor, Lovable, Supabase, GitHub, Jira, Notion
+- Row 2 — Skills (scrolls left): UX/UI, Product Strategy, Agile, PRDs, Roadmaps, GTM, Growth, AI/LLM, B2C, B2B, B2B2C, Data Science, User Research, Design Thinking
 
 **Company logos section** (left side): FluidLogic, APN, Adidas logos
 

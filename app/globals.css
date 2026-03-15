@@ -17,6 +17,8 @@
   --color-accent: var(--accent);
   --color-border: var(--border);
   --font-sans: var(--font-inter);
+  --animate-ticker: ticker 35s linear infinite;
+  --animate-ticker-reverse: ticker-reverse 35s linear infinite;
 }
 
 html {
@@ -93,10 +95,12 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-.animate-ticker {
-  animation: ticker 30s linear infinite;
+@keyframes ticker-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
 
-.animate-ticker:hover {
+.animate-ticker:hover,
+.animate-ticker-reverse:hover {
   animation-play-state: paused;
 }
