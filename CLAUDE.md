@@ -31,7 +31,7 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 ### Navigation
 - Fixed top bar, transparent initially, gains subtle background on scroll
 - Left: Lightning bolt logo (⚡ or SVG) + email (steve.and.the.dogs@gmail.com with copy button)
-- Right: Hello! | About | Read Me (these are the nav links matching the Framer site)
+- Right: Hello! | About | Read Me | Playground
 
 ### Home Page (Hello!)
 **Hero Section (full viewport)**
@@ -142,6 +142,15 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 - Category filter pills: All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership
 - Grid of article cards with images and titles (placeholder for now, will connect to Supabase later)
 
+### Playground Page
+- "Playground" in the same large thin type as the Articles page
+- Subtitle: "Experiments, prototypes, and things I'm tinkering with."
+- Amber gradient divider below the header (matches Articles/About page style)
+- Each experiment is a numbered section (Experiment 01, 02, etc.) with a label, title, and brief description
+- Sections stack vertically and can grow over time without any structural changes
+- **Current experiments:**
+  - Experiment 01 — Lightning Bolt Animations: Three animation variations of the site logo mark side by side (Pulse Glow, Draw On, Electric Crackle)
+
 ## Blog / Articles System
 
 Articles are stored as MDX files on the filesystem and rendered server-side via `next-mdx-remote`.
@@ -161,13 +170,17 @@ Every `index.mdx` file must include these fields at the top:
 ---
 title: "Article Title"
 date: "YYYY-MM-DD"
-category: "Strategy & Execution"   # must match a category pill
+category: "Strategy & Execution"      # must match a category pill
 description: "One-sentence summary shown on the card."
-coverImage: "/articles/your-slug/cover.jpg"   # optional, relative to /public
+coverImage: "/articles/your-slug/cover.jpg"    # optional, relative to /public
 gradient: "from-[#...] via-[#...] to-[#...]"  # fallback if no coverImage
-readTime: "5 min read"             # optional
+readTime: "5 min read"                # optional
+animatedCover: "electric-bolt"        # optional — use a live animation instead of a static image
 ---
 ```
+
+**Cover priority order:** `animatedCover` → `coverImage` → `gradient` → nothing.
+Currently the only supported value for `animatedCover` is `"electric-bolt"`, which renders the `ElectricBolt` component (see below) as the card thumbnail and the article hero banner.
 
 ### Valid Categories
 All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership
@@ -185,8 +198,49 @@ All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, 
 3. Write the article body in MDX below the frontmatter
 4. Run `npm run dev` — the article appears automatically on the listing page and at `/articles/your-slug`
 
+### Animated Article Covers
+Some articles use a live Framer Motion animation as their cover instead of a static image. This is controlled by the `animatedCover` frontmatter field.
+
+- `ArticlesGrid.tsx` checks `article.animatedCover` before `coverImage` or `gradient` when rendering the card thumbnail
+- `app/articles/[slug]/page.tsx` applies the same check for the hero banner at the top of the detail page
+- New animated cover types can be added by extending the conditional in both files and creating a corresponding component in `/components`
+
 ### Phase 2 Migration Note
 This system may migrate to Supabase in Phase 2 to support richer content management, author metadata, view counts, and a CMS editing interface. The `lib/articles.ts` utility layer is designed to make this migration straightforward — only the data-fetching functions need to change, not the page components.
+
+## Reusable Animated Components
+
+### ElectricBolt (`components/ElectricBolt.tsx`)
+A self-contained Framer Motion animation of the site's lightning bolt logo mark. Uses the Lucide Zap SVG path in a 24×24 viewBox.
+
+**What it does:**
+- The bolt flickers between amber (`#d4a853`) and near-white (`#ffe8a0`) on a 1.6 s loop
+- 12 spark lines radiate from the bolt edges at staggered intervals
+- Two dot flashes appear at the tip and base during each crackle
+- A subtle amber radial gradient glows behind the bolt
+
+**Props:**
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `boltSize` | `number` | `100` | Width and height of the SVG in px |
+| `className` | `string` | `""` | Classes added to the outer container `div`. Use this to set aspect ratio, background color, border-radius, etc. |
+
+**Usage examples:**
+```tsx
+// Article card thumbnail (16:9, dark background)
+<ElectricBolt boltSize={72} className="w-full aspect-[16/9] bg-[#0d0d0d]" />
+
+// Article detail hero banner (21:9, rounded with border)
+<ElectricBolt boltSize={140} className="w-full aspect-[21/9] rounded-2xl border border-[#222222] bg-[#0d0d0d]" />
+
+// Playground preview (standalone, no background box needed)
+<ElectricBolt boltSize={200} className="w-[200px] h-[200px]" />
+```
+
+**Notes:**
+- The component is `"use client"` — it can be imported into server components (Next.js handles the boundary automatically)
+- The inner SVG uses `overflow: visible` so spark lines that extend slightly outside the bolt bounds render correctly
+- The outer container uses `overflow: hidden` by default — pass a bg color via `className` for a clean contained look, or omit it to float the bolt on whatever background is behind it
 
 ## Technical Guidelines
 - Use Next.js App Router (app/ directory)
@@ -203,17 +257,22 @@ This system may migrate to Supabase in Phase 2 to support richer content managem
 
 ## File Structure
 ```
-steveblack-site/
+steveandthedogs-web/
 ├── app/
-│   ├── layout.tsx          (root layout with nav + footer)
-│   ├── page.tsx            (home/hello page)
+│   ├── layout.tsx                   (root layout with nav + footer)
+│   ├── page.tsx                     (home/hello page)
+│   ├── globals.css                  (global styles + CSS variables)
 │   ├── about/
-│   │   └── page.tsx        (about page)
+│   │   └── page.tsx                 (about page)
 │   ├── articles/
-│   │   └── page.tsx        (articles page)
-│   └── globals.css         (global styles + CSS variables)
+│   │   ├── page.tsx                 (articles listing — server component)
+│   │   ├── ArticlesGrid.tsx         (client component: filter + card grid)
+│   │   └── [slug]/
+│   │       └── page.tsx             (article detail — server component)
+│   └── playground/
+│       └── page.tsx                 (playground page — experiments & prototypes)
 ├── components/
-│   ├── Navigation.tsx
+│   ├── Navigation.tsx               (fixed top nav: logo, email, links)
 │   ├── Footer.tsx
 │   ├── Hero.tsx
 │   ├── ValuesSection.tsx
@@ -225,12 +284,19 @@ steveblack-site/
 │   ├── QuickStats.tsx
 │   ├── ProductsList.tsx
 │   ├── SkillsTicker.tsx
-│   ├── ArticleGrid.tsx
-│   └── CategoryFilter.tsx
+│   └── ElectricBolt.tsx             (reusable animated lightning bolt SVG)
+├── content/
+│   └── articles/
+│       └── [slug]/
+│           ├── index.mdx            (article content + frontmatter)
+│           └── images/              (optional article-specific images)
+├── lib/
+│   └── articles.ts                  (getAllArticles / getArticle utilities)
 ├── public/
 │   └── images/
-│       └── steve.jpg       (headshot — add your photo here)
-├── CLAUDE.md               (this file)
+│       ├── steve.avif               (headshot)
+│       └── articles/                (article cover images)
+├── CLAUDE.md                        (this file)
 └── package.json
 ```
 
