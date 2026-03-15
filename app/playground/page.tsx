@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import ElectricBolt from "@/components/ElectricBolt";
 import AnimatedDivider from "@/components/AnimatedDivider";
+import BoltDivider from "@/components/BoltDivider";
 
 // Replays animations when the user scrolls, with a cooldown long enough
 // for all animations to finish before a new replay can trigger.
@@ -131,6 +132,42 @@ function BoltElectricCrackle() {
         <p className="text-[#555555] text-xs mt-2 max-w-[160px] leading-relaxed">
           Sparks flicker from the bolt edges at staggered random intervals.
         </p>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Experiment 03 — Bolt Light-Up Divider
+// ─────────────────────────────────────────────
+
+function BoltLightUpDivider() {
+  return (
+    <div className="border border-[#1e1e1e] rounded-2xl p-8 md:p-10 bg-[#0d0d0d]">
+      {/* Mock heading */}
+      <div className="mb-6">
+        <p className="text-xs tracking-[0.3em] uppercase text-[#d4a853] font-light mb-3">
+          Chapter One
+        </p>
+        <h3 className="text-xl md:text-2xl font-light text-[#f5f5f5] tracking-wide">
+          Building What Matters
+        </h3>
+      </div>
+
+      {/* The animated divider — shared component */}
+      <BoltDivider />
+
+      {/* Mock body text */}
+      <div className="mt-6 flex flex-col gap-2.5">
+        <div className="h-2 rounded-full bg-[#1a1a1a] w-full" />
+        <div className="h-2 rounded-full bg-[#1a1a1a] w-5/6" />
+        <div className="h-2 rounded-full bg-[#1a1a1a] w-4/6" />
+      </div>
+
+      {/* Label */}
+      <div className="mt-8 pt-5 border-t border-[#1a1a1a] flex items-center gap-3">
+        <div className="w-4 h-px bg-[#d4a853]" />
+        <p className="text-[#555555] text-xs tracking-widest uppercase">Experiment 03 — Bolt Light-Up</p>
       </div>
     </div>
   );
@@ -296,6 +333,25 @@ export default function PlaygroundPage() {
           <BoltDrawOn />
           <BoltElectricCrackle />
         </div>
+      </section>
+
+      {/* ── Experiment 03: Bolt Light-Up Divider ─────────────────────── */}
+      <section className="px-6 pb-24 max-w-6xl mx-auto">
+
+        {/* Section label */}
+        <div className="mb-14">
+          <p className="text-xs tracking-[0.3em] uppercase text-[#555555] font-light mb-3">
+            Experiment 03
+          </p>
+          <h2 className="text-2xl md:text-3xl font-light text-[#f5f5f5] tracking-wide">
+            Bolt Light-Up Divider
+          </h2>
+          <p className="text-[#555555] text-sm mt-2 font-light">
+            Three bolts flicker on sequentially like lightbulbs, hold, then go dark and loop.
+          </p>
+        </div>
+
+        <BoltLightUpDivider />
       </section>
 
       {/* ── Experiment 02: Animated Divider ──────────────────────────── */}

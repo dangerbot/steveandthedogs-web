@@ -2,35 +2,13 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import BoltDivider from "@/components/BoltDivider";
 
 const bios = [
   "Hello! I help companies build products people love — by setting clear vision, removing blockers, and getting hands-on when it's time to execute.",
   "With 18+ years building digital products across AI, fitness, health, and connected tech, I've helped Nike, Adidas, Bowflex, and early-stage startups drive engagement, retention, and subscription growth.",
   "From zero-to-one to scaling what works, I bring clarity, energy, and focus to creating user-centered products that make a real impact.",
 ];
-
-function LightningBolt({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      width="18"
-      height="28"
-      viewBox="0 0 18 28"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M11 1L2 16H9L7 27L16 12H9L11 1Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-    </svg>
-  );
-}
 
 export default function BioCard() {
   return (
@@ -41,21 +19,9 @@ export default function BioCard() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="max-w-4xl mx-auto flex items-center gap-0 mb-16"
-        aria-hidden="true"
+        className="max-w-4xl mx-auto mb-16"
       >
-        {/* Left rule */}
-        <div className="flex-1 h-px bg-[#222222]" />
-
-        {/* Bolts */}
-        <div className="flex items-center gap-3 px-6">
-          <LightningBolt className="text-[#222222]" />
-          <LightningBolt className="text-[#d4a853]" />
-          <LightningBolt className="text-[#222222]" />
-        </div>
-
-        {/* Right rule */}
-        <div className="flex-1 h-px bg-[#222222]" />
+        <BoltDivider />
       </motion.div>
 
       {/* Card */}

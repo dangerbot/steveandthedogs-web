@@ -2,29 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import BoltDivider from "@/components/BoltDivider";
 
-function LightningBolt({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      width="18"
-      height="28"
-      viewBox="0 0 18 28"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden="true"
-    >
-      <path
-        d="M11 1L2 16H9L7 27L16 12H9L11 1Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-    </svg>
-  );
-}
 
 const connectItems = [
   {
@@ -89,16 +68,9 @@ export default function ConnectSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-0 mb-20"
-          aria-hidden="true"
+          className="mb-20"
         >
-          <div className="flex-1 h-px bg-[#222222]" />
-          <div className="flex items-center gap-3 px-6">
-            <LightningBolt className="text-[#222222]" />
-            <LightningBolt className="text-[#d4a853]" />
-            <LightningBolt className="text-[#222222]" />
-          </div>
-          <div className="flex-1 h-px bg-[#222222]" />
+          <BoltDivider />
         </motion.div>
 
         {/* Heading */}
