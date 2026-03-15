@@ -85,6 +85,7 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 
 ### About Page
 **Hero area with photo and bio card** (matching Framer layout)
+- Bio card includes a "Let's Connect!" link at the bottom that opens LinkedIn profile (https://www.linkedin.com/in/steveandthedogs/)
 
 **Quick Stats card:**
 - 18+ years building digital products

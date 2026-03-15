@@ -144,7 +144,9 @@ export default function AboutPage() {
             <div className="pt-2 flex items-center gap-4 border-t border-[#222222]">
               <div className="w-6 h-px bg-[#d4a853]" />
               <Link
-                href="mailto:steve.and.the.dogs@gmail.com"
+                href="https://www.linkedin.com/in/steveandthedogs/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-[#d4a853] text-sm font-light tracking-widest uppercase hover:opacity-70 transition-opacity"
               >
                 Let&apos;s connect! →
