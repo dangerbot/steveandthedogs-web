@@ -111,7 +111,8 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 - Adidas 1 Running [Hardware]
 
 **Experience Timeline:**
-- Oct 2024 – Present: Principle Product Manager, FluidLogic
+- Dec 2025 – Present: Head of Digital Product, Matter
+- Oct 2024 – Dec 2025: Principle Product Manager, FluidLogic
 - May 2023 – Oct 2024: Principle Product Manager, All Points North
 - May 2021 – May 2023: Lead Product Manager, Bowflex
 - Dec 2019 – May 2021: Sr. Product Manager, Nike | NTC
