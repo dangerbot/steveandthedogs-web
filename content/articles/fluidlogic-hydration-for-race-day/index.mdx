@@ -1,0 +1,52 @@
+---
+title: "FluidLogic, Hydration for Race Day!"
+date: "2024-08-20"
+category: "Hardware & Software"
+description: "Inside the product thinking behind a next-generation connected hydration system for endurance athletes."
+coverImage: "/images/articles/fluid-logic.webp"
+gradient: "from-[#0d1b2a] via-[#1b263b] to-[#415a77]"
+readTime: "5 min read"
+---
+
+Building connected hardware is an exercise in humility. You're simultaneously designing a physical object, an embedded system, a mobile app, and a cloud backend — and all of them have to work together flawlessly in environments where everything is trying to break them: heat, sweat, dirt, and the chaotic energy of race day.
+
+At FluidLogic, we were building the GPR50: a motorized hydration system for endurance athletes that automatically delivers precise amounts of fluid on demand, controlled by a companion iOS and Android app.
+
+## The Hardware-First Problem
+
+Most consumer tech starts with software and wraps hardware around it later. Hydration hardware is different. The core product *is* the physical device — the fluid dynamics, the motor torque, the tubing geometry. Software is the intelligence layer on top.
+
+This forced us to do something unusual for a product team: get deeply technical about fluid mechanics before writing a single line of app code. We worked directly with the mechanical engineers to understand how pump rate, tube diameter, and fluid viscosity interact. Those physical constraints directly shaped the UX.
+
+You can't just say "dispense 200ml" without understanding that at race pace, with a 1.2m tube and a specific fluid viscosity, "dispense 200ml" takes a certain amount of time. The user experience — the animation, the haptic feedback, the confirmation — had to be calibrated to physical reality.
+
+## Designing for One-Handed, Eyes-Up Use
+
+Athletes don't look at their phones during a race. They might glance, but they can't stop, they can't squint, and they can't troubleshoot.
+
+Every interaction we designed was evaluated against one question: *can this be done in under two seconds, one-handed, without breaking stride?*
+
+That constraint eliminated a lot of bad ideas quickly. It pushed us toward:
+
+- Large, high-contrast tap targets
+- Haptic confirmation as the primary feedback mechanism (not visual)
+- Simplified home screen showing only the two things that matter: current hydration level and one-tap dispense
+- Voice shortcuts via Siri/Google Assistant as an alternative input
+
+We tested constantly — not in a lab, but on the trail. Product team members ran with prototypes. We used real courses, real conditions, real sweat.
+
+## The Connected Product Paradox
+
+Here's the paradox of connected hardware: Bluetooth is unreliable exactly when it matters most. Race day means crowds, interference, and a phone bouncing in a pocket for hours.
+
+We addressed this by making offline-first the default. The device operated fully without a phone connection. The app was a configuration and analytics layer, not a dependency. Riders could set their hydration program before the race, pocket the phone, and trust the hardware to execute.
+
+The app reconnected silently when in range and synced session data. No notification, no alert — just data that appeared in the history when you were done.
+
+## What I Took Away
+
+Working on FluidLogic reinforced something I'd seen at Adidas with SmartBall and miCoach: **the physical experience is the product**. The app exists to make the physical thing better, not the other way around.
+
+Too many connected hardware companies build a mediocre device and try to compensate with software. It never works. The device has to be excellent on its own terms first. Then the software extends it.
+
+If I were advising a connected hardware startup today, I'd say: don't hire your mobile engineer until your device engineer has built something you're proud of.

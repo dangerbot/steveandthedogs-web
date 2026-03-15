@@ -142,6 +142,52 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 - Category filter pills: All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership
 - Grid of article cards with images and titles (placeholder for now, will connect to Supabase later)
 
+## Blog / Articles System
+
+Articles are stored as MDX files on the filesystem and rendered server-side via `next-mdx-remote`.
+
+### File Structure
+Each article lives in its own folder inside `content/articles/`:
+```
+content/articles/
+└── your-article-slug/
+    ├── index.mdx       (required — article content + frontmatter)
+    └── images/         (optional — article-specific images)
+```
+
+### Frontmatter Fields
+Every `index.mdx` file must include these fields at the top:
+```yaml
+---
+title: "Article Title"
+date: "YYYY-MM-DD"
+category: "Strategy & Execution"   # must match a category pill
+description: "One-sentence summary shown on the card."
+coverImage: "/articles/your-slug/cover.jpg"   # optional, relative to /public
+gradient: "from-[#...] via-[#...] to-[#...]"  # fallback if no coverImage
+readTime: "5 min read"             # optional
+---
+```
+
+### Valid Categories
+All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership
+
+### How It Works
+- `lib/articles.ts` — utility functions using `fs` + `gray-matter` to read all MDX files and return metadata sorted by date
+- `app/articles/page.tsx` — server component that calls `getAllArticles()` and passes data to the client `ArticlesGrid` component
+- `app/articles/ArticlesGrid.tsx` — client component handling category filter state and card rendering
+- `app/articles/[slug]/page.tsx` — server component that reads the full MDX, renders it with `next-mdx-remote/rsc`, and generates static pages via `generateStaticParams`
+- Detail pages render at `/articles/[slug]` with full prose-dark typography styling
+
+### Adding a New Article
+1. Create a new folder in `content/articles/your-slug/`
+2. Add `index.mdx` with the required frontmatter fields
+3. Write the article body in MDX below the frontmatter
+4. Run `npm run dev` — the article appears automatically on the listing page and at `/articles/your-slug`
+
+### Phase 2 Migration Note
+This system may migrate to Supabase in Phase 2 to support richer content management, author metadata, view counts, and a CMS editing interface. The `lib/articles.ts` utility layer is designed to make this migration straightforward — only the data-fetching functions need to change, not the page components.
+
 ## Technical Guidelines
 - Use Next.js App Router (app/ directory)
 - Use Tailwind CSS for all styling

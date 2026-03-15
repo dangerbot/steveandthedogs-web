@@ -1,0 +1,64 @@
+---
+title: "Adidas SmartBall"
+date: "2014-09-03"
+category: "Innovation & Technology"
+description: "From patent to product — how we shipped connected sports hardware before IoT was a mainstream category."
+coverImage: "/images/articles/adidas-smart-ball.jpg"
+gradient: "from-[#0a1a0a] via-[#0f2d0f] to-[#1a4a1a]"
+readTime: "6 min read"
+---
+
+In 2010, IoT wasn't a category. Bluetooth Low Energy didn't exist yet. The iPhone 4 had just launched. And we were trying to put electronics inside a soccer ball.
+
+SmartBall — formally the Adidas miCoach Smart Ball — was one of the earliest examples of connected sports equipment. It had a 9-axis inertial measurement unit embedded in the core, a Bluetooth radio, and firmware that could measure ball speed, spin rate, spin axis, and kick point with every strike.
+
+It was, frankly, a crazy idea. And building it taught me more about product management than anything else I've done before or since.
+
+## Starting with the Insight, Not the Technology
+
+The temptation with hardware innovation is to start with what's technically possible. We didn't. We started with a player insight:
+
+**Amateur soccer players fundamentally don't know how to strike a ball correctly, and they don't get feedback on their technique.**
+
+Professional players have coaches, video analysis, and constant tactical feedback. Amateur players — even dedicated ones — mostly train alone or in recreational leagues where technique coaching is minimal. They repeat the same mistakes for years.
+
+SmartBall was the answer to that insight. Not "what can we put in a ball?" but "what would help players actually improve?"
+
+That framing kept us honest throughout development. Every time the engineering team found something technically exciting they wanted to add, we asked: does this help a player improve their technique? If the answer was no, it didn't ship.
+
+## The Multi-Year Hardware Cycle
+
+Consumer software ships in two-week sprints. Hardware ships in 18-month cycles. This is not a small difference — it's a fundamentally different way of working.
+
+We had one chance to get the core sensor suite right. If we shipped the ball with a 6-axis IMU instead of 9-axis, we couldn't push an update to add the missing axes. The ball physically existed in the world.
+
+This forced a level of upfront rigor I wasn't used to. We did extensive testing of strike mechanics to understand what sensor precision we actually needed. We built physical prototypes early and put them in front of actual players — not product people, not engineers, but 16-year-old football academy kids who'd tell us immediately if the ball felt "wrong."
+
+The core product principle I developed: **for hardware, get the thing in front of the right users as early as possible, even if it's embarrassing**. A prototype that works 60% of the time in the right hands is worth a thousand requirements documents.
+
+## App Design Without Established Patterns
+
+When SmartBall shipped in 2013, there was no established design language for sports performance data. Strava was young. Whoop didn't exist. We were designing visualizations for kinematic data — spin axis, shot trajectory, impact point on the ball face — that no consumer app had shown before.
+
+We did a lot of wrong things first. We tried to show everything we could measure, which was overwhelming. We used visualizations that were technically accurate but emotionally flat. We optimized for data richness at the expense of immediate comprehension.
+
+The breakthrough came when we shifted from asking "how do we show this data?" to "what does a player need to feel after reviewing a session?"
+
+The answer was: **clarity and progress**.
+
+> After a training session, a player needed to understand one or two things they did well and one thing to work on next time. Not 14 metrics. Not a data dashboard. A story.
+
+That reframe drove the final version of the app: session recap told as a narrative, with a clear "hero metric" per session type and specific technique cues tied to the player's actual data.
+
+## What Shipping Hardware Teaches You
+
+Working on SmartBall gave me an engineering empathy I didn't have before. I learned:
+
+- Battery life is a UX problem, not just an engineering constraint
+- Bluetooth pairing is the most hated consumer experience in connected products, and it's almost always a solvable problem if you invest in it early
+- The "magic moment" — when a user first sees their data and something clicks — is worth designing backward from
+- Manufacturing tolerances matter to the product experience in ways that aren't obvious from spec sheets
+
+I also developed a deep respect for the engineers who build physical things. Software can be patched. Metal is permanent.
+
+SmartBall shipped with 17 patents. Every one of them represents a problem we encountered and solved in a way that didn't exist before. That's the thing about building in a genuinely new category — you don't have a roadmap to copy. You have to invent one.
