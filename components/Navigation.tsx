@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ElectricBolt from "@/components/ElectricBolt";
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -49,10 +50,10 @@ export default function Navigation() {
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="text-[#d4a853] text-xl leading-none hover:scale-110 transition-transform"
+            className="hover:scale-110 transition-transform"
             aria-label="Home"
           >
-            ⚡
+            <ElectricBolt boltSize={22} className="w-[26px] h-[26px]" />
           </Link>
           <div className="hidden sm:flex items-center gap-2">
             <span className="text-[#888888] text-sm font-light tracking-wide">
