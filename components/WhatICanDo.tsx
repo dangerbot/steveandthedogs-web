@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import AnimatedDivider from "@/components/AnimatedDivider";
 
 const items = [
   {
@@ -76,14 +77,7 @@ export default function WhatICanDo() {
         </div>
 
         {/* Animated divider line */}
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          whileInView={{ scaleX: 1, opacity: 1 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
-          style={{ originX: 0 }}
-          className="mt-20 h-px bg-gradient-to-r from-[#d4a853] via-[#222222] to-transparent"
-        />
+        <AnimatedDivider className="mt-20" />
       </div>
     </section>
   );

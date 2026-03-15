@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllArticles, getArticle } from "@/lib/articles";
 import ElectricBolt from "@/components/ElectricBolt";
+import AnimatedDivider from "@/components/AnimatedDivider";
 
 // ─── Static params for Vercel build ──────────────────────────────────────────
 
@@ -106,7 +107,7 @@ export default async function ArticlePage({
         </p>
 
         {/* Divider */}
-        <div className="mt-10 h-px bg-gradient-to-r from-[#d4a853] via-[#333] to-transparent" />
+        <AnimatedDivider className="mt-10" />
       </header>
 
       {/* ── Cover (animated, photo, or gradient fallback) ──────────── */}

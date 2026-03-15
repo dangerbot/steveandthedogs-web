@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
 import { getAllArticles } from "@/lib/articles";
 import ArticlesGrid from "./ArticlesGrid";
+import AnimatedDivider from "@/components/AnimatedDivider";
 
 export default function ArticlesPage() {
   const articles = getAllArticles();
@@ -27,7 +27,7 @@ export default function ArticlesPage() {
         </p>
 
         {/* Divider */}
-        <div className="mt-14 h-px bg-gradient-to-r from-[#d4a853] via-[#333] to-transparent" />
+        <AnimatedDivider className="mt-14" />
       </section>
 
       {/* ── Filtered grid (client component) ────────────────────────── */}
