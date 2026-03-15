@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllArticles, getArticle } from "@/lib/articles";
+import ElectricBolt from "@/components/ElectricBolt";
 
 // ─── Static params for Vercel build ──────────────────────────────────────────
 
@@ -108,9 +109,14 @@ export default async function ArticlePage({
         <div className="mt-10 h-px bg-gradient-to-r from-[#d4a853] via-[#333] to-transparent" />
       </header>
 
-      {/* ── Cover image (real photo or gradient fallback) ──────────── */}
+      {/* ── Cover (animated, photo, or gradient fallback) ──────────── */}
       <div className="px-6 mb-12 max-w-3xl mx-auto">
-        {meta.coverImage ? (
+        {meta.animatedCover === "electric-bolt" ? (
+          <ElectricBolt
+            boltSize={140}
+            className="w-full aspect-[21/9] rounded-2xl border border-[#222222] bg-[#0d0d0d]"
+          />
+        ) : meta.coverImage ? (
           <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-[#222222]">
             <Image
               src={meta.coverImage}

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import type { ArticleMeta } from "@/lib/articles";
+import ElectricBolt from "@/components/ElectricBolt";
 
 const categories = [
   "All",
@@ -64,7 +65,12 @@ function ArticleCard({ article }: { article: ArticleMeta }) {
         {/* Image area */}
         <div className="overflow-hidden">
           <div className="group-hover:scale-[1.02] transition-transform duration-500">
-            {article.coverImage ? (
+            {article.animatedCover === "electric-bolt" ? (
+              <ElectricBolt
+                boltSize={72}
+                className="w-full aspect-[16/9] bg-[#0d0d0d]"
+              />
+            ) : article.coverImage ? (
               <div className="relative w-full aspect-[16/9]">
                 <Image
                   src={article.coverImage}

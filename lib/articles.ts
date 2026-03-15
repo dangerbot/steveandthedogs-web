@@ -13,6 +13,8 @@ export interface ArticleMeta {
   coverImage?: string;
   gradient?: string;
   readTime?: string;
+  /** Set to "electric-bolt" to render the live ElectricBolt animation instead of a static image */
+  animatedCover?: string;
 }
 
 export interface Article {
