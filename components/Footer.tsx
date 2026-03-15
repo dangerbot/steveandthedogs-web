@@ -24,6 +24,8 @@ export default function Footer() {
     }
   };
 
+  const commitHash = process.env.NEXT_PUBLIC_COMMIT_HASH ?? "dev";
+
   return (
     <footer className="bg-[#0a0a0a] border-t border-[#222222]">
       <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-6">
@@ -56,21 +58,30 @@ export default function Footer() {
           )}
         </div>
 
-        {/* Right — nav links */}
-        <nav aria-label="Footer navigation">
-          <ul className="flex items-center gap-1 md:gap-2">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="px-3 py-1.5 text-sm font-light tracking-wide text-[#888888] hover:text-[#f5f5f5] transition-colors rounded-sm"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        {/* Right — nav links + build hash */}
+        <div className="flex items-center gap-4 md:gap-6">
+          <nav aria-label="Footer navigation">
+            <ul className="flex items-center gap-1 md:gap-2">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="px-3 py-1.5 text-sm font-light tracking-wide text-[#888888] hover:text-[#f5f5f5] transition-colors rounded-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <span
+            className="hidden sm:block text-[11px] font-mono text-[#555] tracking-wide select-none"
+            title="Build commit hash"
+          >
+            build {commitHash}
+          </span>
+        </div>
       </div>
     </footer>
   );
