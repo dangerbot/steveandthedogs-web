@@ -30,7 +30,7 @@ const connectItems = [
   {
     id: "linkedin",
     label: "Connect with me on LinkedIn",
-    href: "https://www.linkedin.com/in/steveblack",
+    href: "https://www.linkedin.com/in/steveandthedogs/",
     external: true,
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

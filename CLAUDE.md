@@ -75,7 +75,7 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 **Connect Section**
 - Lightning bolt divider
 - Links with icons:
-  - Connect with me on LinkedIn
+  - Connect with me on LinkedIn (https://www.linkedin.com/in/steveandthedogs/)
   - Email me at Steve.and.the.dogs@gmail.com
   - Click to learn more about me (→ About page)
   - Click to read my articles (→ Articles page)
