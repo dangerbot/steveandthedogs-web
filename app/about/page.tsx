@@ -9,7 +9,7 @@ import SkillsTicker from "@/components/SkillsTicker";
 
 const bioParagraphs = [
   "Hi! I'm a product leader who has spent 18+ years at the intersection of technology, design, and human behavior — building products that people actually want to use.",
-  "My career started at Adidas, where I spent nearly a decade helping define what digital fitness could look like before the category had a name. From connected shoes and smart balls to the original miCoach ecosystem, I learned how to ship hardware-software products that work in the real world — not just in a pitch deck.",
+  "My digital career started at Adidas, helping define what connected fitness could look like before the category even existed. From connected shoes and smart balls to the original miCoach ecosystem, I learned how to ship hardware-software products that work in the real world — not just in a pitch deck.",
   "From there, I moved into consumer health and fitness apps, leading product at Nike NTC, Bowflex JRNY, and All Points North — where I partnered with clinical teams, content creators, and engineers to build subscription experiences that drive real engagement and retention.",
   "Most recently I led product at FluidLogic, developing next-generation hydration hardware and connected experiences. Now at Matter, I'm bringing that same zero-to-one energy to a new challenge — clear vision, tight prioritization, and a bias toward shipping.",
   "Whether I'm running discovery, aligning stakeholders, or getting hands-on in Figma, I show up with energy, honesty, and a genuine love for building things that matter.",
@@ -18,7 +18,7 @@ const bioParagraphs = [
 const stats = [
   { value: "18+", label: "years building digital products" },
   { value: "17", label: "patents in sport, fitness & tech" },
-  { value: "9", label: "products launched across mobile, web & hardware" },
+  { value: "15", label: "products launched across mobile, web & hardware" },
   { value: "AI", label: "experience in health, wellness & performance" },
   { value: "↑", label: "data-driven leader driving growth & retention" },
 ];
