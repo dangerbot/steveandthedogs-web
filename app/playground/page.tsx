@@ -138,6 +138,199 @@ function BoltElectricCrackle() {
 }
 
 // ─────────────────────────────────────────────
+// Experiment 05 — LinkedIn Banner (static)
+// ─────────────────────────────────────────────
+
+const STATIC_BOLT_PATH = "M 13 2 L 3 14 L 12 14 L 11 22 L 21 10 L 12 10 Z";
+
+// Static amber bolt with CSS glow — no animation
+function StaticBolt({ size = 80 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      style={{
+        filter:
+          "drop-shadow(0 0 8px #d4a853bb) drop-shadow(0 0 20px #d4a85355)",
+        flexShrink: 0,
+      }}
+    >
+      <path d={STATIC_BOLT_PATH} fill="#d4a853" />
+    </svg>
+  );
+}
+
+const BANNER_BASE =
+  "w-full rounded-xl overflow-hidden border border-[#222222]";
+const BANNER_INNER =
+  "relative w-full h-full bg-[#0a0a0a] flex";
+
+// Shared ambient glow + decorative lines
+function BannerChrome() {
+  return (
+    <>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 80% at 50% 50%, #d4a85318 0%, transparent 70%)",
+        }}
+      />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4a85340] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4a85340] to-transparent" />
+    </>
+  );
+}
+
+// Variation A — Centered stack: bolt above, tagline below
+function LinkedInBannerA() {
+  return (
+    <div>
+      <div className={BANNER_BASE} style={{ aspectRatio: "1584 / 396" }}>
+        <div className={`${BANNER_INNER} items-center justify-center`}>
+          <BannerChrome />
+          <div className="relative z-10 flex flex-col items-center gap-[3%]">
+            <StaticBolt size={90} />
+            <p
+              className="text-[#d4a853] font-light italic tracking-[0.22em]"
+              style={{ fontSize: "clamp(10px, 2vw, 26px)" }}
+            >
+              Building What Matters
+            </p>
+          </div>
+        </div>
+      </div>
+      <p className="mt-3 text-xs tracking-widest uppercase text-[#555555] font-light">
+        Variation A — Centered Stack
+      </p>
+    </div>
+  );
+}
+
+// Variation B — Horizontal split: bolt left, tagline right
+function LinkedInBannerB() {
+  return (
+    <div>
+      <div className={BANNER_BASE} style={{ aspectRatio: "1584 / 396" }}>
+        <div className={`${BANNER_INNER} items-center`}>
+          <BannerChrome />
+          {/* Left — bolt */}
+          <div className="relative z-10 flex items-center justify-center w-[30%] h-full">
+            <StaticBolt size={100} />
+          </div>
+          {/* Divider */}
+          <div className="relative z-10 w-px self-stretch my-[15%] bg-[#d4a85330]" />
+          {/* Right — tagline */}
+          <div className="relative z-10 flex items-center w-[70%] pl-[4%]">
+            <p
+              className="text-[#d4a853] font-extralight italic tracking-[0.18em] leading-tight"
+              style={{ fontSize: "clamp(12px, 2.8vw, 38px)" }}
+            >
+              Building What Matters
+            </p>
+          </div>
+        </div>
+      </div>
+      <p className="mt-3 text-xs tracking-widest uppercase text-[#555555] font-light">
+        Variation B — Horizontal Split
+      </p>
+    </div>
+  );
+}
+
+// Variation C — Bolt as hero: bolt very large, tagline small beneath
+function LinkedInBannerC() {
+  return (
+    <div>
+      <div className={BANNER_BASE} style={{ aspectRatio: "1584 / 396" }}>
+        <div className={`${BANNER_INNER} items-center justify-center`}>
+          <BannerChrome />
+          {/* Extra glow behind the large bolt */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse 30% 90% at 50% 50%, #d4a85328 0%, transparent 65%)",
+            }}
+          />
+          <div className="relative z-10 flex flex-col items-center gap-[2%]">
+            <StaticBolt size={140} />
+            <p
+              className="text-[#d4a853] font-light italic tracking-[0.3em] uppercase"
+              style={{ fontSize: "clamp(8px, 1.3vw, 17px)" }}
+            >
+              Building What Matters
+            </p>
+          </div>
+        </div>
+      </div>
+      <p className="mt-3 text-xs tracking-widest uppercase text-[#555555] font-light">
+        Variation C — Bolt as Hero
+      </p>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Experiment 04 — LinkedIn Thumbnail
+// ─────────────────────────────────────────────
+
+function LinkedInThumbnail() {
+  return (
+    <div
+      className="w-full rounded-2xl overflow-hidden border border-[#222222]"
+      style={{ aspectRatio: "1200 / 627" }}
+    >
+      {/* Card — matches LinkedIn 1200×627 ratio */}
+      <div className="relative w-full h-full bg-[#0a0a0a] flex flex-col items-center justify-center gap-0">
+
+        {/* Ambient glow layer */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 55% 65% at 50% 42%, #d4a85322 0%, transparent 70%)",
+          }}
+        />
+
+        {/* Top decorative line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4a85330] to-transparent" />
+        {/* Bottom decorative line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d4a85330] to-transparent" />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center gap-[2.5%]">
+
+          {/* Lightning bolt */}
+          <ElectricBolt boltSize={120} className="w-[120px] h-[120px]" />
+
+          {/* Name */}
+          <h1
+            className="font-thin text-[#f5f5f5] tracking-[0.18em] uppercase leading-none"
+            style={{ fontSize: "clamp(28px, 6vw, 80px)" }}
+          >
+            Steve Black
+          </h1>
+
+          {/* Tagline */}
+          <p
+            className="text-[#d4a853] font-light italic tracking-widest"
+            style={{ fontSize: "clamp(11px, 1.6vw, 22px)" }}
+          >
+            Building What Matters
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
 // Experiment 03 — Bolt Light-Up Divider
 // ─────────────────────────────────────────────
 
@@ -354,6 +547,25 @@ export default function PlaygroundPage() {
         <BoltLightUpDivider />
       </section>
 
+      {/* ── Experiment 04: LinkedIn Thumbnail ───────────────────────── */}
+      <section className="px-6 pb-24 max-w-6xl mx-auto">
+
+        {/* Section label */}
+        <div className="mb-14">
+          <p className="text-xs tracking-[0.3em] uppercase text-[#555555] font-light mb-3">
+            Experiment 04
+          </p>
+          <h2 className="text-2xl md:text-3xl font-light text-[#f5f5f5] tracking-wide">
+            LinkedIn Thumbnail
+          </h2>
+          <p className="text-[#555555] text-sm mt-2 font-light">
+            1200 × 627 — screenshot this card for LinkedIn post images. Zoom out (Cmd –) for full resolution.
+          </p>
+        </div>
+
+        <LinkedInThumbnail />
+      </section>
+
       {/* ── Experiment 02: Animated Divider ──────────────────────────── */}
       <section className="px-6 pb-32 max-w-6xl mx-auto">
 
@@ -375,6 +587,29 @@ export default function PlaygroundPage() {
           <DividerDrawOn   key={`draw-${replayKey}`} />
           <DividerBoltFlash key={`bolt-${replayKey}`} />
           <DividerShimmer  key={`shimmer-${replayKey}`} />
+        </div>
+      </section>
+
+      {/* ── Experiment 05: LinkedIn Banner ───────────────────────────── */}
+      <section className="px-6 pb-32 max-w-6xl mx-auto">
+
+        {/* Section label */}
+        <div className="mb-14">
+          <p className="text-xs tracking-[0.3em] uppercase text-[#555555] font-light mb-3">
+            Experiment 05
+          </p>
+          <h2 className="text-2xl md:text-3xl font-light text-[#f5f5f5] tracking-wide">
+            LinkedIn Banner
+          </h2>
+          <p className="text-[#555555] text-sm mt-2 font-light">
+            1584 × 396 — three layout variations. Screenshot whichever you prefer. Zoom out (Cmd –) for maximum resolution.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-10">
+          <LinkedInBannerA />
+          <LinkedInBannerB />
+          <LinkedInBannerC />
         </div>
       </section>
 
