@@ -139,7 +139,7 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 - "Articles" in large thin type (matching Framer)
 - "Stories & Insights" subtitle
 - "I write about building lovable products, guiding teams through ambiguity, and designing with humanity in mind."
-- Category filter pills: All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership
+- Category filter pills: All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership, About Me
 - Grid of article cards with images and titles (placeholder for now, will connect to Supabase later)
 
 ### Playground Page
@@ -183,7 +183,7 @@ animatedCover: "electric-bolt"        # optional — use a live animation instea
 Currently the only supported value for `animatedCover` is `"electric-bolt"`, which renders the `ElectricBolt` component (see below) as the card thumbnail and the article hero banner.
 
 ### Valid Categories
-All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership
+All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership, About Me
 
 ### How It Works
 - `lib/articles.ts` — utility functions using `fs` + `gray-matter` to read all MDX files and return metadata sorted by date
