@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_COMMIT_HASH: commitHash,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/meet-kelby",
+        destination: "/meet-kelby/index.html",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
