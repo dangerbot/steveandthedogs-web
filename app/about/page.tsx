@@ -43,8 +43,8 @@ const products = [
 ];
 
 const companies = [
-  { name: "Matter", sub: "Dec 2025 – Present" },
-  { name: "FluidLogic", sub: "Oct 2024 – Dec 2025" },
+  { name: "Matter", sub: "Jan 2026 – Present" },
+  { name: "FluidLogic", sub: "Oct 2024 – Jan 2026" },
   { name: "All Points North", sub: "2023 – 2024" },
   { name: "Bowflex", sub: "2021 – 2023" },
   { name: "Nike", sub: "2019 – 2021" },
