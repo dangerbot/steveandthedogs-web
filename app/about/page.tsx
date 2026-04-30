@@ -8,15 +8,15 @@ import SkillsTicker from "@/components/SkillsTicker";
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const bioParagraphs = [
-  "Hi! I'm a product leader who has spent 18+ years at the intersection of technology, design, and human behavior — building products that people actually want to use.",
+  "Hi! I'm a product leader who has spent 15+ years at the intersection of technology, design, and human behavior — building products that people actually want to use.",
   "My digital career started at Adidas, helping define what connected fitness could look like before the category even existed. From connected shoes and smart balls to the original miCoach ecosystem, I learned how to ship hardware-software products that work in the real world — not just in a pitch deck.",
   "From there, I moved into consumer health and fitness apps, leading product at Nike NTC, Bowflex JRNY, and All Points North — where I partnered with clinical teams, content creators, and engineers to build subscription experiences that drive real engagement and retention.",
-  "Most recently I led product at FluidLogic, developing next-generation hydration hardware and connected experiences. Now at Matter, I'm bringing that same zero-to-one energy to a new challenge — clear vision, tight prioritization, and a bias toward shipping.",
+  "Most recently I've been leading product at FluidLogic, developing next-generation hydration hardware and connected experiences — bringing zero-to-one energy, clear vision, tight prioritization, and a bias toward shipping.",
   "Whether I'm running discovery, aligning stakeholders, or getting hands-on in Figma, I show up with energy, honesty, and a genuine love for building things that matter.",
 ];
 
 const stats = [
-  { value: "18+", label: "years building digital products" },
+  { value: "15+", label: "years building digital products" },
   { value: "17", label: "patents in sport, fitness & tech" },
   { value: "15", label: "products launched across mobile, web & hardware" },
   { value: "AI", label: "experience in health, wellness & performance" },
@@ -24,7 +24,6 @@ const stats = [
 ];
 
 const products = [
-  { name: "Matter", tags: ["iOS", "Android", "Web", "Kiosk"] },
   { name: "FluidLogic GPR50", tags: ["iOS", "Android", "Hardware"] },
   { name: "FluidLogic VMR", tags: ["iOS"] },
   { name: "All Points North Virtual", tags: ["iOS", "Android", "Web"] },
@@ -43,8 +42,7 @@ const products = [
 ];
 
 const companies = [
-  { name: "Matter", sub: "Jan 2026 – Present" },
-  { name: "FluidLogic", sub: "Oct 2024 – Jan 2026" },
+  { name: "FluidLogic", sub: "Oct 2024 – May 2026" },
   { name: "All Points North", sub: "2023 – 2024" },
   { name: "Bowflex", sub: "2021 – 2023" },
   { name: "Nike", sub: "2019 – 2021" },
