@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <base href="/gardyn-review/" />
 <title>Gardyn App Experience — Observations & Opportunities</title>
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -95,6 +96,22 @@
     text-transform: uppercase;
     color: oklch(0.55 0.012 150);
     margin-top: 12px;
+  }
+  #rail-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: oklch(0.65 0.04 95);
+    text-decoration: none;
+    border-bottom: 1px dotted oklch(0.45 0.04 95);
+    padding-bottom: 1px;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+  #rail-link:hover {
+    color: oklch(0.85 0.04 95);
+    border-bottom-color: oklch(0.65 0.04 95);
   }
 
   #thumbs {
@@ -473,6 +490,7 @@
     <div id="rail-title">Gardyn · Product Audit</div>
     <h1 id="rail-h1">Observations &amp; Opportunities</h1>
     <div id="rail-byline">Steve Black · May 2026</div>
+    <a id="rail-link" href="https://steveandthedogs.com" target="_blank" rel="noopener">↗ steveandthedogs.com</a>
   </div>
   <nav id="thumbs" aria-label="Slide list"></nav>
 </aside>

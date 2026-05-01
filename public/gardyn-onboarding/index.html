@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Gardyn Onboarding — Concept</title>
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="alternate icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
@@ -161,13 +163,20 @@
   }
   .info-footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     padding-top: 14px;
     border-top: 1px solid var(--line);
     font-size: 11px;
     color: var(--muted);
   }
+  .info-footer a.site-link {
+    color: var(--green-mid);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--green-mid);
+    transition: color 150ms ease;
+  }
+  .info-footer a.site-link:hover { color: var(--green-deep); }
 
   @media (max-width: 1180px) {
     .info-panel { display: none; }
@@ -696,6 +705,7 @@
   </p>
 
   <div class="info-footer">
+    <a class="site-link" href="https://steveandthedogs.com" target="_blank" rel="noopener">↗ steveandthedogs.com</a>
     <a class="reset" onclick="resetFlow()">Reset demo</a>
   </div>
 </aside>
