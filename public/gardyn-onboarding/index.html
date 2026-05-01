@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Gardyn Onboarding — Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     Design tokens — tuned to Gardyn brand
+     ========================================================= */
+  :root {
+    --green-deep: #1f4e34;
+    --green-mid: #2f6a44;
+    --green-leaf: #4a8a4f;
+    --green-soft: #b7d98e;
+    --green-tint: #e8efd9;
+    --cream: #f4ecd8;
+    --cream-warm: #ebe1c8;
+    --paper: #ffffff;
+    --ink: #1a2a1a;
+    --muted: #6f7768;
+    --line: #e2dac4;
+    --shadow-phone: 0 30px 80px rgba(31,78,52,0.28), 0 8px 20px rgba(31,78,52,0.14);
+    --radius-phone: 48px;
+    --radius-card: 18px;
+    --pill: 999px;
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-warm: 'Fraunces', Georgia, serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--font-ui);
+    color: var(--ink);
+    background:
+      radial-gradient(ellipse at 18% 10%, rgba(74,138,79,0.10), transparent 50%),
+      radial-gradient(ellipse at 85% 90%, rgba(183,217,142,0.18), transparent 55%),
+      var(--cream);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+
+  /* =========================================================
+     Page chrome
+     ========================================================= */
+  .page-mark {
+    position: fixed;
+    top: 24px;
+    left: 28px;
+    font-family: var(--font-warm);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--green-deep);
+    opacity: 0.8;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .page-mark .leaf-mark { display: inline-block; }
+  .reset {
+    color: var(--green-mid);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--green-mid);
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .reset:hover { color: var(--green-deep); }
+
+  /* =========================================================
+     Right-side info panel — rationale + byline
+     ========================================================= */
+  .info-panel {
+    position: fixed;
+    top: 60px;
+    right: 32px;
+    width: 300px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 22px 24px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink);
+    box-shadow: 0 12px 36px rgba(31,78,52,0.10);
+    z-index: 50;
+  }
+  .info-panel::-webkit-scrollbar { width: 6px; }
+  .info-panel::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+
+  .info-byline {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .info-byline a {
+    color: var(--green-deep);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms ease;
+  }
+  .info-byline a:hover { border-bottom-color: var(--green-deep); }
+  .info-meta {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+  }
+  .info-title {
+    font-family: var(--font-warm);
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--green-deep);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .info-title .italic { font-style: italic; font-weight: 400; }
+  .info-item {
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+  }
+  .info-item:last-of-type { border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+  .info-item-title {
+    font-weight: 600;
+    color: var(--green-deep);
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .info-item-body {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .info-section-title {
+    font-family: var(--font-warm);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--green-deep);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .info-section-title .italic { font-style: italic; font-weight: 400; }
+  .info-section-body {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+  .info-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 1180px) {
+    .info-panel { display: none; }
+  }
+
+  /* =========================================================
+     Phone frame
+     ========================================================= */
+  .phone {
+    width: 390px;
+    height: 844px;
+    background: #0b0b0b;
+    border-radius: var(--radius-phone);
+    padding: 12px;
+    box-shadow: var(--shadow-phone);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--cream);
+    border-radius: 38px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .status-bar {
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    z-index: 10;
+  }
+  .status-bar .right { display: flex; align-items: center; gap: 5px; }
+  .status-icon { display: inline-block; }
+  .dynamic-island {
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 32px;
+    background: #0b0b0b;
+    border-radius: 20px;
+    z-index: 11;
+  }
+  .home-indicator {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 134px;
+    height: 5px;
+    background: var(--ink);
+    border-radius: 3px;
+    opacity: 0.4;
+    z-index: 10;
+  }
+
+  /* =========================================================
+     Screens
+     ========================================================= */
+  .screens { flex: 1; position: relative; overflow: hidden; }
+  .screen {
+    position: absolute;
+    inset: 0;
+    padding: 6px 24px 36px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(20px);
+    transition: opacity 280ms ease, transform 280ms ease;
+  }
+  .screen.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
+  .screen::-webkit-scrollbar { display: none; }
+
+  /* Brand wordmark inside the app */
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--green-deep);
+    font-family: var(--font-warm);
+    font-weight: 500;
+    font-size: 22px;
+    margin-top: 4px;
+  }
+  .brand-row svg { display: inline-block; }
+
+  /* =========================================================
+     Type
+     ========================================================= */
+  .h1 {
+    font-family: var(--font-warm);
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.15;
+    color: var(--green-deep);
+    letter-spacing: -0.01em;
+  }
+  .h1 .italic { font-style: italic; font-weight: 400; }
+  .h2 {
+    font-family: var(--font-warm);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.25;
+    color: var(--green-deep);
+  }
+  .h2 .italic { font-style: italic; font-weight: 400; }
+  .lede { font-size: 15px; line-height: 1.5; color: var(--muted); margin-top: 10px; }
+  .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+  }
+  .small { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* =========================================================
+     Buttons (true pills)
+     ========================================================= */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 18px 22px;
+    border: none;
+    border-radius: var(--pill);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease, opacity 120ms ease;
+    background: var(--green-deep);
+    color: #f4ecd8;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn.secondary {
+    background: transparent;
+    color: var(--green-deep);
+    border: 1.5px solid var(--green-deep);
+  }
+  .btn.ghost {
+    background: transparent;
+    color: var(--green-mid);
+    font-weight: 500;
+    padding: 14px;
+    border-radius: var(--pill);
+  }
+  .btn.icon-tail::after {
+    content: "→";
+    margin-left: 6px;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* =========================================================
+     Inputs
+     ========================================================= */
+  .input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--pill);
+    font-family: var(--font-ui);
+    font-size: 16px;
+    color: var(--ink);
+    background: var(--paper);
+    outline: none;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+  .input:focus {
+    border-color: var(--green-mid);
+    box-shadow: 0 0 0 3px rgba(47,106,68,0.12);
+  }
+
+  /* =========================================================
+     Cards
+     ========================================================= */
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 18px;
+    cursor: pointer;
+    transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    text-align: left;
+    width: 100%;
+    font-family: var(--font-ui);
+  }
+  .card:hover { border-color: var(--green-leaf); box-shadow: 0 4px 12px rgba(31,78,52,0.06); }
+  .card:active { transform: scale(0.99); }
+  .card .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--green-tint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 22px;
+  }
+  .card .card-title {
+    font-family: var(--font-warm);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--green-deep);
+    margin-bottom: 4px;
+  }
+  .card .card-sub { font-size: 13px; color: var(--muted); line-height: 1.45; }
+
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .stack-lg { display: flex; flex-direction: column; gap: 20px; }
+  .spacer { flex: 1; }
+  .row { display: flex; gap: 10px; }
+  .row > * { flex: 1; }
+  .center { text-align: center; }
+
+  /* =========================================================
+     Hero — leafy backdrop reference to Gardyn's brand language
+     ========================================================= */
+  .hero-illustration {
+    width: 100%;
+    height: 240px;
+    border-radius: 20px;
+    background:
+      radial-gradient(circle at 50% 70%, var(--green-soft) 0%, transparent 60%),
+      linear-gradient(180deg, var(--cream) 0%, var(--cream-warm) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-illustration svg { width: 78%; height: 90%; }
+
+  /* =========================================================
+     OTP
+     ========================================================= */
+  .otp { display: flex; gap: 10px; justify-content: center; }
+  .otp input {
+    width: 56px;
+    height: 64px;
+    text-align: center;
+    font-family: var(--font-warm);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--green-deep);
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper);
+    outline: none;
+    transition: border-color 150ms ease;
+  }
+  .otp input:focus { border-color: var(--green-mid); }
+
+  /* =========================================================
+     Tap hint
+     ========================================================= */
+  .tap-hint {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(6px);
+    padding: 8px 16px;
+    border-radius: var(--pill);
+    border: 1px solid var(--line);
+    transition: opacity 600ms ease;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .tap-hint.fade { opacity: 0; }
+
+  /* =========================================================
+     Tier card (paywall)
+     ========================================================= */
+  .tier-option {
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 16px 18px;
+    cursor: pointer;
+    background: var(--paper);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 150ms ease, background 150ms ease;
+    position: relative;
+  }
+  .tier-option.selected {
+    border-color: var(--green-mid);
+    background: rgba(47,106,68,0.04);
+  }
+  .tier-option .tier-badge {
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: var(--green-deep);
+    color: var(--cream);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--pill);
+  }
+  .tier-name { font-weight: 600; font-size: 15px; color: var(--green-deep); }
+  .tier-savings { font-size: 12px; color: var(--green-mid); font-weight: 500; margin-top: 2px; }
+  .tier-price { font-family: var(--font-warm); font-size: 22px; color: var(--ink); font-weight: 500; }
+  .tier-price small { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+  /* =========================================================
+     Kelby — animated pod
+     ========================================================= */
+  .kelby-stage {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 8px;
+  }
+  .kelby {
+    width: 180px;
+    height: 200px;
+    transform-origin: 50% 90%;
+    animation: kelby-breathe 3.4s ease-in-out infinite;
+  }
+  @keyframes kelby-breathe {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.02); }
+  }
+  .kelby-eye {
+    transform-origin: center;
+    animation: kelby-blink 5.5s ease-in-out infinite;
+  }
+  .kelby-eye.right { animation-delay: 0.05s; }
+  @keyframes kelby-blink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.05); }
+  }
+  .kelby-leaf {
+    transform-origin: bottom center;
+    animation: kelby-sway 4.2s ease-in-out infinite;
+  }
+  .kelby-leaf.right { animation-delay: 0.6s; }
+  @keyframes kelby-sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(3deg); }
+  }
+  .kelby-glow {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(74,138,79,0.18) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Kelby speech bubble */
+  .kelby-bubble {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 18px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--ink);
+    margin-top: 12px;
+    box-shadow: 0 6px 18px rgba(31,78,52,0.06);
+    position: relative;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: bubble-in 400ms ease forwards;
+  }
+  .kelby-bubble::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    background: var(--paper);
+    border-left: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+    transform-origin: center;
+    transform: translateX(-50%) rotate(45deg);
+  }
+  @keyframes bubble-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Plant pop animation */
+  .plant-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .plant-pod {
+    aspect-ratio: 1;
+    background: var(--green-tint);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    opacity: 0;
+    transform: scale(0.6);
+    animation: plant-pop 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  @keyframes plant-pop {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Done celebration */
+  .celebration {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 18px;
+  }
+  .check-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--green-tint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-deep);
+    font-size: 44px;
+    animation: pop-in 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes pop-in {
+    from { transform: scale(0.4); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* Mobile fallback */
+  @media (max-height: 900px) { body { padding: 20px; } }
+  @media (max-width: 480px) {
+    body { padding: 0; }
+    .phone {
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+    .phone-screen { border-radius: 0; }
+    .page-mark, .page-note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-mark">
+  <svg class="leaf-mark" width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/>
+    <path d="M19 5C16 14 9 17 4 19" stroke="#1f4e34" stroke-width="1" stroke-linecap="round"/>
+  </svg>
+  Gardyn <span style="font-style: normal; font-weight: 400; font-size: 14px; color: var(--muted);">onboarding concept</span>
+</div>
+<aside class="info-panel">
+  <div class="info-byline">
+    A concept by <a href="https://steveandthedogs.com" target="_blank" rel="noopener">Steve Black</a>
+  </div>
+  <div class="info-meta">May 2026 · Prototype</div>
+
+  <div class="info-title">Why this is <span class="italic">different.</span></div>
+
+  <div class="info-item">
+    <div class="info-item-title">Account in one step</div>
+    <div class="info-item-body">Phone or email. No password. No re-login. Today's flow asks for both, plus a password, plus makes you sign in again after verification.</div>
+  </div>
+
+  <div class="info-item">
+    <div class="info-item-title">Three real paths, not nine taps</div>
+    <div class="info-item-body">Set up now, waiting for it, or just exploring. Today's flow funnels everyone through pick-kit, confirm-kit, pick-model, confirm-model — even if your Gardyn isn't here yet.</div>
+  </div>
+
+  <div class="info-item">
+    <div class="info-item-title">Kelby leads the setup</div>
+    <div class="info-item-body">Meet Kelby, name your garden, pick starter plants. Today's flow hides Kelby behind the paywall — users pay for an AI they've never met.</div>
+  </div>
+
+  <div class="info-item">
+    <div class="info-item-title">One membership, three cadences</div>
+    <div class="info-item-body">No feature comparison grid. No "Are you sure?" trap modal. Free tier stays useful: one Kelby check-in a day, always.</div>
+  </div>
+
+  <div class="info-item">
+    <div class="info-item-title">Free actually means free</div>
+    <div class="info-item-body">"Continue with free for now" actually works. No grayed-out tabs. No paywall pushed back at you tomorrow.</div>
+  </div>
+
+  <div class="info-section-title">How I <span class="italic">built this.</span></div>
+  <p class="info-section-body">
+    I walked the current Gardyn onboarding end-to-end on my phone — 22 screens from welcome to home — and logged every point of friction. Then I worked iteratively with Claude to sketch a cleaner version: structure first, then voice, then visuals tuned to Gardyn's brand. Single HTML file, hosted as an unlisted page off my site.
+  </p>
+
+  <div class="info-footer">
+    <a class="reset" onclick="resetFlow()">Reset demo</a>
+  </div>
+</aside>
+
+<!-- ====== PHONE FRAME ====== -->
+<div class="phone">
+  <div class="dynamic-island"></div>
+  <div class="phone-screen">
+
+    <div class="status-bar">
+      <div class="time">9:41</div>
+      <div class="right">
+        <svg class="status-icon" width="18" height="12" viewBox="0 0 18 12"><g fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="5" y="5" width="3" height="7" rx="0.5"/><rect x="10" y="2" width="3" height="10" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5"/></g></svg>
+        <svg class="status-icon" width="16" height="12" viewBox="0 0 16 12"><path d="M8 11.5a1 1 0 100-2 1 1 0 000 2zm-3-3.7a4.2 4.2 0 016 0l1.1-1.1a5.7 5.7 0 00-8.2 0L5 7.8zM2.4 5.2a8 8 0 0111.2 0l1.1-1.1a9.5 9.5 0 00-13.4 0l1.1 1.1z" fill="currentColor"/></svg>
+        <svg class="status-icon" width="26" height="12" viewBox="0 0 26 12"><rect x="0.5" y="0.5" width="22" height="11" rx="2.5" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="19" height="8" rx="1.5" fill="currentColor"/><rect x="23" y="4" width="2" height="4" rx="1" fill="currentColor" opacity="0.4"/></svg>
+      </div>
+    </div>
+
+    <div class="screens">
+
+      <!-- ===========================================
+           SCREEN 1: Landing
+           =========================================== -->
+      <section class="screen active" data-screen="1">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/>
+          </svg>
+          Gardyn
+        </div>
+        <div class="hero-illustration">
+          <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- Two pod silhouettes nodding to Gardyn Home + Studio -->
+            <ellipse cx="100" cy="260" rx="60" ry="6" fill="rgba(31,78,52,0.18)"/>
+            <ellipse cx="220" cy="260" rx="48" ry="5" fill="rgba(31,78,52,0.15)"/>
+            <!-- Tall unit -->
+            <rect x="92" y="80" width="16" height="170" fill="#3a4f3a" rx="3"/>
+            <g transform="translate(100 80)">
+              <circle cx="-22" cy="20" r="14" fill="#6aa84f"/>
+              <circle cx="22" cy="40" r="16" fill="#4a8a4f"/>
+              <circle cx="-18" cy="65" r="14" fill="#b7d98e"/>
+              <circle cx="20" cy="85" r="13" fill="#6aa84f"/>
+              <circle cx="-25" cy="110" r="15" fill="#4a8a4f"/>
+              <circle cx="22" cy="130" r="14" fill="#b7d98e"/>
+              <circle cx="-18" cy="150" r="13" fill="#6aa84f"/>
+            </g>
+            <rect x="84" y="248" width="32" height="14" fill="#fff" stroke="#c8c0a8" stroke-width="1" rx="3"/>
+            <!-- Short unit -->
+            <rect x="212" y="120" width="14" height="130" fill="#3a4f3a" rx="3"/>
+            <g transform="translate(220 120)">
+              <circle cx="-20" cy="15" r="13" fill="#4a8a4f"/>
+              <circle cx="20" cy="35" r="14" fill="#6aa84f"/>
+              <circle cx="-16" cy="58" r="12" fill="#b7d98e"/>
+              <circle cx="20" cy="82" r="13" fill="#4a8a4f"/>
+              <circle cx="-18" cy="105" r="12" fill="#6aa84f"/>
+            </g>
+            <rect x="206" y="248" width="28" height="13" fill="#fff" stroke="#c8c0a8" stroke-width="1" rx="3"/>
+          </svg>
+        </div>
+        <div class="stack-lg" style="margin-top: 24px;">
+          <div>
+            <h1 class="h1">Fresh food, <span class="italic">grown at home.</span></h1>
+            <p class="lede">Let's get you started.</p>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="stack">
+          <button class="btn" onclick="goTo(2)">Create account</button>
+          <button class="btn ghost" onclick="goTo('login')">I already have an account</button>
+        </div>
+      </section>
+
+      <!-- ===========================================
+           SCREEN 2: Account creation pick
+           =========================================== -->
+      <section class="screen" data-screen="2">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/></svg>
+          Gardyn
+        </div>
+        <div style="margin-top: 28px;">
+          <h1 class="h1">Let's set up <span class="italic">your account.</span></h1>
+          <p class="lede">Phone or email — whichever's easier. You can add the other later.</p>
+        </div>
+        <div class="stack" style="margin-top: 28px;">
+          <button class="card" onclick="goTo(3)">
+            <div class="card-icon">✉️</div>
+            <div class="card-title">Continue with email</div>
+            <div class="card-sub">We'll send a 4-digit code to sign you in.</div>
+          </button>
+          <button class="card" onclick="goTo(3)">
+            <div class="card-icon">📱</div>
+            <div class="card-title">Continue with phone</div>
+            <div class="card-sub">We'll text you a 4-digit code.</div>
+          </button>
+        </div>
+        <p class="small center" style="margin-top: 22px;">No password. No spam. Just enough to keep your garden in sync.</p>
+        <div class="spacer"></div>
+        <button class="btn ghost" onclick="goTo(1)">Back</button>
+      </section>
+
+      <!-- ===========================================
+           SCREEN 3: Verify
+           =========================================== -->
+      <section class="screen" data-screen="3">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/></svg>
+          Gardyn
+        </div>
+        <div style="margin-top: 36px;">
+          <h1 class="h1">Check your <span class="italic">inbox.</span></h1>
+          <p class="lede">We sent a 4-digit code. Type it in to keep going.</p>
+        </div>
+        <div style="margin-top: 36px;">
+          <div class="otp">
+            <input maxlength="1" inputmode="numeric" oninput="otpAdvance(this)">
+            <input maxlength="1" inputmode="numeric" oninput="otpAdvance(this)">
+            <input maxlength="1" inputmode="numeric" oninput="otpAdvance(this)">
+            <input maxlength="1" inputmode="numeric" oninput="otpAdvance(this)">
+          </div>
+          <p class="small center" style="margin-top: 16px;">
+            Didn't get it? <a class="reset" onclick="event.preventDefault();">Resend code</a>
+          </p>
+        </div>
+        <div class="spacer"></div>
+        <button class="btn" onclick="goTo(4)">Continue</button>
+        <button class="btn ghost" onclick="goTo(2)" style="margin-top: 6px;">Back</button>
+      </section>
+
+      <!-- ===========================================
+           SCREEN 4: Welcome / 3 paths
+           =========================================== -->
+      <section class="screen" data-screen="4">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/></svg>
+          Gardyn
+        </div>
+        <div style="margin-top: 28px;">
+          <h1 class="h1">Welcome to <span class="italic">Gardyn.</span></h1>
+          <p class="lede">Where are you in your Gardyn journey?</p>
+        </div>
+        <div class="stack" style="margin-top: 24px;">
+          <button class="card" onclick="goTo(5)">
+            <div class="card-icon">📦</div>
+            <div class="card-title">My Gardyn is here.</div>
+            <div class="card-sub">I've got the box and I'm ready to set it up now.</div>
+          </button>
+          <button class="card" onclick="goTo(6)">
+            <div class="card-icon">🚚</div>
+            <div class="card-title">It's on the way.</div>
+            <div class="card-sub">I ordered one and I'm waiting for it to land.</div>
+          </button>
+          <button class="card" onclick="goTo(7)">
+            <div class="card-icon">🌱</div>
+            <div class="card-title">I'm exploring.</div>
+            <div class="card-sub">I'm thinking about getting one and want to look around.</div>
+          </button>
+        </div>
+        <div class="spacer"></div>
+        <button class="btn ghost" onclick="goTo(9)">I'll do this later</button>
+      </section>
+
+      <!-- ===========================================
+           SCREEN 5: Kelby setup
+           =========================================== -->
+      <section class="screen" data-screen="5">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/></svg>
+          Gardyn
+        </div>
+
+        <div class="kelby-stage">
+          <div class="kelby-glow"></div>
+          <svg class="kelby" viewBox="-100 -130 200 240" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="0" cy="105" rx="80" ry="8" fill="rgba(31,78,52,0.18)"/>
+            <!-- Two leaves, swaying -->
+            <path class="kelby-leaf left" d="M -2 -85 Q -38 -120 -22 -150 Q -2 -120 -2 -90" fill="#b7d98e" stroke="#1f4e34" stroke-width="3"/>
+            <path class="kelby-leaf right" d="M 2 -85 Q 38 -120 22 -150 Q 2 -120 2 -90" fill="#b7d98e" stroke="#1f4e34" stroke-width="3"/>
+            <!-- Body -->
+            <path d="M 0 -85 C -65 -85, -90 -10, -85 60 C -80 105, -45 110, 0 110 C 45 110, 80 105, 85 60 C 90 -10, 65 -85, 0 -85 Z" fill="#4a8a4f" stroke="#1f4e34" stroke-width="4"/>
+            <!-- Cheek tint -->
+            <ellipse cx="-42" cy="35" rx="14" ry="9" fill="rgba(255,180,140,0.35)"/>
+            <ellipse cx="42" cy="35" rx="14" ry="9" fill="rgba(255,180,140,0.35)"/>
+            <!-- Eyes (animated) -->
+            <ellipse class="kelby-eye left" cx="-30" cy="15" rx="7" ry="9" fill="#1a2a1a"/>
+            <ellipse class="kelby-eye right" cx="30" cy="15" rx="7" ry="9" fill="#1a2a1a"/>
+            <!-- Eye sparkle -->
+            <circle cx="-28" cy="11" r="2" fill="#fff"/>
+            <circle cx="32" cy="11" r="2" fill="#fff"/>
+            <!-- Smile -->
+            <path d="M -20 55 Q 0 72 20 55" stroke="#1a2a1a" stroke-width="4" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+
+        <div id="kelby-bubble-wrap" style="margin-top: 8px;"></div>
+
+        <div id="kelby-step-content" style="margin-top: 14px;"></div>
+
+        <div class="spacer"></div>
+        <div id="kelby-step-actions"></div>
+      </section>
+
+      <!-- ===========================================
+           SCREEN 6: Waiting state
+           =========================================== -->
+      <section class="screen" data-screen="6">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/></svg>
+          Gardyn
+        </div>
+        <div style="margin-top: 24px;">
+          <h2 class="h2">I can't wait to <span class="italic">meet your Gardyn</span> when it lands.</h2>
+          <p class="lede">While you wait, here's what we'll do together.</p>
+        </div>
+        <div class="stack" style="margin-top: 22px;">
+          <div class="card" style="cursor: default;">
+            <div class="card-title">Daily check-ins</div>
+            <div class="card-sub">A quick morning hello and what's growing.</div>
+          </div>
+          <div class="card" style="cursor: default;">
+            <div class="card-title">Harvest celebrations</div>
+            <div class="card-sub">First leaf, first salad, first streak.</div>
+          </div>
+          <div class="card" style="cursor: default;">
+            <div class="card-title">Pick the right pods first</div>
+            <div class="card-sub">I'll help you choose what'll thrive in your space.</div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <button class="btn" onclick="goTo(8)">See membership options</button>
+        <button class="btn ghost" onclick="goTo(9)" style="margin-top: 6px;">Remind me when it ships</button>
+      </section>
+
+      <!-- ===========================================
+           SCREEN 7: Explore state
+           =========================================== -->
+      <section class="screen" data-screen="7">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/></svg>
+          Gardyn
+        </div>
+        <div style="margin-top: 24px;">
+          <h2 class="h2">Curious? Same. <span class="italic">Let me show you around.</span></h2>
+          <p class="lede">A quick look at what life with a Gardyn feels like.</p>
+        </div>
+        <div class="stack" style="margin-top: 22px;">
+          <div class="card" style="cursor: default;">
+            <div class="card-title">What you'll grow</div>
+            <div class="card-sub">Greens, herbs, tomatoes, peppers — year-round.</div>
+          </div>
+          <div class="card" style="cursor: default;">
+            <div class="card-title">How Kelby helps</div>
+            <div class="card-sub">Daily companion. Watches lights and water. You focus on the fun part.</div>
+          </div>
+          <div class="card" style="cursor: default;">
+            <div class="card-title">The first month</div>
+            <div class="card-sub">From plug-in to first salad in about four weeks.</div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <button class="btn" onclick="goTo(8)">See pricing</button>
+        <button class="btn ghost" onclick="goTo(9)" style="margin-top: 6px;">Just looking for now</button>
+      </section>
+
+      <!-- ===========================================
+           SCREEN 8: Membership / paywall
+           =========================================== -->
+      <section class="screen" data-screen="8">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/></svg>
+          Gardyn
+        </div>
+        <div style="margin-top: 14px;">
+          <h1 class="h1" style="font-size: 26px;">Make Kelby your <span class="italic">daily gardening partner.</span></h1>
+          <p class="lede" style="margin-top: 8px;">One membership. Pick your cadence.</p>
+        </div>
+        <div class="stack" style="margin-top: 22px; gap: 14px;" id="tier-list">
+          <div class="tier-option selected" onclick="selectTier(this)" data-tier="2yr">
+            <span class="tier-badge">Most popular</span>
+            <div>
+              <div class="tier-name">2 years</div>
+              <div class="tier-savings">Save 52% — billed every two years</div>
+            </div>
+            <div class="tier-price">$19<small>/mo</small></div>
+          </div>
+          <div class="tier-option" onclick="selectTier(this)" data-tier="1yr">
+            <div>
+              <div class="tier-name">1 year</div>
+              <div class="tier-savings">Save 43% — billed annually</div>
+            </div>
+            <div class="tier-price">$22<small>/mo</small></div>
+          </div>
+          <div class="tier-option" onclick="selectTier(this)" data-tier="trial">
+            <div>
+              <div class="tier-name">Free 30-day trial</div>
+              <div class="tier-savings">Then $39/mo, cancel anytime</div>
+            </div>
+            <div class="tier-price">$0<small>/today</small></div>
+          </div>
+        </div>
+        <div style="margin-top: 16px; padding: 14px 16px; background: var(--green-tint); border-radius: 14px;">
+          <div class="label" style="margin-bottom: 6px; color: var(--green-deep);">Membership includes</div>
+          <div style="font-size: 13px; color: var(--ink); line-height: 1.6;">
+            Kelby unlimited · Proactive plant alerts · Vacation mode · Time-lapse video · Community &amp; challenges
+          </div>
+        </div>
+        <p class="small center" style="margin-top: 12px;"><strong style="color: var(--green-deep); font-weight: 600;">Free tier:</strong> one Kelby check-in a day. Always.</p>
+        <p class="small center" style="margin-top: 4px;">
+          Bought a bundle? <a class="reset" onclick="event.preventDefault();">Add membership code</a>
+        </p>
+        <div class="spacer" style="min-height: 16px;"></div>
+        <button class="btn" onclick="goTo(9)">Start membership</button>
+        <button class="btn secondary" onclick="goTo(9)" style="margin-top: 8px;">Continue with free for now</button>
+      </section>
+
+      <!-- ===========================================
+           SCREEN 9: Done
+           =========================================== -->
+      <section class="screen" data-screen="9">
+        <div class="celebration">
+          <div class="check-circle">✓</div>
+          <h1 class="h1 center">You're all set.</h1>
+          <p class="lede center" style="max-width: 280px;">Welcome to Gardyn. I'll see you in the morning.</p>
+        </div>
+        <button class="btn" onclick="alert('Demo ends here — fake home screen lands next.')">Open my Gardyn</button>
+        <button class="btn ghost" onclick="resetFlow()" style="margin-top: 6px;">Restart demo</button>
+      </section>
+
+      <!-- ===========================================
+           Stub: login (out of scope)
+           =========================================== -->
+      <section class="screen" data-screen="login">
+        <div class="brand-row" style="margin-top: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5C16 14 9 17 4 19C5 14 8 8 12 6C15 4.5 17 4.5 19 5Z" fill="#1f4e34"/></svg>
+          Gardyn
+        </div>
+        <div style="margin-top: 36px;">
+          <h2 class="h2">Welcome back.</h2>
+          <p class="lede">Sign-in flow isn't part of this concept yet — the demo focuses on the new account journey.</p>
+        </div>
+        <div class="spacer"></div>
+        <button class="btn" onclick="goTo(1)">Back to start</button>
+      </section>
+
+    </div><!-- /screens -->
+
+    <div class="home-indicator"></div>
+  </div><!-- /phone-screen -->
+</div><!-- /phone -->
+
+<div class="tap-hint" id="tap-hint">Tap to interact — clickable prototype</div>
+
+<script>
+  // =========================================================
+  // Screen switcher
+  // =========================================================
+  const screens = document.querySelectorAll('.screen');
+  let gardenName = "your Gardyn";
+
+  function goTo(id) {
+    screens.forEach(s => {
+      if (String(s.dataset.screen) === String(id)) {
+        s.classList.add('active');
+        s.scrollTop = 0;
+      } else {
+        s.classList.remove('active');
+      }
+    });
+    if (String(id) === '5') startKelbyFlow();
+  }
+
+  function resetFlow() {
+    document.querySelectorAll('.otp input').forEach(i => i.value = '');
+    document.querySelectorAll('.tier-option').forEach(t => t.classList.remove('selected'));
+    const def = document.querySelector('[data-tier="2yr"]');
+    if (def) def.classList.add('selected');
+    gardenName = "your Gardyn";
+    goTo(1);
+  }
+
+  function otpAdvance(input) {
+    if (input.value.length === 1) {
+      const next = input.nextElementSibling;
+      if (next && next.tagName === 'INPUT') next.focus();
+    }
+  }
+
+  function selectTier(el) {
+    document.querySelectorAll('.tier-option').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // =========================================================
+  // Kelby dialogue flow
+  // =========================================================
+  const kelbySteps = [
+    {
+      bubble: "Hi, I'm Kelby. I'll be your daily gardening partner.",
+      content: `<div style="text-align:center; padding: 0 8px;">
+        <p class="small" style="font-size: 14px;">Let's get your Gardyn set up. It'll take about a minute.</p>
+      </div>`,
+      actions: `<button class="btn" onclick="kelbyNext()">Let's go</button>
+                <button class="btn ghost" onclick="goTo(4)" style="margin-top: 6px;">Back</button>`
+    },
+    {
+      bubble: "What should we call your Gardyn?",
+      content: `<input id="garden-name" class="input" placeholder="Garden Tower" oninput="document.getElementById('name-cta').disabled = !this.value.trim()">`,
+      actions: `<button id="name-cta" class="btn" onclick="saveGardenName()" disabled>Continue</button>`
+    },
+    {
+      bubble: () => `Nice to meet you, ${gardenName}. Let me pick a few starter plants.`,
+      content: `
+        <div class="plant-grid">
+          <div class="plant-pod" style="animation-delay: 100ms;">🥬</div>
+          <div class="plant-pod" style="animation-delay: 220ms;">🌿</div>
+          <div class="plant-pod" style="animation-delay: 340ms;">🍅</div>
+          <div class="plant-pod" style="animation-delay: 460ms;">🌶️</div>
+          <div class="plant-pod" style="animation-delay: 580ms;">🥗</div>
+          <div class="plant-pod" style="animation-delay: 700ms;">🌱</div>
+          <div class="plant-pod" style="animation-delay: 820ms;">🍓</div>
+          <div class="plant-pod" style="animation-delay: 940ms;">🌼</div>
+        </div>
+        <p class="small center" style="margin-top: 12px;">Greens, herbs, tomatoes, peppers — a good first month.</p>
+      `,
+      actions: `<button class="btn" onclick="kelbyNext()">Looks good</button>`
+    },
+    {
+      bubble: "All set. From here on, I'll watch the lights and water — you focus on the fun part.",
+      content: `<p class="small center" style="margin: 4px 12px;">First sprouts in about a week. First harvest in about four.</p>`,
+      actions: `<button class="btn icon-tail" onclick="goTo(8)">See membership options</button>`
+    }
+  ];
+  let kelbyStep = 0;
+
+  function startKelbyFlow() {
+    kelbyStep = 0;
+    renderKelbyStep();
+  }
+
+  function renderKelbyStep() {
+    const step = kelbySteps[kelbyStep];
+    const bubbleText = typeof step.bubble === 'function' ? step.bubble() : step.bubble;
+    const wrap = document.getElementById('kelby-bubble-wrap');
+    const content = document.getElementById('kelby-step-content');
+    const actions = document.getElementById('kelby-step-actions');
+    if (!wrap || !content || !actions) return;
+    // Re-trigger bubble animation by replacing the node
+    wrap.innerHTML = `<div class="kelby-bubble">${bubbleText}</div>`;
+    content.innerHTML = step.content;
+    actions.innerHTML = step.actions;
+  }
+
+  function kelbyNext() {
+    kelbyStep = Math.min(kelbyStep + 1, kelbySteps.length - 1);
+    renderKelbyStep();
+  }
+
+  function saveGardenName() {
+    const v = document.getElementById('garden-name')?.value.trim();
+    if (v) gardenName = v;
+    kelbyNext();
+  }
+
+  // =========================================================
+  // Tap hint fade
+  // =========================================================
+  const hint = document.getElementById('tap-hint');
+  let hintFaded = false;
+  function fadeHint() {
+    if (hintFaded) return;
+    hintFaded = true;
+    hint.classList.add('fade');
+    setTimeout(() => hint.remove(), 800);
+  }
+  document.addEventListener('click', fadeHint, { once: true });
+  setTimeout(fadeHint, 4500);
+</script>
+
+</body>
+</html>

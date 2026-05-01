@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
         source: "/meet-kelby",
         destination: "/meet-kelby/index.html",
       },
+      {
+        source: "/gardyn-onboarding",
+        destination: "/gardyn-onboarding/index.html",
+      },
     ];
   },
 };
