@@ -145,6 +145,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     // preserve ordering (React before ReactDOM before Babel before text/babel).
     const doc = new DOMParser().parseFromString(template, 'text/html');
     document.documentElement.replaceWith(doc.documentElement);
+    // Re-inject favicon — the replaceWith above wipes it out of <head>.
+    if (!document.querySelector('link[rel="icon"]')) {
+      const icon = document.createElement('link');
+      icon.rel = 'icon';
+      icon.type = 'image/svg+xml';
+      icon.href = '/icon.svg';
+      document.head.appendChild(icon);
+    }
     const dead = Array.from(document.scripts);
     for (const old of dead) {
       const s = document.createElement('script');
