@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
         source: "/gardyn-onboarding",
         destination: "/gardyn-onboarding/index.html",
       },
+      {
+        source: "/gardyn-review",
+        destination: "/gardyn-review/index.html",
+      },
     ];
   },
 };

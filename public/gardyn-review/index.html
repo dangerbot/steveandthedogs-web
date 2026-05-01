@@ -1,0 +1,1739 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<base href="/gardyn-review/" />
+<title>Gardyn App Experience — Observations & Opportunities</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,300;1,6..72,400;1,6..72,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* A warm, editorial, botanical-adjacent palette — original, not brand recreation */
+    --bg:       oklch(0.975 0.012 95);    /* warm cream */
+    --bg-alt:   oklch(0.955 0.014 95);    /* deeper cream */
+    --ink:      oklch(0.22 0.025 150);    /* near-black with green undertone */
+    --ink-2:    oklch(0.40 0.022 150);    /* secondary ink */
+    --ink-3:    oklch(0.58 0.018 150);    /* tertiary / labels */
+    --rule:     oklch(0.85 0.012 120);    /* hairline */
+    --rule-2:   oklch(0.90 0.012 120);    /* fainter hairline */
+
+    --green:    oklch(0.38 0.08 150);     /* forest */
+    --green-2:  oklch(0.52 0.10 150);     /* mid green */
+    --green-3:  oklch(0.88 0.04 150);     /* pale green wash */
+
+    --clay:     oklch(0.58 0.12 45);      /* warm terracotta accent */
+    --clay-2:   oklch(0.90 0.04 60);      /* pale clay wash */
+
+    --crit:     oklch(0.52 0.14 25);      /* critical red-clay */
+    --warn:     oklch(0.65 0.12 70);      /* amber */
+    --ok:       oklch(0.52 0.08 150);     /* moderate green */
+
+    --serif: "Newsreader", ui-serif, Georgia, serif;
+    --sans:  "Inter", ui-sans-serif, system-ui, sans-serif;
+    --mono:  "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: oklch(0.26 0.010 95); /* warm dark letterbox */
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================================
+     WEB-ONLY LAYOUT — left thumbnail rail + main stage
+     Print + standalone-deck behavior preserved via @media print.
+     ============================================================ */
+  body {
+    display: flex;
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #rail {
+    flex: 0 0 280px;
+    width: 280px;
+    height: 100vh;
+    background: oklch(0.18 0.012 150);
+    color: oklch(0.78 0.014 150);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid oklch(0.28 0.012 150);
+    overflow: hidden;
+  }
+
+  #rail-header {
+    padding: 22px 22px 16px;
+    border-bottom: 1px solid oklch(0.28 0.012 150);
+    flex-shrink: 0;
+  }
+  #rail-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(0.62 0.012 150);
+    margin-bottom: 8px;
+  }
+  #rail-h1 {
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: oklch(0.96 0.012 95);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  #rail-byline {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: oklch(0.55 0.012 150);
+    margin-top: 12px;
+  }
+
+  #thumbs {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px 14px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.32 0.012 150) transparent;
+  }
+  #thumbs::-webkit-scrollbar { width: 8px; }
+  #thumbs::-webkit-scrollbar-thumb { background: oklch(0.32 0.012 150); border-radius: 4px; }
+  #thumbs::-webkit-scrollbar-track { background: transparent; }
+
+  .thumb {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 6px;
+    padding: 6px;
+    transition: background 0.15s ease;
+  }
+  .thumb:hover {
+    background: oklch(0.22 0.012 150);
+  }
+  .thumb.is-active {
+    background: oklch(0.26 0.020 150);
+  }
+
+  .thumb-num {
+    flex: 0 0 22px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: oklch(0.55 0.012 150);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .thumb.is-active .thumb-num {
+    color: oklch(0.85 0.04 95);
+  }
+
+  .thumb-frame {
+    flex: 0 0 200px;
+    width: 200px;
+    height: 112px;       /* 200 * 9/16 = 112.5 */
+    background: var(--bg);
+    border: 1px solid oklch(0.30 0.012 150);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 6px oklch(0 0 0 / 0.3);
+  }
+  .thumb.is-active .thumb-frame {
+    border-color: oklch(0.78 0.04 95);
+    box-shadow: 0 0 0 2px oklch(0.78 0.04 95), 0 2px 8px oklch(0 0 0 / 0.4);
+  }
+
+  /* The cloned <section> renders at native 1920×1080 then scales down. */
+  .thumb-frame > section {
+    width: 1920px;
+    height: 1080px;
+    position: absolute;
+    top: 0; left: 0;
+    transform: scale(0.10416666);   /* 200 / 1920 */
+    transform-origin: top left;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  #stage-wrap {
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
+    background: oklch(0.26 0.010 95);
+    position: relative;
+    overflow: hidden;
+  }
+  /* deck-stage fills the stage-wrap. Override the shadow DOM's
+     :host { position: fixed; inset: 0; background: #000 } so the rail
+     stays visible and the letterbox is a warm dark tone, not pure black. */
+  #stage-wrap deck-stage {
+    position: relative !important;
+    inset: auto !important;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: oklch(0.26 0.010 95) !important;
+  }
+
+  /* Print: drop the rail, restore single-column for one-page-per-slide PDF */
+  @media print {
+    body {
+      display: block;
+      height: auto;
+      overflow: visible;
+      background: #fff;
+    }
+    #rail { display: none !important; }
+    #stage-wrap { height: auto; background: #fff; }
+  }
+
+  deck-stage > section {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* --- Slide chrome (consistent on every slide) --- */
+  .chrome {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    font-family: var(--mono);
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .chrome > div { position: absolute; }
+  .ch-tl { top: 44px; left: 56px; }
+  .ch-tr { top: 44px; right: 56px; }
+  .ch-bl { bottom: 44px; left: 56px; }
+  .ch-br { bottom: 44px; right: 56px; }
+
+  .chrome .dot {
+    display:inline-block; width:6px; height:6px; border-radius:50%;
+    background: var(--green); vertical-align: middle;
+    margin-right: 10px; transform: translateY(-1px);
+  }
+
+  /* --- Typography --- */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+  }
+  h1.display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 112px;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--ink);
+  }
+  h2.title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 76px;
+    line-height: 1.06;
+    letter-spacing: -0.018em;
+    margin: 0;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  h3.section {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .lede {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 38px;
+    line-height: 1.35;
+    color: var(--ink-2);
+    letter-spacing: -0.005em;
+    text-wrap: pretty;
+  }
+  .body {
+    font-family: var(--sans);
+    font-size: 24px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  .small {
+    font-family: var(--sans);
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ink-3);
+  }
+  .micro {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  em.pull {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--clay);
+  }
+
+  /* --- Slide frame --- */
+  .frame {
+    position: absolute;
+    top: 100px; bottom: 100px; left: 120px; right: 120px;
+    display: flex; flex-direction: column;
+  }
+
+  /* --- Helpers --- */
+  .rule { height:1px; background: var(--rule); width: 100%; }
+  .rule-2 { height:1px; background: var(--rule-2); width: 100%; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 56px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 40px; }
+  .stack { display:flex; flex-direction:column; }
+  .row { display:flex; flex-direction:row; }
+
+  /* --- Cards (minimal, no heavy strokes) --- */
+  .card {
+    background: var(--bg-alt);
+    padding: 40px 44px;
+    border-radius: 2px;
+  }
+  .card .num {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--ink-3);
+    letter-spacing: 0.14em;
+    margin-bottom: 22px;
+  }
+  .card h4 {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px 0;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .card p {
+    font-family: var(--sans);
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* Quote cards */
+  .quote {
+    background: var(--bg-alt);
+    padding: 44px 48px;
+    border-radius: 2px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height: 260px;
+  }
+  .quote .q {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.32;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .quote .q::before { content: "“"; color: var(--clay); margin-right: 2px; }
+  .quote .q::after  { content: "”"; color: var(--clay); }
+  .quote .meta {
+    margin-top: 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* Severity dots */
+  .sev {
+    display:inline-block; width: 10px; height: 10px; border-radius: 50%;
+    margin-right: 12px; vertical-align: middle;
+  }
+  .sev-crit { background: var(--crit); }
+  .sev-warn { background: var(--warn); }
+  .sev-ok   { background: var(--ok); }
+
+  /* Star rating row */
+  .stars {
+    display:inline-flex; gap: 4px;
+  }
+  .stars svg { width: 22px; height: 22px; }
+
+  /* Big number treatment */
+  .big-num {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 240px;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+
+  /* Step list */
+  .steps { display:grid; grid-template-columns: repeat(5, 1fr); gap: 20px 28px; }
+  .step {
+    display:flex; flex-direction:column; gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+  }
+  .step .n {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+  }
+  .step .t {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.25;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .step .d {
+    font-family: var(--sans);
+    font-size: 16px;
+    color: var(--ink-3);
+    line-height: 1.4;
+  }
+  .step.paywall .t { color: var(--crit); }
+  .step.paywall .n { color: var(--crit); }
+
+  /* Locked row */
+  .locked {
+    display:flex; align-items:center; gap: 16px;
+    padding: 18px 20px;
+    background: var(--bg-alt);
+    border-radius: 2px;
+    color: var(--ink-3);
+    font-family: var(--sans);
+    font-size: 22px;
+  }
+  .locked .lk {
+    width: 18px; height: 18px;
+    display:inline-flex; align-items:center; justify-content:center;
+    color: var(--ink-3);
+  }
+
+  /* utility for vertical dividers */
+  .vdiv { width:1px; background: var(--rule); align-self:stretch; }
+
+</style>
+</head>
+<body>
+
+<script type="application/json" id="speaker-notes">[]</script>
+
+<!-- ===== LEFT RAIL — slide thumbnails ===== -->
+<aside id="rail" aria-label="Slide thumbnails">
+  <div id="rail-header">
+    <div id="rail-title">Gardyn · Product Audit</div>
+    <h1 id="rail-h1">Observations &amp; Opportunities</h1>
+    <div id="rail-byline">Steve Black · May 2026</div>
+  </div>
+  <nav id="thumbs" aria-label="Slide list"></nav>
+</aside>
+
+<!-- ===== MAIN STAGE ===== -->
+<div id="stage-wrap">
+
+<deck-stage width="1920" height="1080">
+
+<!-- =========================================================
+     SLIDE 1 — Title
+     ========================================================= -->
+<section data-label="01 Title">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Product Audit</div>
+    <div class="ch-tr">For the CEO · Gardyn</div>
+    <div class="ch-bl">01 / 16</div>
+    <div class="ch-br">Title</div>
+  </div>
+
+  <div class="frame" style="justify-content:center;">
+    <div class="eyebrow" style="margin-bottom:48px;">A Product Audit · Gardyn</div>
+
+    <h1 class="display" style="max-width: 1760px; font-size: 92px; line-height: 1.05;">
+      Your best users <em class="pull">love</em> this product.<br/>
+      There's a great opportunity <em class="pull">for more.</em>
+    </h1>
+
+    <div style="margin-top:56px; max-width: 1280px;" class="lede">
+      The foundations of a great experience are already there. With the right care, they'll grow and flourish.
+    </div>
+
+    <div style="margin-top: 96px; display:flex; gap: 40px; align-items:center;">
+      <div class="rule" style="width: 80px; background: var(--ink);"></div>
+      <div>
+        <div class="body" style="font-size: 22px; color: var(--ink); font-weight: 500;">Steve Black</div>
+        <div class="micro" style="font-size:14px; margin-top: 4px;">18 years in product · ex&#8209;Nike, Adidas, Bowflex &nbsp;·&nbsp; May 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 2 — Methodology
+     ========================================================= -->
+<section data-label="02 How I Looked At It">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Approach</div>
+    <div class="ch-tr">How I dug in</div>
+    <div class="ch-bl">02 / 16</div>
+    <div class="ch-br">Context</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 28px;">How I dug in</div>
+    <h2 class="title" style="max-width: 1620px; font-size: 60px; line-height: 1.12;">
+      Really inspired by what you've built. <em class="pull">Wanted to dig in.</em><br/>
+      Here's what I noticed worth sharing.
+    </h2>
+
+    <div style="margin-top: 64px; max-width: 1500px;" class="lede">
+      I walked the app, read App Store reviews, and watched real users on YouTube — all from the outside. Some of this will land, some won't. If even one observation here moves something forward, sending it was worth it.
+    </div>
+
+    <div style="margin-top: 80px; padding-top: 36px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 56px;">
+
+      <div class="stack" style="gap: 16px;">
+        <div class="micro" style="color:var(--green);">01 · Downloaded the app</div>
+        <div class="body" style="font-size: 22px; line-height: 1.45; color: var(--ink-2);">
+          Walked the full onboarding as a new user — without a device.
+        </div>
+      </div>
+
+      <div class="stack" style="gap: 16px;">
+        <div class="micro" style="color:var(--green);">02 · Read App Store reviews</div>
+        <div class="body" style="font-size: 22px; line-height: 1.45; color: var(--ink-2);">
+          Analyzed <strong style="color:var(--ink); font-weight:600;">2,026 written reviews</strong> for recurring themes and sentiment.
+        </div>
+      </div>
+
+      <div class="stack" style="gap: 16px;">
+        <div class="micro" style="color:var(--green);">03 · Watched YouTube reviews</div>
+        <div class="body" style="font-size: 22px; line-height: 1.45; color: var(--ink-2);">
+          Listened to how real users talk about Gardyn — hardware, app, day-to-day.
+        </div>
+      </div>
+
+    </div>
+
+    <div style="flex:1;"></div>
+
+    <div class="small" style="font-family: var(--serif); font-style: italic; font-size: 24px; color: var(--ink-3);">
+      A first impression from the outside — offered in good faith.
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 3 — The Snapshot
+     ========================================================= -->
+<section data-label="03 Snapshot">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>The Snapshot</div>
+    <div class="ch-tr">App Store · as of May 2026</div>
+    <div class="ch-bl">03 / 16</div>
+    <div class="ch-br">Data</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">The Snapshot</div>
+    <h2 class="title">The full picture.</h2>
+
+    <!-- The two numbers -->
+    <div style="margin-top: 72px; display:grid; grid-template-columns: 1fr 80px 1fr; align-items:start;">
+
+      <!-- 4.8 -->
+      <div class="stack" style="gap: 12px;">
+        <div class="micro">The silent majority</div>
+        <div style="display:flex; align-items:baseline; gap: 18px;">
+          <div class="big-num" style="color: var(--green);">4.8</div>
+          <div class="body" style="font-size: 28px; color: var(--ink-2);">stars</div>
+        </div>
+        <div class="stars" aria-hidden="true" style="margin-top:6px;">
+          <!-- 5 filled stars -->
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--green);"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--green);"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--green);"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--green);"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--green);"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+        </div>
+        <div class="body" style="font-size: 24px; margin-top: 10px;">
+          <strong style="color:var(--ink); font-weight:600;">8,200</strong> total ratings · in-app prompt
+        </div>
+      </div>
+
+      <!-- vs. divider -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap: 14px; padding-top: 44px;">
+        <div class="rule" style="width:1px; height: 120px; background: var(--rule);"></div>
+        <div style="font-family: var(--serif); font-style: italic; font-size: 32px; color: var(--ink-3);">vs.</div>
+        <div class="rule" style="width:1px; height: 120px; background: var(--rule);"></div>
+      </div>
+
+      <!-- 1.79 -->
+      <div class="stack" style="gap: 12px;">
+        <div class="micro" style="color: var(--crit);">The vocal minority</div>
+        <div style="display:flex; align-items:baseline; gap: 18px;">
+          <div class="big-num" style="color: var(--crit);">1.79</div>
+          <div class="body" style="font-size: 28px; color: var(--ink-2);">stars</div>
+        </div>
+        <div class="stars" aria-hidden="true" style="margin-top:6px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--crit);"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--crit); opacity:0.35;"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--crit); opacity:0.5;"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--crit); opacity:0.5;"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--crit); opacity:0.5;"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.5L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg>
+        </div>
+        <div class="body" style="font-size: 24px; margin-top: 10px;">
+          <strong style="color:var(--ink); font-weight:600;">39</strong> written reviews · sought out App Store
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary row: distribution + trend -->
+    <div style="margin-top: 72px; display:grid; grid-template-columns: 1.1fr 1px 1fr; gap: 56px; align-items:start;">
+
+      <!-- Star distribution -->
+      <div class="stack" style="gap: 16px;">
+        <div class="micro">Written reviews · distribution</div>
+        <div class="stack" style="gap: 10px; margin-top: 6px;">
+          <!-- bars -->
+          <div style="display:grid; grid-template-columns: 56px 1fr 50px; align-items:center; gap: 14px;">
+            <div class="small" style="font-family: var(--mono); color: var(--ink-2);">5 ★</div>
+            <div style="height: 14px; background: var(--bg-alt);"><div style="height:100%; width: 16.7%; background: var(--green);"></div></div>
+            <div class="small" style="font-family: var(--mono); text-align:right;">4</div>
+          </div>
+          <div style="display:grid; grid-template-columns: 56px 1fr 50px; align-items:center; gap: 14px;">
+            <div class="small" style="font-family: var(--mono); color: var(--ink-2);">4 ★</div>
+            <div style="height: 14px; background: var(--bg-alt);"><div style="height:100%; width: 0%; background: var(--ok);"></div></div>
+            <div class="small" style="font-family: var(--mono); text-align:right;">0</div>
+          </div>
+          <div style="display:grid; grid-template-columns: 56px 1fr 50px; align-items:center; gap: 14px;">
+            <div class="small" style="font-family: var(--mono); color: var(--ink-2);">3 ★</div>
+            <div style="height: 14px; background: var(--bg-alt);"><div style="height:100%; width: 16.7%; background: var(--warn);"></div></div>
+            <div class="small" style="font-family: var(--mono); text-align:right;">4</div>
+          </div>
+          <div style="display:grid; grid-template-columns: 56px 1fr 50px; align-items:center; gap: 14px;">
+            <div class="small" style="font-family: var(--mono); color: var(--ink-2);">2 ★</div>
+            <div style="height: 14px; background: var(--bg-alt);"><div style="height:100%; width: 29%; background: var(--warn);"></div></div>
+            <div class="small" style="font-family: var(--mono); text-align:right;">7</div>
+          </div>
+          <div style="display:grid; grid-template-columns: 56px 1fr 50px; align-items:center; gap: 14px;">
+            <div class="small" style="font-family: var(--mono); color: var(--ink-2);">1 ★</div>
+            <div style="height: 14px; background: var(--bg-alt);"><div style="height:100%; width: 100%; background: var(--crit);"></div></div>
+            <div class="small" style="font-family: var(--mono); text-align:right;">24</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: var(--rule); width:1px; height: 100%;"></div>
+
+      <!-- Monthly trend — number row -->
+      <div class="stack" style="gap: 20px;">
+        <div class="micro">Monthly avg · written review rating</div>
+        <div style="border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 34px 8px;">
+          <div style="display:grid; grid-template-columns: 1fr 36px 1fr 36px 1fr 36px 1fr; align-items:center; gap: 8px;">
+
+            <!-- JAN -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap: 10px;">
+              <div class="micro" style="font-size: 15px; color: var(--ink-3); letter-spacing: 0.16em;">JAN</div>
+              <div style="font-family: var(--serif); font-weight: 500; font-size: 54px; line-height: 1; color: var(--ink); letter-spacing: -0.02em;">1.8</div>
+            </div>
+
+            <!-- arrow down -->
+            <div style="display:flex; justify-content:center; align-items:center;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--crit)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="14 7 19 12 14 17"/></svg>
+            </div>
+
+            <!-- FEB -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap: 10px;">
+              <div class="micro" style="font-size: 15px; color: var(--ink-3); letter-spacing: 0.16em;">FEB</div>
+              <div style="font-family: var(--serif); font-weight: 500; font-size: 54px; line-height: 1; color: var(--ink); letter-spacing: -0.02em;">1.7</div>
+            </div>
+
+            <!-- arrow down -->
+            <div style="display:flex; justify-content:center; align-items:center;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--crit)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="14 7 19 12 14 17"/></svg>
+            </div>
+
+            <!-- MAR -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap: 10px;">
+              <div class="micro" style="font-size: 15px; color: var(--ink-3); letter-spacing: 0.16em;">MAR</div>
+              <div style="font-family: var(--serif); font-weight: 500; font-size: 54px; line-height: 1; color: var(--ink); letter-spacing: -0.02em;">1.6</div>
+            </div>
+
+            <!-- arrow up -->
+            <div style="display:flex; justify-content:center; align-items:center;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--green-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="7 10 12 5 17 10"/></svg>
+            </div>
+
+            <!-- APR -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap: 10px;">
+              <div class="micro" style="font-size: 15px; color: var(--ink-3); letter-spacing: 0.16em;">APR <span style="color: var(--green-2);">*</span></div>
+              <div style="font-family: var(--serif); font-weight: 500; font-size: 54px; line-height: 1; color: var(--green-2); letter-spacing: -0.02em;">2.0</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="micro" style="font-size: 13px; color: var(--ink-3);">* partial month</div>
+      </div>
+    </div>
+
+    <div style="flex:1;"></div>
+
+    <div class="small" style="font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink-3); max-width: 1100px; margin-top: 28px;">
+      The positive sentiment is real but silent. The negative sentiment is small but loud.
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 4 — Pain Points
+     ========================================================= -->
+<section data-label="04 Pain Points">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Pain Points</div>
+    <div class="ch-tr">From 39 written reviews</div>
+    <div class="ch-bl">04 / 16</div>
+    <div class="ch-br">Data</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">Pain Points</div>
+    <h2 class="title">What users are saying.</h2>
+
+    <div style="margin-top: 64px; display:flex; flex-direction:column; gap: 18px;">
+
+      <!-- header row -->
+      <div style="display:grid; grid-template-columns: 40px 340px 1fr 120px 180px; gap: 24px; padding-bottom: 10px; border-bottom: 1px solid var(--rule);" class="micro">
+        <div></div>
+        <div>Theme</div>
+        <div>Mentions</div>
+        <div style="text-align:right;">Avg ★</div>
+        <div style="text-align:right;">Severity</div>
+      </div>
+
+      <!-- 1. Subscription & price 29 1.41 CRITICAL -->
+      <div style="display:grid; grid-template-columns: 40px 340px 1fr 120px 180px; gap: 24px; align-items:center;">
+        <div class="micro" style="font-size:16px;">01</div>
+        <div class="body" style="font-size:26px; color:var(--ink); font-weight:500;">Subscription &amp; price</div>
+        <div style="display:flex; align-items:center; gap: 16px;">
+          <div style="height: 22px; width: 100%; background: var(--bg-alt);">
+            <div style="height:100%; width: 100%; background: var(--crit);"></div>
+          </div>
+          <div class="micro" style="font-size:18px; color:var(--ink); min-width: 28px; text-align:right;">29</div>
+        </div>
+        <div class="body" style="font-size: 22px; text-align:right; color: var(--ink); font-family: var(--mono);">1.41</div>
+        <div class="micro" style="text-align:right; color: var(--crit); font-weight:500;"><span class="sev sev-crit"></span>Critical</div>
+      </div>
+
+      <!-- 2. Kelby / AI perception 23 1.87 CRITICAL -->
+      <div style="display:grid; grid-template-columns: 40px 340px 1fr 120px 180px; gap: 24px; align-items:center;">
+        <div class="micro" style="font-size:16px;">02</div>
+        <div class="body" style="font-size:26px; color:var(--ink); font-weight:500;">Kelby / AI perception</div>
+        <div style="display:flex; align-items:center; gap: 16px;">
+          <div style="height: 22px; width: 100%; background: var(--bg-alt);">
+            <div style="height:100%; width: 79.3%; background: var(--crit);"></div>
+          </div>
+          <div class="micro" style="font-size:18px; color:var(--ink); min-width: 28px; text-align:right;">23</div>
+        </div>
+        <div class="body" style="font-size: 22px; text-align:right; color: var(--ink); font-family: var(--mono);">1.87</div>
+        <div class="micro" style="text-align:right; color: var(--crit); font-weight:500;"><span class="sev sev-crit"></span>Critical</div>
+      </div>
+
+      <!-- 3. Hardware issues 12 1.75 -->
+      <div style="display:grid; grid-template-columns: 40px 340px 1fr 120px 180px; gap: 24px; align-items:center;">
+        <div class="micro" style="font-size:16px;">03</div>
+        <div class="body" style="font-size:26px; color:var(--ink); font-weight:500;">Hardware issues</div>
+        <div style="display:flex; align-items:center; gap: 16px;">
+          <div style="height: 22px; width: 100%; background: var(--bg-alt);">
+            <div style="height:100%; width: 41.4%; background: var(--warn);"></div>
+          </div>
+          <div class="micro" style="font-size:18px; color:var(--ink); min-width: 28px; text-align:right;">12</div>
+        </div>
+        <div class="body" style="font-size: 22px; text-align:right; color: var(--ink); font-family: var(--mono);">1.75</div>
+        <div class="micro" style="text-align:right; color: var(--ink-2);"><span class="sev sev-warn"></span>Concern</div>
+      </div>
+
+      <!-- 4. Pod & seed quality 12 2.67 -->
+      <div style="display:grid; grid-template-columns: 40px 340px 1fr 120px 180px; gap: 24px; align-items:center;">
+        <div class="micro" style="font-size:16px;">04</div>
+        <div class="body" style="font-size:26px; color:var(--ink); font-weight:500;">Pod &amp; seed quality</div>
+        <div style="display:flex; align-items:center; gap: 16px;">
+          <div style="height: 22px; width: 100%; background: var(--bg-alt);">
+            <div style="height:100%; width: 41.4%; background: var(--ok);"></div>
+          </div>
+          <div class="micro" style="font-size:18px; color:var(--ink); min-width: 28px; text-align:right;">12</div>
+        </div>
+        <div class="body" style="font-size: 22px; text-align:right; color: var(--ink); font-family: var(--mono);">2.67</div>
+        <div class="micro" style="text-align:right; color: var(--ink-2);"><span class="sev sev-ok"></span>Moderate</div>
+      </div>
+
+      <!-- 5. Customer support 9 2.44 -->
+      <div style="display:grid; grid-template-columns: 40px 340px 1fr 120px 180px; gap: 24px; align-items:center;">
+        <div class="micro" style="font-size:16px;">05</div>
+        <div class="body" style="font-size:26px; color:var(--ink); font-weight:500;">Customer support</div>
+        <div style="display:flex; align-items:center; gap: 16px;">
+          <div style="height: 22px; width: 100%; background: var(--bg-alt);">
+            <div style="height:100%; width: 31%; background: var(--ok);"></div>
+          </div>
+          <div class="micro" style="font-size:18px; color:var(--ink); min-width: 28px; text-align:right;">9</div>
+        </div>
+        <div class="body" style="font-size: 22px; text-align:right; color: var(--ink); font-family: var(--mono);">2.44</div>
+        <div class="micro" style="text-align:right; color: var(--ink-2);"><span class="sev sev-ok"></span>Moderate</div>
+      </div>
+
+      <!-- 6. Value perception 7 1.86 -->
+      <div style="display:grid; grid-template-columns: 40px 340px 1fr 120px 180px; gap: 24px; align-items:center;">
+        <div class="micro" style="font-size:16px;">06</div>
+        <div class="body" style="font-size:26px; color:var(--ink); font-weight:500;">Value perception</div>
+        <div style="display:flex; align-items:center; gap: 16px;">
+          <div style="height: 22px; width: 100%; background: var(--bg-alt);">
+            <div style="height:100%; width: 24.1%; background: var(--warn);"></div>
+          </div>
+          <div class="micro" style="font-size:18px; color:var(--ink); min-width: 28px; text-align:right;">7</div>
+        </div>
+        <div class="body" style="font-size: 22px; text-align:right; color: var(--ink); font-family: var(--mono);">1.86</div>
+        <div class="micro" style="text-align:right; color: var(--ink-2);"><span class="sev sev-warn"></span>Concern</div>
+      </div>
+
+      <!-- 7. App bugs & crashes 5 1.60 -->
+      <div style="display:grid; grid-template-columns: 40px 340px 1fr 120px 180px; gap: 24px; align-items:center;">
+        <div class="micro" style="font-size:16px;">07</div>
+        <div class="body" style="font-size:26px; color:var(--ink); font-weight:500;">App bugs &amp; crashes</div>
+        <div style="display:flex; align-items:center; gap: 16px;">
+          <div style="height: 22px; width: 100%; background: var(--bg-alt);">
+            <div style="height:100%; width: 17.2%; background: var(--warn);"></div>
+          </div>
+          <div class="micro" style="font-size:18px; color:var(--ink); min-width: 28px; text-align:right;">5</div>
+        </div>
+        <div class="body" style="font-size: 22px; text-align:right; color: var(--ink); font-family: var(--mono);">1.60</div>
+        <div class="micro" style="text-align:right; color: var(--ink-2);"><span class="sev sev-warn"></span>Concern</div>
+      </div>
+
+    </div>
+
+    <div style="flex:1;"></div>
+
+    <div class="small" style="font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink-3); margin-top: 32px;">
+      Bar width scaled by mention count · color indicates severity.
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 5 — Bait and Switch
+     ========================================================= -->
+<section data-label="05 Bait and Switch">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>The Pattern</div>
+    <div class="ch-tr">Verbatim · App Store</div>
+    <div class="ch-bl">05 / 16</div>
+    <div class="ch-br">Insight</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 20px;">The "Bait &amp; Switch" Pattern</div>
+    <h2 class="title" style="max-width: 1680px; font-size: 60px; line-height: 1.08;">
+      Users aren't angry about paying. They're angry about <em class="pull">losing something they had.</em>
+    </h2>
+
+    <div class="grid-2" style="margin-top: 56px; gap: 32px;">
+
+      <div class="quote" style="min-height: 220px; padding: 36px 40px;">
+        <div class="q" style="font-size: 26px; line-height: 1.3;">They remove most of your app access after your Kelby 'free ride' ends. Buy only for the hardware.</div>
+        <div class="meta" style="margin-top: 22px;">1 ★ &nbsp;·&nbsp; March 2026</div>
+      </div>
+
+      <div class="quote" style="min-height: 220px; padding: 36px 40px;">
+        <div class="q" style="font-size: 26px; line-height: 1.3;">You used to get basic reminders without a monthly subscription. Now you don't.</div>
+        <div class="meta" style="margin-top: 22px;">1 ★ &nbsp;·&nbsp; February 2026</div>
+      </div>
+
+      <div class="quote" style="min-height: 220px; padding: 36px 40px;">
+        <div class="q" style="font-size: 26px; line-height: 1.3;">You spend six hundred dollars on the hardware, and then they nickel and dime you on everything.</div>
+        <div class="meta" style="margin-top: 22px;">1 ★ &nbsp;·&nbsp; January 2026</div>
+      </div>
+
+      <div class="quote" style="background: oklch(0.94 0.04 25); min-height: 220px; padding: 36px 40px;">
+        <div class="q" style="font-size: 44px; line-height: 1.1;">Major bait and switch.</div>
+        <div class="meta" style="margin-top: 22px;">1 ★ &nbsp;·&nbsp; March 2026</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 6 — Kelby's Perception Gap
+     ========================================================= -->
+<section data-label="06 Kelby Gap">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Kelby's Perception Gap</div>
+    <div class="ch-tr">Mentioned in <strong style="color: var(--ink);">58%</strong> of negative reviews</div>
+    <div class="ch-bl">06 / 16</div>
+    <div class="ch-br">Insight</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">Kelby's Perception Gap</div>
+    <h2 class="title" style="max-width: 1700px;">
+      Users don't hate Kelby. <em class="pull">They haven't experienced Kelby.</em>
+    </h2>
+
+    <div class="grid-2" style="margin-top: 64px; gap: 80px; flex:1;">
+
+      <!-- LEFT: what Kelby should feel like -->
+      <div class="stack" style="gap: 28px;">
+        <div class="micro" style="color: var(--green);">What Kelby should feel like</div>
+        <div class="rule"></div>
+
+        <div style="padding: 36px 40px; background: var(--green-3); border-radius: 2px;">
+          <div style="font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.35; color: var(--ink); letter-spacing: -0.005em;">
+            “Your basil is getting leggy — let's pinch the tops this weekend so it bushes out. Harvest window for the kale is in about four days.”
+          </div>
+        </div>
+
+        <div style="display:flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;">
+          <span class="micro" style="padding: 8px 14px; background: var(--bg-alt); color: var(--ink-2);">Trusted companion</span>
+          <span class="micro" style="padding: 8px 14px; background: var(--bg-alt); color: var(--ink-2);">Daily partner</span>
+          <span class="micro" style="padding: 8px 14px; background: var(--bg-alt); color: var(--ink-2);">The soul of the product</span>
+        </div>
+
+        <div class="body" style="font-size: 22px; margin-top: 12px; color: var(--ink-3); font-style: italic; font-family: var(--serif);">
+          Think Duolingo's owl — a character you build a relationship with, not a feature you subscribe to.
+        </div>
+      </div>
+
+      <!-- RIGHT: what Kelby feels like today -->
+      <div class="stack" style="gap: 28px;">
+        <div class="micro" style="color: var(--crit);">What Kelby feels like today</div>
+        <div class="rule"></div>
+
+        <div class="stack" style="gap: 10px;">
+          <div class="locked">
+            <span class="lk">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="11" width="16" height="10" rx="1"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            </span>
+            Kelby, your personal master gardener
+          </div>
+          <div class="locked">
+            <span class="lk">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="11" width="16" height="10" rx="1"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            </span>
+            Ask Kelby for instant answers
+          </div>
+          <div class="locked">
+            <span class="lk">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="11" width="16" height="10" rx="1"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            </span>
+            Personalized Thryve Journey
+          </div>
+
+          <div style="margin-top: 14px; padding: 22px 24px; border: 1px solid var(--crit); color: var(--crit); font-family: var(--sans); font-size: 22px; background: oklch(0.97 0.02 25);">
+            Free Trial — <strong>$0 due today</strong>, renews at <strong>$39/month</strong>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;">
+          <span class="micro" style="padding: 8px 14px; background: var(--bg-alt); color: var(--ink-2);">A paywall label</span>
+          <span class="micro" style="padding: 8px 14px; background: var(--bg-alt); color: var(--ink-2);">The thing we're being charged for</span>
+          <span class="micro" style="padding: 8px 14px; background: var(--bg-alt); color: var(--ink-2);">A line item</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule);">
+      <div class="lede" style="font-size: 32px; color: var(--ink);">
+        The value isn't being demonstrated <em class="pull">before</em> it's asked for.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 7 — Onboarding Friction
+     ========================================================= -->
+<section data-label="07 Onboarding">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Onboarding Friction</div>
+    <div class="ch-tr">First-run walkthrough</div>
+    <div class="ch-bl">07 / 16</div>
+    <div class="ch-br">Flow</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">Onboarding Friction</div>
+    <h2 class="title" style="max-width: 1640px;">
+      Ten steps from download to — <em class="pull">a greyed-out app.</em>
+    </h2>
+
+    <div class="steps" style="margin-top: 72px;">
+      <div class="step"><div class="n">Step 01</div><div class="t">Email &amp; password</div><div class="d">No social login, no magic link.</div></div>
+      <div class="step"><div class="n">Step 02</div><div class="t">Verify email with code</div><div class="d">Leave the app, open mail, copy back.</div></div>
+      <div class="step"><div class="n">Step 03</div><div class="t">Re-login after verification</div><div class="d">Credentials, again.</div></div>
+      <div class="step"><div class="n">Step 04</div><div class="t">Enter phone number</div><div class="d">No reason given.</div></div>
+      <div class="step"><div class="n">Step 05</div><div class="t">Pick your system</div><div class="d">From a list.</div></div>
+
+      <div class="step"><div class="n">Step 06</div><div class="t">Confirm your system</div><div class="d">The same choice, again.</div></div>
+      <div class="step"><div class="n">Step 07</div><div class="t">Pick your model</div><div class="d">From a list.</div></div>
+      <div class="step"><div class="n">Step 08</div><div class="t">Confirm your model</div><div class="d">The same choice, again.</div></div>
+      <div class="step paywall"><div class="n">Step 09</div><div class="t">Subscription paywall</div><div class="d">Before any value is shown.</div></div>
+      <div class="step paywall"><div class="n">Step 10</div><div class="t">If declined — empty app</div><div class="d">Grey tabs, cookie banners.</div></div>
+    </div>
+
+    <div style="flex:1;"></div>
+
+    <div style="padding-top: 36px; border-top: 1px solid var(--rule);">
+      <div class="lede" style="font-size: 32px; color: var(--ink);">
+        The user hits the paywall <em class="pull">before</em> their first win.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 8 — The Free Experience Problem
+     ========================================================= -->
+<section data-label="08 Free Experience">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Free Experience</div>
+    <div class="ch-tr">After declining subscription</div>
+    <div class="ch-bl">08 / 16</div>
+    <div class="ch-br">Problem</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">The Free Experience Problem</div>
+    <h2 class="title" style="max-width: 1640px;">
+      An app that <em class="pull">pushes away</em> instead of pulling in.
+    </h2>
+
+    <div style="margin-top: 64px; display:grid; grid-template-columns: 1fr 1.05fr; gap: 80px; align-items: start; flex:1;">
+
+      <!-- LEFT: two real screenshots in iOS bezels -->
+      <div style="position: relative; height: 700px; display:flex; justify-content:center; align-items:flex-start;">
+
+        <!-- Phone 1 — Home empty state, slight left tilt -->
+        <div style="position: absolute; left: 0; top: 20px; transform: rotate(-4deg); width: 300px; padding: 10px; background: #0a0a0a; border-radius: 38px; box-shadow: 0 30px 60px -20px oklch(0.22 0.025 150 / 0.28), 0 0 0 1.5px #000;">
+          <div style="width:100%; aspect-ratio: 645 / 1400; background: #f7f7f5; border-radius: 30px; overflow:hidden; position: relative;">
+            <img src="assets/gardyn-home.png" alt="Gardyn home empty state" style="display:block; width:100%; height:100%; object-fit: cover; object-position: top;" />
+          </div>
+          <div style="position:absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 96px; height: 26px; background: #0a0a0a; border-radius: 14px;"></div>
+        </div>
+
+        <!-- Phone 2 — Help Center cookie banner, right tilt, in front -->
+        <div style="position: absolute; right: 0; top: 60px; transform: rotate(5deg); width: 300px; padding: 10px; background: #0a0a0a; border-radius: 38px; box-shadow: 0 30px 60px -20px oklch(0.22 0.025 150 / 0.32), 0 0 0 1.5px #000;">
+          <div style="width:100%; aspect-ratio: 645 / 1399; background: #fff; border-radius: 30px; overflow:hidden; position: relative;">
+            <img src="assets/gardyn-cookies.png" alt="Help Center cookie banner inside the native app" style="display:block; width:100%; height:100%; object-fit: cover; object-position: top;" />
+          </div>
+          <div style="position:absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 96px; height: 26px; background: #0a0a0a; border-radius: 14px;"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: list -->
+      <div class="stack" style="gap: 28px; padding-top: 12px;">
+        <div class="micro">The new user sees</div>
+        <div class="rule"></div>
+
+        <div class="stack" style="gap: 22px; margin-top: 10px;">
+          <div style="display:flex; gap: 24px; align-items:flex-start;">
+            <div class="micro" style="min-width: 28px; color: var(--ink);">01</div>
+            <div class="body" style="font-size: 26px; color: var(--ink);">Five tabs visible, but the experience is bare — “Pair your Gardyn” and a featured-accessories carousel.</div>
+          </div>
+          <div style="display:flex; gap: 24px; align-items:flex-start;">
+            <div class="micro" style="min-width: 28px; color: var(--ink);">02</div>
+            <div class="body" style="font-size: 26px; color: var(--ink);">No preview of Kelby, the Journal, or what subscribing actually feels like.</div>
+          </div>
+          <div style="display:flex; gap: 24px; align-items:flex-start;">
+            <div class="micro" style="min-width: 28px; color: var(--ink);">03</div>
+            <div class="body" style="font-size: 26px; color: var(--ink);">Tap “Help” and the native app drops you into a web view — complete with a cookie banner.</div>
+          </div>
+          <div style="display:flex; gap: 24px; align-items:flex-start;">
+            <div class="micro" style="min-width: 28px; color: var(--crit);">04</div>
+            <div class="body" style="font-size: 26px; color: var(--ink);"><em class="pull">No hook. No reason to come back tomorrow.</em></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 9 — Anatomy of the Paywall
+     ========================================================= -->
+<section data-label="09 Anatomy of Paywall">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Anatomy of the Paywall</div>
+    <div class="ch-tr">Subscription screen · current</div>
+    <div class="ch-bl">09 / 16</div>
+    <div class="ch-br">Problem</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">The Subscription Screen, Today</div>
+    <h2 class="title" style="max-width: 1640px;">
+      A wall of locks — <em class="pull">before the first conversation.</em>
+    </h2>
+
+    <div style="margin-top: 40px; display:grid; grid-template-columns: 620px 1fr; gap: 70px; align-items: start; flex:1;">
+
+      <!-- LEFT: two cropped views of the long-scroll subscription screen -->
+      <div style="display:flex; gap: 24px; justify-content:center; align-items:flex-start;">
+
+        <!-- Phone 1 — top of paywall (header + plan options) -->
+        <div style="flex-shrink:0; position: relative; width: 280px; padding: 10px; background: #0a0a0a; border-radius: 38px; box-shadow: 0 30px 60px -20px oklch(0.22 0.025 150 / 0.28), 0 0 0 1.5px #000;">
+          <div style="width:100%; aspect-ratio: 9 / 19.5; background: #f7f7f5; border-radius: 30px; overflow:hidden; position: relative;">
+            <!-- Show top portion: header + member benefits + plan picker. Source is 646x3513; show first ~1450px tall = ratio 9/19.5 fits 1450/669 ≈ shows top 24% -->
+            <img src="assets/gardyn-subscription.png" alt="Gardyn paywall — top section with plan options" style="display:block; width:100%; height:auto; object-position: top;" />
+          </div>
+          <div style="position:absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 88px; height: 24px; background: #0a0a0a; border-radius: 14px;"></div>
+          <div class="micro" style="position: absolute; bottom: -34px; left: 0; right: 0; text-align:center; font-size: 12px;">Top of screen</div>
+        </div>
+
+        <!-- Phone 2 — bottom of paywall (benefits-with-locks table) -->
+        <div style="flex-shrink:0; position: relative; width: 280px; padding: 10px; background: #0a0a0a; border-radius: 38px; box-shadow: 0 30px 60px -20px oklch(0.22 0.025 150 / 0.28), 0 0 0 1.5px #000;">
+          <div style="width:100%; aspect-ratio: 9 / 19.5; background: #f7f7f5; border-radius: 30px; overflow:hidden; position: relative;">
+            <!-- Show middle/bottom: benefits table with lock column. Image is 646x3513, container will hold a ~607x1316 viewport. -->
+            <div style="width: 100%; height: 100%; overflow: hidden; position: relative;">
+              <img src="assets/gardyn-subscription.png" alt="Gardyn paywall — benefits table with locks" style="display:block; width: 100%; height: auto; position: absolute; top: -56%; left: 0;" />
+            </div>
+          </div>
+          <div style="position:absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 88px; height: 24px; background: #0a0a0a; border-radius: 14px;"></div>
+          <div class="micro" style="position: absolute; bottom: -34px; left: 0; right: 0; text-align:center; font-size: 12px;">…scroll down</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: annotated callouts -->
+      <div class="stack" style="gap: 22px; padding-top: 6px;">
+        <div class="micro">Five problems on one screen</div>
+        <div class="rule"></div>
+
+        <div style="display:flex; gap: 22px; align-items:flex-start;">
+          <div class="micro" style="min-width: 32px; color: var(--crit);">A</div>
+          <div>
+            <div class="body" style="font-size: 22px; color: var(--ink); font-weight: 500;">Discount-first framing.</div>
+            <div class="body" style="font-size: 19px; color: var(--ink-2); margin-top: 2px;">“52% savings” leads with price, not promise. Outcomes are buried.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap: 22px; align-items:flex-start;">
+          <div class="micro" style="min-width: 32px; color: var(--crit);">B</div>
+          <div>
+            <div class="body" style="font-size: 22px; color: var(--ink); font-weight: 500;">Locks on every row.</div>
+            <div class="body" style="font-size: 19px; color: var(--ink-2); margin-top: 2px;">A grid of 🔒 icons reads as “here's everything you can't have.”</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap: 22px; align-items:flex-start;">
+          <div class="micro" style="min-width: 32px; color: var(--crit);">C</div>
+          <div>
+            <div class="body" style="font-size: 22px; color: var(--ink); font-weight: 500;">Free Trial, with a price tag.</div>
+            <div class="body" style="font-size: 19px; color: var(--ink-2); margin-top: 2px;">“$0 today, renews at $39/mo” feels like a trap, not a gift.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap: 22px; align-items:flex-start;">
+          <div class="micro" style="min-width: 32px; color: var(--crit);">D</div>
+          <div>
+            <div class="body" style="font-size: 22px; color: var(--ink); font-weight: 500;">Fine print under benefits.</div>
+            <div class="body" style="font-size: 19px; color: var(--ink-2); margin-top: 2px;">Asterisks and disclaimers undercut the pitch right where it should land.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap: 22px; align-items:flex-start;">
+          <div class="micro" style="min-width: 32px; color: var(--crit);">E</div>
+          <div>
+            <div class="body" style="font-size: 22px; color: var(--ink); font-weight: 500;">“No Thanks” at the very bottom.</div>
+            <div class="body" style="font-size: 19px; color: var(--ink-2); margin-top: 2px;">A long scroll to decline. Reads as resistance, not respect.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--rule);">
+      <div class="lede" style="font-size: 28px; color: var(--ink);">
+        Every choice on this screen says <em class="pull">“pay first, then we'll talk.”</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 10 — Quick Wins on the Paywall
+     ========================================================= -->
+<section data-label="10 Paywall Quick Wins">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Paywall Quick Wins</div>
+    <div class="ch-tr">Same screen, better story</div>
+    <div class="ch-bl">10 / 16</div>
+    <div class="ch-br">Proposal</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">Paywall · Quick Wins</div>
+    <h2 class="title" style="max-width: 1500px;">
+      Four edits we can ship <em class="pull">without rebuilding.</em>
+    </h2>
+
+    <div class="grid-2" style="margin-top: 64px; gap: 32px; grid-template-rows: 1fr 1fr; flex:1;">
+
+      <div class="card">
+        <div class="num">01 · Lead with outcomes</div>
+        <h4>Replace “52% savings” with what subscribers actually get.</h4>
+        <p>“Grow 3× more food. Lose fewer plants. Have Kelby in your pocket.” Pricing comes after the promise — not before it.</p>
+      </div>
+
+      <div class="card">
+        <div class="num">02 · Drop the locks</div>
+        <h4>Show benefits as benefits, not as forbidden territory.</h4>
+        <p>Replace the 🔒 column with checkmarks and short descriptions. The ask is for value, not for permission.</p>
+      </div>
+
+      <div class="card">
+        <div class="num">03 · Reframe the trial</div>
+        <h4>“Try Kelby free for 14 days” — not “$0 due today, renews at $39.”</h4>
+        <p>Make the trial feel like a gift, not a billing event. Move the renewal disclosure to a single, honest line below the CTA.</p>
+      </div>
+
+      <div class="card">
+        <div class="num">04 · Make declining graceful</div>
+        <h4>Move “Continue without membership” up — and remove the guilt.</h4>
+        <p>Today the only way out is a tiny “No Thanks” at the bottom. A confident product offers an exit at eye level — and earns the upgrade later.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 11 — Bigger Bet: Credits, Not Locks
+     ========================================================= -->
+<section data-label="11 Credits Concept">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Fresh-Idea Thinking</div>
+    <div class="ch-tr">A bigger bet · for discussion</div>
+    <div class="ch-bl">11 / 16</div>
+    <div class="ch-br">Concept</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">A Bigger Bet — For Discussion</div>
+    <h2 class="title">Credits, not locks.</h2>
+
+    <div class="body" style="margin-top: 28px; max-width: 1500px; font-size: 26px;">
+      The quick wins fix the framing. The bigger question: <em style="font-family: var(--serif); color: var(--ink);">should the free tier feel like a different product, or the same product with a daily budget?</em>
+    </div>
+
+    <div class="grid-2" style="margin-top: 56px; gap: 80px; flex:1;">
+
+      <!-- LEFT: today -->
+      <div class="stack" style="gap: 24px;">
+        <div class="micro" style="color: var(--crit);">Today — Lock &amp; list</div>
+        <div class="rule"></div>
+        <div class="body" style="font-size: 22px; color: var(--ink-2);">
+          Two products: a free shell, and a paid app. The free user never meets Kelby.
+        </div>
+
+        <div style="margin-top: 8px; display:grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div style="padding: 22px 24px; background: var(--bg-alt); border-radius: 2px;">
+            <div class="micro" style="color: var(--ok); margin-bottom: 14px;">Free</div>
+            <div class="body" style="font-size: 20px; color: var(--ink-2); line-height: 1.4;">
+              Support &amp; replacements, warranty — the reactive stuff.
+            </div>
+          </div>
+          <div style="padding: 22px 24px; background: oklch(0.95 0.03 25); border-radius: 2px;">
+            <div class="micro" style="color: var(--crit); margin-bottom: 14px;">Locked 🔒</div>
+            <div class="body" style="font-size: 20px; color: var(--ink-2); line-height: 1.4;">
+              Kelby, personalization, discovery, community — everything compelling.
+            </div>
+          </div>
+        </div>
+
+        <div class="body" style="margin-top: 20px; font-family: var(--serif); font-size: 24px; color: var(--ink); font-style: italic;">
+          The implicit message: “Here's everything you can't have.”
+        </div>
+      </div>
+
+      <!-- RIGHT: proposed -->
+      <div class="stack" style="gap: 24px;">
+        <div class="micro" style="color: var(--green);">Proposed — One Kelby, metered</div>
+        <div class="rule"></div>
+        <div class="body" style="font-size: 22px; color: var(--ink-2);">
+          Don't build two Kelbys. Build <em style="font-family: var(--serif); color: var(--ink);">one great Kelby</em> and meter the access.
+        </div>
+
+        <!-- single card with two access levels (usage meter) -->
+        <div style="background: var(--green-3); border-radius: 2px; padding: 26px 28px; margin-top: 4px;">
+          <div class="micro" style="color: var(--green); margin-bottom: 14px;">Every user gets the real Kelby</div>
+          <div class="body" style="font-size: 20px; color: var(--ink-2); margin-bottom: 22px;">
+            Same personality. Same intelligence. Same garden awareness.
+          </div>
+
+          <!-- meter -->
+          <div style="height: 8px; background: oklch(0.92 0.03 150); border-radius: 4px; overflow:hidden; margin-bottom: 6px;">
+            <div style="width: 20%; height: 100%; background: var(--green);"></div>
+          </div>
+          <div style="display:flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.08em; margin-bottom: 18px;">
+            <span>FREE · CREDITS</span>
+            <span style="color: var(--green);">MEMBERS · UNLIMITED</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div>
+              <div class="micro" style="color: var(--ink); margin-bottom: 8px;">Free</div>
+              <div class="body" style="font-size: 17px; line-height: 1.45;">Morning check-in, garden status, tips, celebrations. When you come back for more: a gentle nudge to upgrade.</div>
+            </div>
+            <div>
+              <div class="micro" style="color: var(--green); margin-bottom: 8px;">Members</div>
+              <div class="body" style="font-size: 17px; line-height: 1.45;">Ask anything, anytime. Proactive alerts. Vacation mode, time-lapse, yield tracking, community.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="body" style="margin-top: 14px; font-family: var(--serif); font-size: 22px; color: var(--ink-2); font-style: italic;">
+          Borrowed from how AI products like Claude or ChatGPT shape their free tiers — same product, daily budget. Worth exploring; not a tomorrow decision.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--rule);">
+      <div class="lede" style="font-size: 28px; color: var(--ink);">
+        Let every user experience the real Kelby. <em class="pull">When they hit the limit, the upgrade sells itself.</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 12 — Prototypes
+     ========================================================= -->
+<section data-label="12 Prototypes">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>I Built These</div>
+    <div class="ch-tr">Live prototypes · working concepts</div>
+    <div class="ch-bl">12 / 16</div>
+    <div class="ch-br">Execution</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">Beyond the audit</div>
+    <h2 class="title" style="max-width: 1640px;">
+      I didn't just write about it. <em class="pull">I built it.</em>
+    </h2>
+
+    <div class="lede" style="margin-top: 32px; max-width: 1500px;">
+      Two working prototypes addressing the two biggest gaps from this audit — because the fastest way to discuss product is to make something to point at.
+    </div>
+
+    <div class="grid-2" style="margin-top: 64px; gap: 40px; flex:1;">
+
+      <!-- LEFT — Onboarding Prototype -->
+      <a href="https://www.steveandthedogs.com/gardyn-onboarding" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:flex; flex-direction:column;">
+        <div class="card" style="padding: 36px; flex:1; display:flex; flex-direction:column; gap: 20px; transition: transform 0.2s ease;">
+          <div class="num" style="color: var(--green);">Prototype 01 · Onboarding</div>
+          <h4 style="font-size: 36px; line-height: 1.15; margin: 0;">A first run that <em class="pull">earns the subscription.</em></h4>
+          <p style="font-size: 19px; line-height: 1.5; margin: 0; color: var(--ink-2);">
+            Replaces the wall-of-locks paywall with a flow that introduces Kelby, demonstrates value, and asks for the commit only after the user has felt what they're paying for.
+          </p>
+
+          <div style="flex:1; min-height: 12px;"></div>
+
+          <div style="display:flex; align-items:center; gap: 14px; padding-top: 20px; border-top: 1px solid var(--rule);">
+            <div class="micro" style="font-size: 13px; color: var(--ink-3); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">steveandthedogs.com/gardyn-onboarding</div>
+            <div class="micro" style="font-size: 13px; color: var(--green); font-weight: 600;">OPEN PROTOTYPE ↗</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- RIGHT — Meet Kelby Prototype -->
+      <a href="https://www.steveandthedogs.com/meet-kelby" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:flex; flex-direction:column;">
+        <div class="card" style="padding: 36px; flex:1; display:flex; flex-direction:column; gap: 20px; transition: transform 0.2s ease;">
+          <div class="num" style="color: var(--green);">Prototype 02 · Character</div>
+          <h4 style="font-size: 36px; line-height: 1.15; margin: 0;">Meeting Kelby <em class="pull">before paying for Kelby.</em></h4>
+          <p style="font-size: 19px; line-height: 1.5; margin: 0; color: var(--ink-2);">
+            Closes the perception gap from slide 6: a free, hands-on introduction to Kelby's voice and personality — so users want the relationship before the paywall asks for one.
+          </p>
+
+          <div style="flex:1; min-height: 12px;"></div>
+
+          <div style="display:flex; align-items:center; gap: 14px; padding-top: 20px; border-top: 1px solid var(--rule);">
+            <div class="micro" style="font-size: 13px; color: var(--ink-3); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">steveandthedogs.com/meet-kelby</div>
+            <div class="micro" style="font-size: 13px; color: var(--green); font-weight: 600;">OPEN PROTOTYPE ↗</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div style="margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--rule);">
+      <div class="lede" style="font-size: 26px; color: var(--ink);">
+        Both are clickable, both are real — <em class="pull">happy to walk through either live.</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 13 — Quick Wins
+     ========================================================= -->
+<section data-label="13 Quick Wins">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Quick Wins</div>
+    <div class="ch-tr">Ship-it-this-quarter</div>
+    <div class="ch-bl">13 / 16</div>
+    <div class="ch-br">Recommendations</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">Recommendations · Near-term</div>
+    <h2 class="title">Quick wins.</h2>
+
+    <div class="grid-2" style="margin-top: 72px; gap: 32px; grid-template-rows: 1fr 1fr; flex:1;">
+
+      <div class="card">
+        <div class="num">01 · Advocacy</div>
+        <h4>Turn silent fans into vocal advocates.</h4>
+        <p>Gardyn's 4.8-star rating proves the happy users are there — they just aren't telling the story. Prompt written reviews at milestone moments: first harvest, growth streaks, Kelby celebrations.</p>
+      </div>
+
+      <div class="card">
+        <div class="num">02 · Feedback loop</div>
+        <h4>Capture frustration privately, before the App Store does.</h4>
+        <p>An in-app “Having trouble? Tell us directly” channel intercepts the venting and keeps it out of a 1-star review.</p>
+      </div>
+
+      <div class="card">
+        <div class="num">03 · Polish</div>
+        <h4>Kill cookie consent inside native web views.</h4>
+        <p>Small change, outsized perception hit. A quick fix for perceived quality — and it's free.</p>
+      </div>
+
+      <div class="card">
+        <div class="num">04 · Discovery</div>
+        <h4>Show what subscribing actually feels like.</h4>
+        <p>Inside the free app, sprinkle real previews of Kelby — a sample morning check-in, a glimpse of the Journal, a celebrated harvest. Make membership a place users have already visited.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 14 — Bigger Bets
+     ========================================================= -->
+<section data-label="14 Bigger Bets">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Bigger Bets</div>
+    <div class="ch-tr">Longer-horizon bets</div>
+    <div class="ch-bl">14 / 16</div>
+    <div class="ch-br">Recommendations</div>
+  </div>
+
+  <div class="frame">
+    <div class="eyebrow" style="margin-bottom: 24px;">Recommendations · Longer-horizon</div>
+    <h2 class="title">Bigger bets.</h2>
+
+    <div class="grid-2" style="margin-top: 72px; gap: 32px; grid-template-rows: 1fr 1fr; flex:1;">
+
+      <div class="card">
+        <div class="num">05 · Paywall</div>
+        <h4>Redesign the paywall as a value preview, not a gate.</h4>
+        <p>Let users taste Kelby before they pay. A free tier that gives you the real Kelby with a daily budget. Make the free experience so good that upgrading feels obvious, not forced.</p>
+      </div>
+
+      <div class="card">
+        <div class="num">06 · Retention</div>
+        <h4>Make Kelby the retention engine.</h4>
+        <p>Build lifecycle intelligence into Kelby. Detect when a Gardyner goes quiet and have Kelby intervene with personal nudges before disengagement becomes churn. Kelby shouldn't just celebrate wins — Kelby should prevent losses.</p>
+      </div>
+
+      <div class="card">
+        <div class="num">07 · First run</div>
+        <h4>Design for the first win.</h4>
+        <p>Get users to a moment of delight before asking for anything. First plant scan, first Kelby greeting, first growth milestone. The first ten minutes should end with “this is actually cool.”</p>
+      </div>
+
+      <div class="card">
+        <div class="num">08 · Habit</div>
+        <h4>Build daily habits through community and gamification.</h4>
+        <p>Harvest streaks, seasonal challenges, recipe sharing, Gardyner leaderboards. Make checking Kelby feel as natural as checking the weather. A Strava for home growing.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SLIDE 15 — Close
+     ========================================================= -->
+<section data-label="15 Closing">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>Closing Thought</div>
+    <div class="ch-tr">Thank you</div>
+    <div class="ch-bl">15 / 16</div>
+    <div class="ch-br">Close</div>
+  </div>
+
+  <div class="frame" style="justify-content: center;">
+
+    <div class="eyebrow" style="margin-bottom: 56px;">In closing</div>
+
+    <h2 class="title" style="font-size: 72px; max-width: 1620px; line-height: 1.1;">
+      The hardware is great. The vision for Kelby is real.<br/>
+      The gap is between <em class="pull">what the product can be</em> — and what today's new user gets to feel.
+    </h2>
+
+    <div style="margin-top: 72px; max-width: 1400px;" class="lede">
+      The users who love Gardyn really love it. The opportunity is making sure every new user gets the chance to feel that way — before we ask them to commit.
+    </div>
+
+    <div style="margin-top: 40px; max-width: 1400px;" class="lede">
+      These are experience design problems, not technology problems. <em class="pull">And they're solvable.</em>
+    </div>
+
+    <div style="margin-top: 120px; display:flex; gap: 40px; align-items:center;">
+      <div class="rule" style="width: 80px; background: var(--ink);"></div>
+      <div class="micro" style="font-size:16px;">Steve Black &nbsp;·&nbsp; May 2026</div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- =========================================================
+     SLIDE 16 — About
+     ========================================================= -->
+<section data-label="16 About">
+  <div class="chrome">
+    <div class="ch-tl"><span class="dot"></span>About the Author</div>
+    <div class="ch-tr">Hello</div>
+    <div class="ch-bl">16 / 16</div>
+    <div class="ch-br">About</div>
+  </div>
+
+  <div class="frame" style="justify-content: center;">
+
+    <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 120px; align-items: center;">
+
+      <!-- LEFT: name block -->
+      <div>
+        <div class="eyebrow" style="margin-bottom: 32px;">A bit about me</div>
+        <h2 class="title" style="font-size: 96px; line-height: 1.0; margin: 0;">
+          Steve<br/>Black<span class="pull">.</span>
+        </h2>
+        <div class="micro" style="margin-top: 28px; font-size: 18px;">Product · Design · Strategy</div>
+
+        <div style="margin-top: 72px; display: flex; flex-direction: column; gap: 18px;">
+          <a href="https://www.steveandthedogs.com/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap: 16px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--rule); padding-bottom: 14px;">
+            <div class="micro" style="min-width: 90px; font-size: 13px;">Website</div>
+            <div class="body" style="font-size: 22px; color: var(--ink);">steveandthedogs.com</div>
+            <div style="margin-left:auto; font-size: 22px; color: var(--ink-3);">↗</div>
+          </a>
+          <a href="https://www.linkedin.com/in/steveandthedogs/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap: 16px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--rule); padding-bottom: 14px;">
+            <div class="micro" style="min-width: 90px; font-size: 13px;">LinkedIn</div>
+            <div class="body" style="font-size: 22px; color: var(--ink);">in/steveandthedogs</div>
+            <div style="margin-left:auto; font-size: 22px; color: var(--ink-3);">↗</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: bio -->
+      <div class="stack" style="gap: 32px;">
+        <div class="lede" style="font-size: 36px; line-height: 1.3; color: var(--ink);">
+          Hello! I help companies build products people love — by setting clear vision, removing blockers, and getting hands-on when it's time to <em class="pull">execute.</em>
+        </div>
+
+        <div class="rule" style="width: 80px;"></div>
+
+        <div class="body" style="font-size: 22px; color: var(--ink-2); line-height: 1.55;">
+          With 18+ years building digital products across <strong style="color: var(--ink); font-weight: 500;">AI, fitness, health, and connected tech</strong>, I've helped Nike, Adidas, Bowflex, and early-stage startups drive engagement, retention, and subscription growth.
+        </div>
+
+        <div class="body" style="font-size: 22px; color: var(--ink-2); line-height: 1.55;">
+          From zero-to-one to scaling what works, I bring clarity, energy, and focus to creating user-centered products that <em class="pull">make a real impact.</em>
+        </div>
+
+        <div style="margin-top: 24px; display:flex; gap: 16px; flex-wrap: wrap;">
+          <span class="micro" style="padding: 8px 14px; border: 1px solid var(--rule); border-radius: 999px; font-size: 12px;">Nike</span>
+          <span class="micro" style="padding: 8px 14px; border: 1px solid var(--rule); border-radius: 999px; font-size: 12px;">Adidas</span>
+          <span class="micro" style="padding: 8px 14px; border: 1px solid var(--rule); border-radius: 999px; font-size: 12px;">Bowflex</span>
+          <span class="micro" style="padding: 8px 14px; border: 1px solid var(--rule); border-radius: 999px; font-size: 12px;">AI · Fitness · Health · Connected</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 96px; display:flex; gap: 40px; align-items:center;">
+      <div class="rule" style="width: 80px; background: var(--ink);"></div>
+      <div class="micro" style="font-size:16px;">Thanks for reading &nbsp;·&nbsp; May 2026</div>
+    </div>
+  </div>
+</section>
+
+</deck-stage>
+
+</div><!-- /#stage-wrap -->
+
+<script src="deck-stage.js"></script>
+
+<script>
+/* ============================================================
+   Thumbnail rail — clones each <section> into a scaled preview,
+   wires clicks → goTo(), highlights active via slideIndexChanged.
+   ============================================================ */
+(function () {
+  const stage  = document.querySelector('deck-stage');
+  const thumbs = document.getElementById('thumbs');
+  if (!stage || !thumbs) return;
+
+  function build() {
+    const sections = Array.from(stage.querySelectorAll(':scope > section'));
+    if (!sections.length) return false;
+    thumbs.innerHTML = '';
+
+    sections.forEach((section, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'thumb';
+      btn.dataset.i = String(i);
+
+      const num = document.createElement('div');
+      num.className = 'thumb-num';
+      num.textContent = String(i + 1).padStart(2, '0');
+
+      const frame = document.createElement('div');
+      frame.className = 'thumb-frame';
+
+      // Clone the slide. The clone is OUTSIDE deck-stage's slot, so we
+      // give it explicit dimensions + scale via CSS in .thumb-frame > section.
+      const clone = section.cloneNode(true);
+      clone.removeAttribute('data-deck-active');
+      // Force visible: the original <section> may inherit slot opacity rules.
+      clone.style.opacity = '1';
+      clone.style.visibility = 'visible';
+      // Strip ids to keep the document valid.
+      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+      if (clone.id) clone.removeAttribute('id');
+      frame.appendChild(clone);
+
+      btn.appendChild(num);
+      btn.appendChild(frame);
+
+      btn.addEventListener('click', () => {
+        if (typeof stage.goTo === 'function') stage.goTo(i);
+      });
+
+      thumbs.appendChild(btn);
+    });
+
+    return true;
+  }
+
+  function setActive(i) {
+    const items = thumbs.querySelectorAll('.thumb');
+    items.forEach((el, idx) => {
+      el.classList.toggle('is-active', idx === i);
+    });
+    const active = items[i];
+    if (active) {
+      // Scroll into view if needed
+      const railRect = thumbs.getBoundingClientRect();
+      const r = active.getBoundingClientRect();
+      if (r.top < railRect.top || r.bottom > railRect.bottom) {
+        active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+  }
+
+  // Build now and on slot changes (deck-stage rerenders on slotchange).
+  function tryBuild() {
+    if (build()) {
+      setActive(stage.index || 0);
+      return true;
+    }
+    return false;
+  }
+
+  if (!tryBuild()) {
+    // Slides may not be assigned yet on first paint; retry after deck-stage settles.
+    requestAnimationFrame(() => {
+      if (!tryBuild()) {
+        setTimeout(tryBuild, 50);
+      }
+    });
+  }
+
+  // Listen for nav changes — both the legacy postMessage and the CustomEvent.
+  stage.addEventListener('deck-stage-change', (e) => {
+    if (e.detail && typeof e.detail.index === 'number') setActive(e.detail.index);
+  });
+  window.addEventListener('message', (e) => {
+    if (e.data && typeof e.data.slideIndexChanged === 'number') {
+      setActive(e.data.slideIndexChanged);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
