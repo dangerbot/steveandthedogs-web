@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# default favicon — we use app/icon.svg instead, prevent the
+# create-next-app default from sneaking back in
+app/favicon.ico
+
 # debug
 npm-debug.log*
 yarn-debug.log*
