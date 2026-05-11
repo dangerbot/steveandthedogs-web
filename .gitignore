@@ -43,3 +43,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local working files (raw originals — web-optimized versions live in /public)
+/Steve_Family_Phtoso_For_OpenAI/
+/Demo_Screenshots/
