@@ -26,6 +26,7 @@ export default function OpenAIFamiliesPage() {
       <DesignRules />
       <Prototype />
       <HowItGotMade />
+      <WatchTheWalkthrough />
       <Closing />
     </main>
   );
@@ -704,6 +705,43 @@ function HowItGotMade() {
         </p>
 
         <WorkflowGraphic />
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// WATCH THE WALKTHROUGH — embedded YouTube video, voicover walkthrough
+// ─────────────────────────────────────────────────────────────────────────────
+function WatchTheWalkthrough() {
+  return (
+    <section className="bg-neutral-950 text-white py-24 md:py-32 px-6">
+      <div className="max-w-4xl mx-auto text-center">
+        <p className="text-[13px] font-semibold tracking-[0.18em] uppercase text-neutral-400 mb-5">
+          Watch the walkthrough
+        </p>
+        <h2 className="text-[clamp(36px,5.5vw,64px)] font-semibold tracking-[-0.03em] leading-[1.05] mb-6 max-w-3xl mx-auto">
+          Or — watch the whole thing in 4 minutes.
+        </h2>
+        <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-2xl mx-auto mb-12">
+          The full story, voiced over. The why, the process, and the prototype, in one short video.
+        </p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black"
+        >
+          <iframe
+            src="https://www.youtube.com/embed/ESnQTy_37OQ?rel=0"
+            title="How to Prototype a ChatGPT for Families"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
+        </motion.div>
       </div>
     </section>
   );

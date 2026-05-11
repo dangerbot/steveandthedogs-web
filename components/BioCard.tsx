@@ -6,7 +6,7 @@ import BoltDivider from "@/components/BoltDivider";
 
 const bios = [
   "Hello! I help companies build products people love — by setting clear vision, removing blockers, and getting hands-on when it's time to execute.",
-  "With 18+ years building digital products across AI, fitness, health, and connected tech, I've helped Nike, Adidas, Bowflex, and early-stage startups drive engagement, retention, and subscription growth.",
+  "With 15+ years building digital products across AI, fitness, health, and connected tech, I've helped Nike, Adidas, Bowflex, and early-stage startups drive engagement, retention, and subscription growth.",
   "From zero-to-one to scaling what works, I bring clarity, energy, and focus to creating user-centered products that make a real impact.",
 ];
 

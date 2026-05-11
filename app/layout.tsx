@@ -12,9 +12,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Steve Black — Head of Digital Product",
+  title: "Steve Black — Building What Matters",
   description:
-    "Steve Black is a Head of Digital Product with 18+ years building digital products across AI, fitness, health, and connected tech.",
+    "Steve Black is a Head of Digital Product with 15+ years building digital products across AI, fitness, health, and connected tech.",
 };
 
 export default function RootLayout({
