@@ -51,6 +51,9 @@ function ArticlePlaceholderImage({
 // ─── Article card ─────────────────────────────────────────────────────────────
 
 function ArticleCard({ article }: { article: ArticleMeta }) {
+  const href = article.customHref ?? `/articles/${article.slug}`;
+  const isExternal = /^https?:\/\//i.test(href);
+
   return (
     <motion.article
       layout
@@ -60,7 +63,9 @@ function ArticleCard({ article }: { article: ArticleMeta }) {
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <Link
-        href={`/articles/${article.slug}`}
+        href={href}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
         className="group bg-[#141414] border border-[#222222] rounded-2xl overflow-hidden hover:border-[#333333] transition-colors duration-300 flex flex-col h-full"
       >
         {/* Image area */}

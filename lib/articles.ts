@@ -15,6 +15,11 @@ export interface ArticleMeta {
   readTime?: string;
   /** Set to "electric-bolt" to render the live ElectricBolt animation instead of a static image */
   animatedCover?: string;
+  /** Optional override for the article card's link target.
+   *  If set, the card will link here instead of the default /articles/[slug].
+   *  Use for entries that point to a custom landing page (e.g. /playground/openai-families).
+   *  External (http*) URLs open in a new tab automatically. */
+  customHref?: string;
 }
 
 export interface Article {

@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -46,6 +46,14 @@ export default async function ArticlePage({
   }
 
   const { meta, content } = article;
+
+  // If the article has a customHref override, redirect to it (e.g. concept
+  // entries that point to a /playground/* landing page instead of the default
+  // article detail view). This catches direct navigation, search bots, and
+  // shared-link visits.
+  if (meta.customHref) {
+    redirect(meta.customHref);
+  }
 
   const formattedDate = new Date(meta.date).toLocaleDateString("en-US", {
     year: "numeric",
