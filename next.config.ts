@@ -26,6 +26,10 @@ const nextConfig: NextConfig = {
         source: "/gardyn-review",
         destination: "/gardyn-review/index.html",
       },
+      {
+        source: "/meet-sage",
+        destination: "/meet-sage/index.html",
+      },
     ];
   },
 };
