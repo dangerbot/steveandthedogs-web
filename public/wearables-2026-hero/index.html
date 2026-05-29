@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>State of Wearables 2026 — hero image export</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 32px 24px 80px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ============================================================
+     PAGE CHROME
+     ============================================================ */
+  .page-header {
+    max-width: 900px;
+    margin: 0 auto 48px;
+    text-align: center;
+  }
+  .page-header h1 {
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .page-header h1 em {
+    font-style: italic;
+    color: #d4a853;
+    font-weight: 300;
+  }
+  .page-header p {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .page-header code {
+    color: #d4a853;
+    font-family: "SF Mono", "JetBrains Mono", Menlo, monospace;
+    font-size: 12px;
+    background: rgba(212,168,83,0.08);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  .status {
+    margin-top: 16px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #888;
+  }
+  .status.ready { color: #d4a853; }
+
+  .cards-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    align-items: center;
+  }
+  .card-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 880px;
+  }
+  .card-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: 500;
+  }
+  .card-label .swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+  .card-label .swatch.dark  { background: #0a0a0a; border: 1px solid #2a2a2a; }
+  .card-label .swatch.light { background: #fafaf7; border: 1px solid #e8e6df; }
+  .card-label .dim { color: #555; font-weight: 400; }
+
+  /* The "stage" holds the card at its actual pixel dimensions but
+     visually scaled down so the page fits a normal viewport.
+     During download we briefly remove the transform so html2canvas
+     captures clean true-pixel output. */
+  .stage {
+    position: relative;
+    overflow: hidden;
+    background: #0a0a0a;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .stage .card {
+    transform-origin: top left;
+  }
+
+  .download-btn {
+    appearance: none;
+    border: 1px solid #d4a853;
+    background: #d4a853;
+    color: #0a0a0a;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 10px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .download-btn:hover { background: #e0b75e; border-color: #e0b75e; }
+  .download-btn:active { transform: translateY(1px); }
+  .download-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .download-btn .dim {
+    font-weight: 400;
+    color: rgba(10,10,10,0.65);
+    margin-left: 4px;
+  }
+
+  /* ============================================================
+     HERO CARD — shared structure
+     ============================================================ */
+  .hero {
+    width: var(--w);
+    height: var(--h);
+    position: relative;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+  }
+
+  .hero .bg-glow {
+    position: absolute;
+    pointer-events: none;
+  }
+  .hero .sparkline {
+    position: absolute;
+    pointer-events: none;
+  }
+  .hero .grid-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(to right, currentColor 1px, transparent 1px),
+      linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+
+  /* ─── Dark variant ─────────────────────────────────────────── */
+  .hero.dark {
+    background: #0a0a0a;
+    color: #f5f5f5;
+  }
+  .hero.dark .eyebrow { color: #d4a853; }
+  .hero.dark .title-wearables { color: #d4a853; }
+  .hero.dark .title-year { color: #f5f5f5; }
+  .hero.dark .subtitle { color: #a3a39a; }
+  .hero.dark .byline-name { color: #f5f5f5; }
+  .hero.dark .byline-url { color: #888; }
+  .hero.dark .pill { color: #d4a853; border-color: rgba(212,168,83,0.35); }
+  .hero.dark .pill .stat-num { color: #f5f5f5; }
+  .hero.dark .pill .stat-label { color: #888; }
+  .hero.dark .bg-glow { background: radial-gradient(circle, rgba(212,168,83,0.18) 0%, rgba(212,168,83,0) 60%); }
+
+  /* ─── Light variant ────────────────────────────────────────── */
+  .hero.light {
+    background: #fafaf7;
+    color: #0a0a0a;
+  }
+  .hero.light .eyebrow { color: #d4a853; }
+  .hero.light .title-wearables { color: #d4a853; }
+  .hero.light .title-year { color: #0a0a0a; }
+  .hero.light .subtitle { color: #4a4a48; }
+  .hero.light .byline-name { color: #0a0a0a; }
+  .hero.light .byline-url { color: #8a8a85; }
+  .hero.light .pill { color: #9a6e0c; border-color: #e8d9a8; background: #fdf6e8; }
+  .hero.light .pill .stat-num { color: #0a0a0a; }
+  .hero.light .pill .stat-label { color: #8a8a85; }
+  .hero.light .bg-glow { background: radial-gradient(circle, rgba(212,168,83,0.20) 0%, rgba(212,168,83,0) 60%); }
+  .hero.light .grid-bg { color: #0a0a0a; opacity: 0.025; }
+
+  /* ─── Layout: 1600×900 horizontal & 1200×627 LinkedIn share ── */
+  .hero.horizontal .content {
+    position: absolute;
+    inset: 0;
+    padding: var(--pad);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .hero.horizontal .eyebrow {
+    font-size: var(--eyebrow-size);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .hero.horizontal .title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2em;
+    line-height: 0.95;
+    font-weight: 200;
+    letter-spacing: -0.035em;
+    font-size: var(--title-size);
+    margin-top: var(--title-gap-top);
+  }
+  .hero.horizontal .title-pre {
+    font-weight: 200;
+  }
+  .hero.horizontal .title-wearables {
+    font-style: italic;
+    font-weight: 200;
+  }
+  .hero.horizontal .title-year {
+    font-weight: 700;
+  }
+  .hero.horizontal .subtitle {
+    font-size: var(--sub-size);
+    font-weight: 300;
+    line-height: 1.4;
+    margin-top: var(--sub-gap-top);
+    max-width: var(--sub-max);
+  }
+  .hero.horizontal .footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero.horizontal .byline {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: var(--byline-size);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .hero.horizontal .byline-url {
+    font-weight: 400;
+  }
+  .hero.horizontal .pill-row {
+    display: flex;
+    gap: 14px;
+  }
+  .hero.horizontal .pill {
+    border: 1px solid;
+    border-radius: 999px;
+    padding: var(--pill-pad-y) var(--pill-pad-x);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: var(--pill-stat-label-size);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+  .hero.horizontal .pill .stat-num {
+    font-size: var(--pill-stat-num-size);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: none;
+  }
+
+  /* ─── 1600×900 specifics ─── */
+  .hero.size-1600 {
+    --w: 1600px;
+    --h: 900px;
+    --pad: 88px;
+    --eyebrow-size: 22px;
+    --title-size: 188px;
+    --title-gap-top: 28px;
+    --sub-size: 32px;
+    --sub-gap-top: 36px;
+    --sub-max: 980px;
+    --byline-size: 18px;
+    --pill-pad-y: 14px;
+    --pill-pad-x: 22px;
+    --pill-stat-label-size: 12px;
+    --pill-stat-num-size: 22px;
+  }
+  .hero.size-1600 .bg-glow {
+    width: 1200px;
+    height: 1200px;
+    top: -500px;
+    right: -400px;
+  }
+  .hero.size-1600 .sparkline {
+    bottom: 220px;
+    right: 80px;
+    width: 720px;
+    height: 180px;
+    opacity: 0.55;
+  }
+  .hero.dark.size-1600 .sparkline { opacity: 0.4; }
+
+  /* ─── 1200×627 specifics ─── */
+  .hero.size-1200x627 {
+    --w: 1200px;
+    --h: 627px;
+    --pad: 64px;
+    --eyebrow-size: 17px;
+    --title-size: 140px;
+    --title-gap-top: 18px;
+    --sub-size: 24px;
+    --sub-gap-top: 22px;
+    --sub-max: 760px;
+    --byline-size: 14px;
+    --pill-pad-y: 10px;
+    --pill-pad-x: 16px;
+    --pill-stat-label-size: 10px;
+    --pill-stat-num-size: 16px;
+  }
+  .hero.size-1200x627 .bg-glow {
+    width: 880px;
+    height: 880px;
+    top: -360px;
+    right: -300px;
+  }
+  .hero.size-1200x627 .sparkline { display: none; }
+
+  /* ─── Layout: 1200×1200 square ─── */
+  .hero.square {
+    --w: 1200px;
+    --h: 1200px;
+    --pad: 96px;
+  }
+  .hero.square .content {
+    position: absolute;
+    inset: 0;
+    padding: var(--pad);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero.square .eyebrow {
+    font-size: 22px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 32px;
+  }
+  .hero.square .title-block {
+    margin-top: 80px;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-weight: 200;
+  }
+  .hero.square .title-pre {
+    display: block;
+    font-size: 56px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: inherit;
+    opacity: 0.65;
+  }
+  .hero.square .title-wearables {
+    display: block;
+    font-style: italic;
+    font-weight: 200;
+    font-size: 220px;
+    line-height: 0.95;
+  }
+  .hero.square .title-year {
+    display: block;
+    font-weight: 800;
+    font-size: 280px;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    margin-top: 4px;
+  }
+  .hero.square .subtitle {
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1.45;
+    margin-top: 56px;
+    max-width: 820px;
+  }
+  .hero.square .pill-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 48px;
+  }
+  .hero.square .pill {
+    border: 1px solid;
+    border-radius: 999px;
+    padding: 12px 22px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+  }
+  .hero.square .pill .stat-num {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: none;
+  }
+  .hero.square .footer-row {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 18px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .hero.square .byline-url { font-weight: 400; }
+  .hero.square .bg-glow {
+    width: 1100px;
+    height: 1100px;
+    top: -380px;
+    right: -380px;
+  }
+
+  /* Lightning bolt mark used in byline */
+  .bolt {
+    width: 1em;
+    height: 1em;
+    color: #d4a853;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>State of <em>Wearables</em> 2026 — hero export</h1>
+  <p>
+    Open this page, wait for the fonts to load, then click <code>Download PNG</code> on whichever card you want.
+    Cards render at true pixel dimensions for crisp export; the on-screen preview is scaled to fit.
+  </p>
+  <div class="status" id="status">Loading fonts…</div>
+</div>
+
+<div class="cards-wrap" id="cards">
+  <!-- Cards injected by script below -->
+</div>
+
+<script>
+  // ─── Card configurations ────────────────────────────────────────
+  const VARIANTS = [
+    { id: "thumb",    w: 1600, h: 900,  layout: "horizontal", sizeClass: "size-1600",     displayW: 880, label: "1600×900",  use: "Article thumbnail + detail hero (16:9)" },
+    { id: "linkedin", w: 1200, h: 627,  layout: "horizontal", sizeClass: "size-1200x627", displayW: 880, label: "1200×627",  use: "LinkedIn link share (1.91:1)" },
+    { id: "square",   w: 1200, h: 1200, layout: "square",     sizeClass: "size-1200x1200", displayW: 600, label: "1200×1200", use: "LinkedIn square feed post" },
+  ];
+  const STYLES = [
+    { id: "dark",  label: "Dark"  },
+    { id: "light", label: "Light" },
+  ];
+
+  const BOLT_SVG = `
+    <svg class="bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13 2 4.09 12.97a1 1 0 0 0 .79 1.62H11l-1 7.41a1 1 0 0 0 1.82.62L20 11.03a1 1 0 0 0-.79-1.62H13l1-7.41A1 1 0 0 0 13 2z"/>
+    </svg>
+  `;
+
+  // Generated to look like a wearables growth curve (29M → 614M)
+  const SPARK_POINTS = [
+    [0,160], [55,148], [110,142], [165,138], [220,128], [275,108],
+    [330,90], [385,76], [440,82], [495,80], [550,68], [605,46], [660,38], [720,32]
+  ];
+
+  function sparklineSVG(stroke) {
+    const points = SPARK_POINTS.map(p => p.join(",")).join(" ");
+    // Build an area fill below the line
+    const lastX = SPARK_POINTS[SPARK_POINTS.length - 1][0];
+    const firstX = SPARK_POINTS[0][0];
+    const areaPoints = `${firstX},180 ${points} ${lastX},180`;
+    return `
+      <svg class="sparkline" viewBox="0 0 720 180" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="sl-grad-${stroke.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${stroke}" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="${stroke}" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="${areaPoints}" fill="url(#sl-grad-${stroke.replace('#','')})" />
+        <polyline points="${points}" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        ${SPARK_POINTS.filter((_,i)=> i%3===0 || i===SPARK_POINTS.length-1).map(([x,y]) =>
+          `<circle cx="${x}" cy="${y}" r="4" fill="${stroke}"/>`
+        ).join("")}
+      </svg>
+    `;
+  }
+
+  function horizontalContent(variantId) {
+    // Small stat pill row only on the 1600×900 to avoid crowding the
+    // tighter 1200×627 LinkedIn share format.
+    const pillRow = variantId === "thumb" ? `
+      <div class="pill-row">
+        <div class="pill"><span class="stat-num">614M</span><span class="stat-label">Devices · 2026</span></div>
+        <div class="pill"><span class="stat-num">$9.99</span><span class="stat-label">New gravity well</span></div>
+        <div class="pill"><span class="stat-num">21×</span><span class="stat-label">Growth · 12 yrs</span></div>
+      </div>
+    ` : "";
+
+    return `
+      <div class="content">
+        <div>
+          <div class="eyebrow">The State of</div>
+          <div class="title-row">
+            <span class="title-wearables">Wearables</span><span class="title-year">,&nbsp;2026</span>
+          </div>
+          <div class="subtitle">A field map of every device that matters. Hardware became the funnel. AI coaching and subscription value became the product.</div>
+        </div>
+        <div class="footer-row">
+          <div class="byline">
+            ${BOLT_SVG}
+            <span class="byline-name">Steve Black</span>
+            <span class="byline-url">·&nbsp;&nbsp;steveandthedogs.com</span>
+          </div>
+          ${pillRow}
+        </div>
+      </div>
+    `;
+  }
+
+  function squareContent() {
+    return `
+      <div class="content">
+        <div class="eyebrow">Market Research · May 2026</div>
+        <div class="title-block">
+          <span class="title-pre">The State of</span>
+          <span class="title-wearables">Wearables</span>
+          <span class="title-year">2026</span>
+        </div>
+        <div class="subtitle">A field map of every device that matters. Hardware became the funnel. AI coaching became the product.</div>
+        <div class="pill-row">
+          <div class="pill"><span class="stat-num">614M</span><span class="stat-label">Devices · 2026</span></div>
+          <div class="pill"><span class="stat-num">21×</span><span class="stat-label">12-yr growth</span></div>
+        </div>
+        <div class="footer-row">
+          ${BOLT_SVG}
+          <span class="byline-name">Steve Black</span>
+          <span class="byline-url">·&nbsp;steveandthedogs.com</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function buildHero(variant, style) {
+    const sparkStroke = style.id === "dark" ? "#d4a853" : "#9a6e0c";
+    const heroEl = document.createElement("div");
+    heroEl.className = `hero ${style.id} ${variant.layout} ${variant.sizeClass}`;
+    heroEl.innerHTML = `
+      <div class="bg-glow"></div>
+      <div class="grid-bg"></div>
+      ${variant.layout === "horizontal" ? sparklineSVG(sparkStroke) : ""}
+      ${variant.layout === "horizontal" ? horizontalContent(variant.id) : squareContent()}
+    `;
+    return heroEl;
+  }
+
+  function buildCards() {
+    const cardsEl = document.getElementById("cards");
+    VARIANTS.forEach((variant) => {
+      STYLES.forEach((style) => {
+        const block = document.createElement("div");
+        block.className = "card-block";
+
+        const filename = `wearables-2026-${style.id}-${variant.label.replace("×","x")}.png`;
+
+        // Label row
+        const label = document.createElement("div");
+        label.className = "card-label";
+        label.innerHTML = `
+          <span class="swatch ${style.id}"></span>
+          ${style.label} <span class="dim">·</span> ${variant.label}
+          <span class="dim">·</span> <span class="dim">${variant.use}</span>
+        `;
+        block.appendChild(label);
+
+        // Stage (preview wrapper)
+        const scale = variant.displayW / variant.w;
+        const stage = document.createElement("div");
+        stage.className = "stage";
+        stage.style.width = variant.displayW + "px";
+        stage.style.height = (variant.h * scale) + "px";
+
+        const heroEl = buildHero(variant, style);
+        heroEl.classList.add("card");
+        heroEl.style.transform = `scale(${scale})`;
+        stage.appendChild(heroEl);
+        block.appendChild(stage);
+
+        // Download button
+        const btn = document.createElement("button");
+        btn.className = "download-btn";
+        btn.disabled = true;
+        btn.innerHTML = `Download PNG <span class="dim">${variant.label}</span>`;
+        btn.addEventListener("click", async () => {
+          btn.disabled = true;
+          btn.innerHTML = `Rendering…`;
+          const prevTransform = heroEl.style.transform;
+          heroEl.style.transform = "none";
+          try {
+            const canvas = await html2canvas(heroEl, {
+              scale: 1,
+              width: variant.w,
+              height: variant.h,
+              backgroundColor: null,
+              useCORS: true,
+              logging: false,
+            });
+            const link = document.createElement("a");
+            link.download = filename;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+          } catch (err) {
+            console.error(err);
+            alert("Render failed — see console for details.");
+          } finally {
+            heroEl.style.transform = prevTransform;
+            btn.disabled = false;
+            btn.innerHTML = `Download PNG <span class="dim">${variant.label}</span>`;
+          }
+        });
+        block.appendChild(btn);
+
+        cardsEl.appendChild(block);
+      });
+    });
+  }
+
+  buildCards();
+
+  // Wait for fonts to load before enabling buttons so exports don't
+  // fall back to system fonts.
+  const status = document.getElementById("status");
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      status.textContent = "Ready — fonts loaded";
+      status.classList.add("ready");
+      document.querySelectorAll(".download-btn").forEach(b => b.disabled = false);
+    });
+  } else {
+    // Older browsers — just enable immediately
+    setTimeout(() => {
+      status.textContent = "Ready";
+      status.classList.add("ready");
+      document.querySelectorAll(".download-btn").forEach(b => b.disabled = false);
+    }, 1500);
+  }
+</script>
+</body>
+</html>
