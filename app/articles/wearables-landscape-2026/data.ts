@@ -115,6 +115,22 @@ export const HEADLINES: Headline[] = [
     sourceUrl: "https://9to5google.com/2026/05/07/fitbit-air-launch/",
   },
   {
+    date: "APRIL 30, 2026",
+    brand: "OURA · USTA",
+    title: "Oura becomes the official wearable of the US Open.",
+    desc: "While Whoop fought Grand Slam bans, Oura quietly closed the deal. The USTA announced Oura as official sponsor and official wearable for the 2026 US Open. The ring beats the band to the American Slam sponsorship — landing one week before Oura's Ring 5 announcement. Two competing strategies for the same crowd, both winning different battles.",
+    sourceLabel: "SOURCE: US OPEN OFFICIAL",
+    sourceUrl: "https://www.usopen.org/",
+  },
+  {
+    date: "APRIL 23, 2026",
+    brand: "WHOOP · TENNIS",
+    title: "Three Grand Slams clear Whoop. Australian Open holds out.",
+    desc: "Roland-Garros became the first Grand Slam to officially allow wearables — across all 24 events at the 2026 French Open. Wimbledon and the US Open confirmed they'll follow on a trial basis. The Australian Open hasn't budged. Whoop turned a Grand Slam ban into Grand Slam visibility, and a regulatory precedent for player biometric data access.",
+    sourceLabel: "SOURCE: THE NATIONAL",
+    sourceUrl: "https://www.thenationalnews.com/",
+  },
+  {
     date: "APRIL 2026",
     brand: "OURA",
     title: "Oura acquires GalenAI.",

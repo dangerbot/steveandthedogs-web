@@ -284,17 +284,28 @@ function RecentHeadlines() {
 function CompetitiveLandscape() {
   return (
     <Section id="landscape">
-      <Eyebrow>03 · The players</Eyebrow>
-      <SectionTitle>
-        Who matters in wearables, and where each one is vulnerable.
-      </SectionTitle>
-      <SectionLede>
-        Nine companies shape how the next eighteen months play out. Market
-        share is estimated consumer wearables, all categories combined
-        (smartwatches, bands, rings, hearables, glasses).
-        <FootnoteRef id="ref-5" label="5" /> Reorder the grid by what matters
-        most.
-      </SectionLede>
+      <div className="relative">
+        <Image
+          src="/wearables-2026-hero/punk-dancer-bottom.png"
+          alt=""
+          aria-hidden="true"
+          width={432}
+          height={853}
+          sizes="100px"
+          className="hidden md:block absolute right-0 -top-6 w-[88px] lg:w-[100px] h-auto opacity-95 rotate-[5deg] pointer-events-none"
+        />
+        <Eyebrow>03 · The players</Eyebrow>
+        <SectionTitle>
+          Who matters in wearables, and where each one is vulnerable.
+        </SectionTitle>
+        <SectionLede>
+          Nine companies shape how the next eighteen months play out. Market
+          share is estimated consumer wearables, all categories combined
+          (smartwatches, bands, rings, hearables, glasses).
+          <FootnoteRef id="ref-5" label="5" /> Reorder the grid by what matters
+          most.
+        </SectionLede>
+      </div>
       <ThreatsGrid />
     </Section>
   );
@@ -365,14 +376,25 @@ function ProductExplorerSection() {
 function Subscriptions() {
   return (
     <Section id="subscriptions">
-      <Eyebrow>06 · Subscription economics</Eyebrow>
-      <SectionTitle>The real business model is recurring.</SectionTitle>
-      <SectionLede>
-        Apple Fitness+ defined $9.99/mo. Google matched it. Whoop charges 2–3x
-        that and requires it. Oura&apos;s $5.99 add-on is now the most
-        vulnerable model in the category — Galaxy Ring and Ultrahuman both
-        ship with zero subscription.
-      </SectionLede>
+      <div className="relative">
+        <Image
+          src="/wearables-2026-hero/punk-mohawk.png"
+          alt=""
+          aria-hidden="true"
+          width={1374}
+          height={1152}
+          sizes="130px"
+          className="hidden md:block absolute right-0 -top-4 w-[110px] lg:w-[130px] h-auto opacity-90 -rotate-[5deg] pointer-events-none"
+        />
+        <Eyebrow>06 · Subscription economics</Eyebrow>
+        <SectionTitle>The real business model is recurring.</SectionTitle>
+        <SectionLede>
+          Apple Fitness+ defined $9.99/mo. Google matched it. Whoop charges
+          2–3x that and requires it. Oura&apos;s $5.99 add-on is now the most
+          vulnerable model in the category — Galaxy Ring and Ultrahuman both
+          ship with zero subscription.
+        </SectionLede>
+      </div>
 
       <div className="overflow-x-auto bg-white border border-[#e8e6df] rounded-xl">
         <table className="w-full border-collapse text-[14px] min-w-[720px]">
@@ -483,16 +505,27 @@ function CategoryNarratives() {
 function MedicalFringe() {
   return (
     <Section id="medical">
-      <Eyebrow>08 · The medical & fringe layer</Eyebrow>
-      <SectionTitle>
-        Where the next platform shift is coming from.
-      </SectionTitle>
-      <SectionLede>
-        The medical-fringe layer used to be invisible to consumer wearables.
-        CGMs went OTC in 2024 and broke that boundary. Migraine devices, EMS,
-        EEG, and bed-as-platform are all proving small but defensible
-        direct-to-consumer health hardware models.
-      </SectionLede>
+      <div className="relative">
+        <Image
+          src="/wearables-2026-hero/punk-dancer-top.png"
+          alt=""
+          aria-hidden="true"
+          width={409}
+          height={789}
+          sizes="100px"
+          className="hidden md:block absolute right-0 -top-6 w-[88px] lg:w-[100px] h-auto opacity-95 -rotate-[6deg] pointer-events-none"
+        />
+        <Eyebrow>08 · The medical & fringe layer</Eyebrow>
+        <SectionTitle>
+          Where the next platform shift is coming from.
+        </SectionTitle>
+        <SectionLede>
+          The medical-fringe layer used to be invisible to consumer wearables.
+          CGMs went OTC in 2024 and broke that boundary. Migraine devices, EMS,
+          EEG, and bed-as-platform are all proving small but defensible
+          direct-to-consumer health hardware models.
+        </SectionLede>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {MEDICAL_CARDS.map((card) => (
@@ -562,11 +595,21 @@ function ClosingPov() {
 function ChartsSection() {
   return (
     <Section id="charts">
-      <Eyebrow>10 · The shape of the market</Eyebrow>
-      <SectionTitle>
-        Smartwatch share is concentrated. New form factors are rising.
-      </SectionTitle>
-      <SectionLede>
+      <div className="relative">
+        <Image
+          src="/wearables-2026-hero/punk-mohawk.png"
+          alt=""
+          aria-hidden="true"
+          width={1374}
+          height={1152}
+          sizes="140px"
+          className="hidden lg:block absolute right-0 -top-4 w-[130px] h-auto opacity-90 rotate-[4deg] pointer-events-none"
+        />
+        <Eyebrow>10 · The shape of the market</Eyebrow>
+        <SectionTitle>
+          Smartwatch share is concentrated. New form factors are rising.
+        </SectionTitle>
+        <SectionLede>
         Two views. The first: who dominates the global{" "}
         <strong className="font-semibold text-[#0a0a0a]">smartwatch</strong>{" "}
         category by shipment volume (Counterpoint Q4 2025). The second: which
@@ -610,6 +653,7 @@ function ChartsSection() {
           </p>
           <FormFactorChart />
         </div>
+      </div>
       </div>
     </Section>
   );
@@ -666,15 +710,24 @@ function Timeline() {
         </p>
         <GrowthChart />
 
-        <div className="mt-6 p-4 bg-[#fdf6e8] border border-[#e8d9a8] rounded-lg">
-          <div className="text-[16px] font-semibold text-[#0a0a0a] mb-1">
+        <div className="mt-6 p-4 bg-[#fdf6e8] border border-[#e8d9a8] rounded-lg relative">
+          <div className="text-[16px] font-semibold text-[#0a0a0a] mb-1 pr-20 sm:pr-24">
             29M → 614M wearables · 21× growth in 12 years.
           </div>
-          <div className="text-[13px] text-[#4a4a48] font-light">
+          <div className="text-[13px] text-[#4a4a48] font-light pr-20 sm:pr-24">
             Smartphones peaked in 2016 and have hovered near 1.2B since.
             Wearables grew from ~2% of smartphone unit volume in 2014 to ~50%
             in 2026.
           </div>
+          <Image
+            src="/wearables-2026-hero/punk-dancer-top.png"
+            alt=""
+            aria-hidden="true"
+            width={409}
+            height={789}
+            sizes="90px"
+            className="absolute right-2 -top-6 sm:-top-8 w-[72px] sm:w-[90px] h-auto -rotate-[4deg] pointer-events-none"
+          />
         </div>
 
         <p className="text-[12px] text-[#8a8a85] font-light italic mt-4">
@@ -790,11 +843,22 @@ function FieldNotes() {
         </table>
       </div>
 
-      <PullQuote>
-        Three communities. Three different relationships with wearables. The
-        gap between <em>known</em> and <em>adopted</em> is where the next
-        products win.
-      </PullQuote>
+      <div className="relative">
+        <PullQuote>
+          Three communities. Three different relationships with wearables. The
+          gap between <em>known</em> and <em>adopted</em> is where the next
+          products win.
+        </PullQuote>
+        <Image
+          src="/wearables-2026-hero/punk-dancer-top.png"
+          alt=""
+          aria-hidden="true"
+          width={409}
+          height={789}
+          sizes="120px"
+          className="hidden md:block absolute -right-2 -bottom-4 lg:-right-10 w-[96px] lg:w-[120px] h-auto opacity-95 -rotate-[5deg] pointer-events-none"
+        />
+      </div>
     </Section>
   );
 }
@@ -843,12 +907,23 @@ function Author() {
         <Eyebrow>14 · A note from the author</Eyebrow>
         <SectionTitle>Why I care about this space.</SectionTitle>
 
+        <figure className="my-10 flex justify-center -rotate-[1.5deg]">
+          <Image
+            src="/wearables-2026-hero/punk-mohawk.png"
+            alt="Punk illustration of a mohawked figure holding up a sketched chart of a jagged growth line"
+            width={1374}
+            height={1152}
+            className="w-full max-w-[460px] h-auto"
+            sizes="(max-width: 640px) 90vw, 460px"
+          />
+        </figure>
+
         <div className="text-[16.5px] text-[#0a0a0a] font-light leading-[1.75] flex flex-col gap-5">
           <p>I love this space. I&apos;ve spent most of my career in it.</p>
 
           <p>
-            I started early. Backed the very first Pebble on Kickstarter in
-            2012. Pre-ordered the first Fitbit in 2009, before it hit retail.
+            I started early. Pre-ordered the first Fitbit in 2009, before it
+            hit retail. Backed the very first Pebble on Kickstarter in 2012.
             And I&apos;ve been lucky enough to ship inside this category from
             the inside ever since.
           </p>
@@ -867,11 +942,10 @@ function Author() {
             soccer ball with sensors that measured kick force, spin, and
             trajectory. The{" "}
             <strong className="font-semibold">Adidas 1 Running</strong> shoe
-            had a heel-strike sensor and adjustable midsole. We pushed a
-            hydration pack with embedded sensing into a category that
-            didn&apos;t ask for it. We built coaching audio interfaces for
-            iPods because that&apos;s what people had in their pockets before
-            iPhones existed. And we shipped the very first{" "}
+            had a heel-strike sensor and adjustable midsole. We built coaching
+            audio interfaces for iPods because that&apos;s what people had in
+            their pockets before iPhones existed. And we shipped the very
+            first{" "}
             <strong className="font-semibold">Adidas miCoach Glass</strong>{" "}
             coaching app, on Google Glass dev kits almost no one outside
             Mountain View had ever touched.
@@ -879,11 +953,14 @@ function Author() {
 
           <p>
             After Adidas: <strong className="font-semibold">Nike NTC</strong>,{" "}
-            <strong className="font-semibold">Bowflex JRNY</strong>,{" "}
-            <strong className="font-semibold">All Points North Virtual</strong>,{" "}
-            <strong className="font-semibold">FluidLogic</strong>. Subscription
-            coaches. AI experiences. Next-generation connected hardware.
-            Seventeen patents in sport, fitness, and technology along the way.
+            <strong className="font-semibold">Bowflex JRNY</strong>, and{" "}
+            <strong className="font-semibold">FluidLogic</strong> — where we
+            pushed a hydration pack with embedded sensing into a category that
+            didn&apos;t ask for it. The ultimate wearable for motorsports,
+            racing, extreme mountain biking, military, and industrial use.
+            Subscription coaches. AI experiences. Next-generation connected
+            hardware. Seventeen patents in sport, fitness, and technology along
+            the way.
           </p>
 
           <div className="my-2 p-5 bg-white border border-[#e8e6df] rounded-xl text-[15.5px] leading-relaxed">
@@ -937,15 +1014,26 @@ function Author() {
             going to make more of us capable of doing.
           </p>
 
-          <p className="mt-4 text-[12px] tracking-[0.18em] uppercase font-semibold text-[#8a8a85]">
-            — STEVE BLACK ·{" "}
-            <Link
-              href="/"
-              className="text-[#9a6e0c] hover:text-[#d4a853] transition-colors"
-            >
-              steveandthedogs.com
-            </Link>
-          </p>
+          <div className="mt-4 flex items-end justify-between gap-6">
+            <p className="text-[12px] tracking-[0.18em] uppercase font-semibold text-[#8a8a85]">
+              — STEVE BLACK ·{" "}
+              <Link
+                href="/"
+                className="text-[#9a6e0c] hover:text-[#d4a853] transition-colors"
+              >
+                steveandthedogs.com
+              </Link>
+            </p>
+            <Image
+              src="/wearables-2026-hero/punk-dancer-bottom.png"
+              alt=""
+              aria-hidden="true"
+              width={432}
+              height={853}
+              className="w-[64px] sm:w-[80px] h-auto opacity-90 rotate-[6deg] shrink-0"
+              sizes="80px"
+            />
+          </div>
         </div>
       </div>
     </Section>
