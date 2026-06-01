@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<title>Envorso Sports — A Founding PM Point of View · Steve Black</title>
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F4F1E9;
+    --paper:#FBFAF6;
+    --ink:#1b1a23;
+    --muted:#5c5b67;
+    --indigo:#5b4fe9;
+    --indigo-deep:#1f1b40;
+    --violet:#8b7bff;
+    --coral:#cf7a5f;
+    --line:rgba(24,20,48,.12);
+    --line-light:rgba(255,255,255,.18);
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;font-family:var(--sans);color:var(--ink);background:var(--cream);
+    -webkit-font-smoothing:antialiased;line-height:1.65;font-size:18px;
+  }
+  /* progress bar */
+  #bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:61;
+    background:linear-gradient(90deg,var(--indigo),var(--violet));transition:width .1s linear}
+
+  /* site nav (matches steveandthedogs.com) */
+  .sitenav{position:fixed;top:0;left:0;right:0;z-index:60;border-bottom:1px solid transparent;transition:background .4s ease,border-color .4s ease}
+  .sitenav.scrolled{background:rgba(10,10,10,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom-color:#222}
+  .sn-inner{max-width:1180px;margin:0 auto;height:60px;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+  .sn-left{display:flex;align-items:center;gap:12px}
+  .sn-logo{display:flex;align-items:center;transition:transform .2s ease}
+  .sn-logo:hover{transform:scale(1.1)}
+  .sn-logo img{display:block;width:24px;height:24px}
+  .sn-email{color:#8a8a8a;font-size:.82rem;font-weight:400;letter-spacing:.01em}
+  .sn-links{display:flex;gap:2px}
+  .sn-links a{color:#8a8a8a;font-size:.82rem;font-weight:400;letter-spacing:.02em;padding:6px 12px;border-radius:3px;text-decoration:none;transition:color .2s ease}
+  .sn-links a:hover{color:#f5f5f5}
+  @media(max-width:560px){.sn-email{display:none}}
+
+  section{padding:clamp(78px,12vh,150px) 0;border-bottom:1px solid var(--line)}
+  .wrap{max-width:920px;margin:0 auto;padding:0 26px}
+  .col{max-width:700px}
+  .col.wide{max-width:860px}
+
+  .kicker{font-size:.74rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--indigo);display:flex;align-items:center;gap:14px;margin:0 0 26px}
+  .kicker::before{content:"";width:30px;height:1.5px;background:var(--indigo);display:inline-block}
+
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;line-height:1.08;margin:0}
+  h1{font-size:clamp(2.6rem,7vw,4.8rem)}
+  h2{font-size:clamp(2rem,4.6vw,3.3rem);margin-bottom:28px}
+  h3{font-size:clamp(1.3rem,2.4vw,1.7rem)}
+  p{margin:0 0 20px}
+  .lead{font-size:clamp(1.18rem,2.1vw,1.45rem);color:var(--ink)}
+  .muted{color:var(--muted)}
+  .em{color:var(--coral);font-style:italic}
+  strong{font-weight:600}
+
+  /* dark sections */
+  .dark{background:var(--indigo-deep);color:#efecfb;border-bottom:none;
+    background-image:radial-gradient(110% 130% at 12% 0%,#322a66 0%,#1f1b40 55%,#16122f 100%)}
+  .dark h1,.dark h2,.dark h3{color:#fff}
+  .dark .kicker{color:var(--violet)}
+  .dark .kicker::before{background:var(--violet)}
+  .dark .muted{color:#b6b1d6}
+  .dark .em{color:#f0a98e}
+
+  .paper{background:var(--paper)}
+
+  /* cover */
+  .cover{
+    min-height:100vh;display:flex;align-items:center;
+    background-image:
+      linear-gradient(100deg, rgba(20,16,44,.93) 0%, rgba(20,16,44,.74) 48%, rgba(22,18,50,.44) 100%),
+      linear-gradient(rgba(18,15,40,.42), rgba(13,10,30,.80)),
+      url("/envorso-vision/seawolves_run.webp");
+    background-size:cover;background-position:center;background-repeat:no-repeat;
+  }
+  .cover .tag{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);
+    font-weight:600;margin-bottom:30px}
+  .cover h1{margin-bottom:30px;max-width:14ch}
+  .cover .sub{font-size:clamp(1.1rem,2vw,1.4rem);color:#cdc8ec;max-width:46ch;margin-bottom:46px}
+  .byline{display:flex;align-items:center;gap:16px;font-size:.95rem;color:#b6b1d6}
+  .byline b{color:#fff;font-weight:600}
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--violet)}
+  .cover .stamp{margin-top:24px;font-size:.76rem;letter-spacing:.04em;color:#9a93c4}
+  .cover .stamp b{color:#cdc8ec;font-weight:600}
+
+  /* module grid */
+  .modules{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:40px;
+    border:1px solid var(--line);background:var(--line)}
+  .mod{background:var(--paper);padding:26px 24px}
+  .mod .n{font-family:var(--sans);font-variant-numeric:tabular-nums;font-weight:600;
+    font-size:.8rem;color:var(--indigo);letter-spacing:.08em;margin-bottom:10px}
+  .mod h3{font-family:var(--sans);font-size:1.04rem;font-weight:600;margin-bottom:6px;letter-spacing:0}
+  .mod p{font-size:.92rem;color:var(--muted);margin:0;line-height:1.5}
+
+  /* stat row */
+  .stats{display:flex;flex-wrap:wrap;gap:36px;margin-top:44px;align-items:flex-end}
+  .stat .big{font-family:var(--serif);font-size:clamp(2.6rem,6vw,4rem);line-height:1;color:var(--indigo)}
+  .dark .stat .big{color:var(--violet)}
+  .stat .lab{font-size:.86rem;color:var(--muted);margin-top:10px;max-width:18ch}
+  .dark .stat .lab{color:#b6b1d6}
+  .src{font-size:.78rem;color:var(--muted);margin-top:26px;font-style:italic}
+
+  /* pull quote */
+  .pull{font-family:var(--serif);font-size:clamp(2rem,5vw,3.4rem);line-height:1.12;
+    font-weight:500;letter-spacing:-.01em;max-width:16ch;margin:8px 0 0}
+
+  /* chips / flywheel */
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:36px}
+  .chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;
+    padding:11px 20px;font-weight:600;font-size:.96rem}
+  .arrow{color:var(--indigo);font-weight:600}
+  .loopnote{font-size:.86rem;color:var(--muted);margin-top:16px;font-style:italic}
+
+  /* two-up */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
+  .card{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--paper)}
+  .card h3{font-family:var(--sans);font-size:1.05rem;font-weight:600;margin-bottom:8px}
+  .card p{font-size:.96rem;color:var(--muted);margin:0}
+
+  /* sms mock */
+  .phone{margin-top:36px;max-width:360px;border:1px solid var(--line);border-radius:22px;
+    background:var(--paper);padding:22px 20px;box-shadow:0 18px 40px -28px rgba(31,27,64,.5)}
+  .phone .hdr{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;
+    margin-bottom:16px;font-weight:600}
+  .bub{padding:12px 16px;border-radius:16px;margin-bottom:10px;font-size:.96rem;max-width:84%}
+  .bub.them{background:#ece9fb;color:#2b2655;border-bottom-left-radius:5px}
+  .bub.me{background:var(--indigo);color:#fff;margin-left:auto;border-bottom-right-radius:5px;text-align:right}
+  .bub.win{background:#e7f6ec;color:#1d5b33;border-bottom-left-radius:5px;font-weight:500}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:38px;
+    border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .step{padding:26px 22px;border-right:1px solid var(--line);background:var(--paper)}
+  .step:last-child{border-right:none}
+  .step .n{font-variant-numeric:tabular-nums;font-weight:600;color:var(--indigo);font-size:.82rem;
+    letter-spacing:.08em;margin-bottom:10px}
+  .step h3{font-family:var(--sans);font-size:1.02rem;font-weight:600;margin-bottom:6px}
+  .step p{font-size:.9rem;color:var(--muted);margin:0;line-height:1.5}
+
+  /* roadmap */
+  .road{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px}
+  .phase{border-top:2px solid var(--indigo);padding-top:18px}
+  .phase .pl{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--indigo);margin-bottom:12px}
+  .phase h3{font-family:var(--sans);font-size:1.12rem;font-weight:600;margin-bottom:8px}
+  .phase p{font-size:.92rem;color:var(--muted);margin:0}
+
+  /* honest list */
+  .soft{margin-top:34px;border-top:1px solid var(--line)}
+  .soft .item{padding:22px 0;border-bottom:1px solid var(--line)}
+  .soft .item h3{font-family:var(--sans);font-size:1.06rem;font-weight:600;margin-bottom:6px}
+  .soft .item p{margin:0;color:var(--muted);font-size:.98rem}
+
+  .sig{font-family:var(--serif);font-size:1.5rem;margin-top:8px}
+  .foot{font-size:.82rem;color:#b6b1d6;margin-top:40px}
+
+  /* dark readability */
+  .dark .lead{color:#e9e6f8}
+
+  /* fan journey */
+  .journey{margin-top:18px}
+  .phase-band{margin-top:50px}
+  .phase-band .ph{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo);display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+  .phase-band .ph .sub{color:var(--muted);font-weight:500;letter-spacing:.01em;text-transform:none;font-size:.86rem}
+  .hint{font-size:.74rem;color:var(--muted);font-style:italic;margin:2px 0 6px}
+  .subband{margin-top:26px}
+  .subband .sl{font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:6px}
+  .track{position:relative;display:flex;gap:18px;overflow-x:auto;padding:10px 4px 16px;scroll-snap-type:x proximity}
+  .track::before{content:"";position:absolute;top:40px;left:16px;right:16px;border-top:2px dotted var(--line);z-index:0}
+  .track::-webkit-scrollbar{height:6px}
+  .track::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .node{position:relative;z-index:1;flex:0 0 160px;width:160px;scroll-snap-align:start}
+  .node .ic{width:60px;height:60px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;margin:0 auto 14px;color:var(--indigo);box-shadow:0 8px 18px -12px rgba(31,27,64,.5)}
+  .node .ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .node.geo .ic{background:var(--indigo);border-color:var(--indigo);color:#fff}
+  .node .ttl{text-align:center;font-weight:600;font-size:.9rem;line-height:1.25;margin-bottom:6px}
+  .node .ds{text-align:center;font-size:.78rem;color:var(--muted);line-height:1.4;margin-bottom:10px}
+  .mods{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+  .pill{font-size:.62rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--indigo);background:#ece9fb;border-radius:999px;padding:3px 8px}
+  /* george scene */
+  .geo-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+  .geo-hero .gh-text{max-width:560px}
+  .geo-art{width:100%;max-width:390px;margin:0 auto;display:block}
+  .geo-art .orbit{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:2 5}
+  .geo-art .orb circle{fill:#fff;stroke:var(--line);stroke-width:1}
+  .geo-art .orb use{fill:none;stroke:var(--indigo);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .geo-cap{text-align:center;font-size:.82rem;color:var(--muted);font-style:italic;margin-top:8px}
+  @media(max-width:680px){.geo-hero{grid-template-columns:1fr;gap:22px}.geo-art{max-width:300px}}
+
+  /* reveal */
+  .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .js .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:680px){
+    body{font-size:17px}
+    .modules{grid-template-columns:1fr}
+    .two{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+    .step{border-right:none;border-bottom:1px solid var(--line)}
+    .step:last-child{border-bottom:none}
+    .road{grid-template-columns:1fr}
+    .stats{gap:28px}
+  }
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<header class="sitenav" id="sitenav">
+  <div class="sn-inner">
+    <div class="sn-left">
+      <a class="sn-logo" href="https://steveandthedogs.com" aria-label="Steve Black home"><img src="/icon.svg" alt=""></a>
+      <span class="sn-email">steve.and.the.dogs@gmail.com</span>
+    </div>
+    <nav class="sn-links">
+      <a href="https://steveandthedogs.com">Hello!</a>
+      <a href="https://steveandthedogs.com/about">About</a>
+      <a href="https://steveandthedogs.com/articles">Read Me</a>
+      <a href="https://steveandthedogs.com/playground">Playground</a>
+    </nav>
+  </div>
+</header>
+
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+  <symbol id="ic-cal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/></symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></symbol>
+  <symbol id="ic-ticket" viewBox="0 0 24 24"><path d="M4 9.5a2 2 0 0 0 0 5v2.5A1.5 1.5 0 0 0 5.5 18.5h13a1.5 1.5 0 0 0 1.5-1.5v-2.5a2 2 0 0 1 0-5V7a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 4 7z"/><path d="M14.5 6v12" stroke-dasharray="1.5 2.5"/></symbol>
+  <symbol id="ic-shirt" viewBox="0 0 24 24"><path d="M8.5 3.5 5 6l1.8 3 1.7-1v9.5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8l1.7 1L19 6l-3.5-2.5a3.5 3.5 0 0 1-7 0Z"/></symbol>
+  <symbol id="ic-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.5 1.5H4.5z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="ic-stadium" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="6"/><ellipse cx="12" cy="12" rx="3.6" ry="2.4"/><path d="M12 6v1.6M12 16.4V18"/></symbol>
+  <symbol id="ic-spark" viewBox="0 0 24 24"><path d="M12 3.5l1.7 4.9 4.9 1.7-4.9 1.7L12 16.7l-1.7-4.9L5.4 10l4.9-1.7z"/></symbol>
+  <symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.3"/><path d="M5.5 20c0-3.8 3.2-6 6.5-6s6.5 2.2 6.5 6"/></symbol>
+  <symbol id="ic-people" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="2.8"/><path d="M3.5 19.5c0-3 2.6-4.8 5.5-4.8s5.5 1.8 5.5 4.8"/><circle cx="17" cy="9.5" r="2.2"/><path d="M15.5 14.8c2.8.2 5 1.9 5 4.7"/></symbol>
+</svg>
+
+<!-- COVER -->
+<section class="dark cover">
+  <div class="wrap">
+    <div class="tag reveal">Founding PM · Point of View</div>
+    <h1 class="reveal">How do you get a fan to come back tomorrow?</h1>
+    <p class="sub reveal">A vision for Envorso Sports. The operating system for the fan relationship. Built from the Curtain Call brief, tuned to the real Seawolves.</p>
+    <div class="byline reveal"><b>Steve Black</b><span class="dot"></span><span>20 years building products people return to</span></div>
+    <div class="stamp reveal">Working draft &middot; Last updated <b>June 1, 2026</b></div>
+  </div>
+</section>
+
+<!-- THROUGHLINE -->
+<section>
+  <div class="wrap">
+    <div class="kicker reveal">The Throughline</div>
+    <div class="col">
+      <h2 class="reveal">I have spent my career on one question.</h2>
+      <p class="lead reveal">How do you get someone to come back tomorrow? Not once. As a habit. That means finding the moments that matter, designing for clarity, and building experiences people trust.</p>
+      <p class="reveal muted">The world's first intelligent running shoe and SmartBall at Adidas. Nike Training Club. Bowflex JRNY. A connected hydration platform at FluidLogic, shipped in 90 days. Nine apps. Seventeen patents. Different products, one job: the next visit.</p>
+      <p class="reveal">Envorso Sports is that same job, for the sports fan. <span class="em">Turn one ticket into a season.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- FAN JOURNEY -->
+<section class="paper">
+  <div class="wrap">
+    <div class="kicker reveal">The Fan Journey</div>
+    <div class="geo-hero reveal">
+      <div class="gh-text">
+        <h2>George never sees the system.</h2>
+        <p class="lead">Meet George. A fan. He has all this technology around him and barely notices it. His seat is ready, his pick is waiting, his food shows up, his credits roll over. <span class="em">He never thinks about the tech. He thinks about the team.</span></p>
+        <p class="muted">That is the job of the OS. Not a platform for its own sake, but one long relationship made seamless, from the first fixture drop to the friend he brings next year. Here is his season.</p>
+      </div>
+      <div class="gh-art">
+        <svg class="geo-art" viewBox="0 0 360 330" role="img" aria-label="George the fan at the center of eight platform modules orbiting around him">
+          <defs>
+            <radialGradient id="gGlow" cx="50%" cy="46%" r="55%">
+              <stop offset="0%" stop-color="#8b7bff" stop-opacity=".22"/>
+              <stop offset="100%" stop-color="#8b7bff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="180" cy="170" rx="170" ry="120" fill="url(#gGlow)"/>
+          <ellipse class="orbit" cx="180" cy="165" rx="150" ry="80"/>
+          <ellipse class="orbit" cx="180" cy="165" rx="112" ry="54"/>
+          <ellipse cx="180" cy="302" rx="66" ry="11" fill="rgba(31,27,64,.12)"/>
+          <image href="/envorso-vision/George_Jetson.png" x="123" y="60" width="114" height="232" preserveAspectRatio="xMidYMid meet"/>
+          <g class="orb"><circle cx="266" cy="99" r="17"/><use href="#ic-cal" x="255" y="88" width="22" height="22"/></g>
+          <g class="orb"><circle cx="323" cy="140" r="17"/><use href="#ic-phone" x="312" y="129" width="22" height="22"/></g>
+          <g class="orb"><circle cx="323" cy="190" r="17"/><use href="#ic-ticket" x="312" y="179" width="22" height="22"/></g>
+          <g class="orb"><circle cx="266" cy="231" r="17"/><use href="#ic-shirt" x="255" y="220" width="22" height="22"/></g>
+          <g class="orb"><circle cx="94" cy="231" r="17"/><use href="#ic-spark" x="83" y="220" width="22" height="22"/></g>
+          <g class="orb"><circle cx="37" cy="190" r="17"/><use href="#ic-stadium" x="26" y="179" width="22" height="22"/></g>
+          <g class="orb"><circle cx="37" cy="140" r="17"/><use href="#ic-bell" x="26" y="129" width="22" height="22"/></g>
+          <g class="orb"><circle cx="94" cy="99" r="17"/><use href="#ic-user" x="83" y="88" width="22" height="22"/></g>
+        </svg>
+        <p class="geo-cap">He has no idea how good he has it.</p>
+      </div>
+    </div>
+
+    <div class="journey">
+      <!-- PRE SEASON -->
+      <div class="phase-band reveal">
+        <div class="ph">Pre-Season <span class="sub">the build-up</span></div>
+        <div class="hint">Scroll each trail &rarr;</div>
+        <div class="track">
+          <div class="node geo"><div class="ic"><svg><use href="#ic-user"/></svg></div><div class="ttl">Meet George</div><div class="ds">A fan, somewhere in the stands.</div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-cal"/></svg></div><div class="ttl">Schedule drop</div><div class="ds">Fixtures and hype land on the team site.</div><div class="mods"><span class="pill">Site</span><span class="pill">Marketing</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-spark"/></svg></div><div class="ttl">Your season, your seat</div><div class="ds">A personal pre-sale picks seats he'll love.</div><div class="mods"><span class="pill">AI</span><span class="pill">Marketing</span><span class="pill">Tickets</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-ticket"/></svg></div><div class="ttl">Two-tap season pack</div><div class="ds">He buys without thinking about it.</div><div class="mods"><span class="pill">Tickets</span><span class="pill">Identity</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-phone"/></svg></div><div class="ttl">Gets the app</div><div class="ds">Identity set up once. It follows him everywhere.</div><div class="mods"><span class="pill">App</span><span class="pill">Identity</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-shirt"/></svg></div><div class="ttl">New kit, his size</div><div class="ds">The app suggests it. He taps buy.</div><div class="mods"><span class="pill">Merch</span><span class="pill">AI</span></div></div>
+        </div>
+      </div>
+
+      <!-- GAME DAY -->
+      <div class="phase-band reveal">
+        <div class="ph">In-Season <span class="sub">game day, every week</span></div>
+
+        <div class="subband">
+          <div class="sl">Before the whistle</div>
+          <div class="track">
+            <div class="node"><div class="ic"><svg><use href="#ic-bell"/></svg></div><div class="ttl">Morning nudge</div><div class="ds">Gates at six, seat 114, rain later.</div><div class="mods"><span class="pill">Marketing</span><span class="pill">App</span></div></div>
+            <div class="node"><div class="ic"><svg><use href="#ic-spark"/></svg></div><div class="ttl">Make Your Picks</div><div class="ds">One text. Who scores first? He taps 1.</div><div class="mods"><span class="pill">AI</span><span class="pill">App</span></div></div>
+            <div class="node"><div class="ic"><svg><use href="#ic-ticket"/></svg></div><div class="ttl">Skip the line</div><div class="ds">Parking and a beer, pre-ordered.</div><div class="mods"><span class="pill">Tickets</span><span class="pill">Merch</span></div></div>
+          </div>
+        </div>
+
+        <div class="subband">
+          <div class="sl">During the match</div>
+          <div class="track">
+            <div class="node"><div class="ic"><svg><use href="#ic-stadium"/></svg></div><div class="ttl">Walks right in</div><div class="ds">Phone at the gate. No fumbling.</div><div class="mods"><span class="pill">Tickets</span><span class="pill">Game-Day</span></div></div>
+            <div class="node"><div class="ic"><svg><use href="#ic-stadium"/></svg></div><div class="ttl">Second screen</div><div class="ds">Live stats, replays, the program, in-app.</div><div class="mods"><span class="pill">Game-Day</span></div></div>
+            <div class="node"><div class="ic"><svg><use href="#ic-shirt"/></svg></div><div class="ttl">Food to his seat</div><div class="ds">He taps an order at halftime.</div><div class="mods"><span class="pill">Game-Day</span><span class="pill">Merch</span></div></div>
+            <div class="node"><div class="ic"><svg><use href="#ic-spark"/></svg></div><div class="ttl">Pick pays off</div><div class="ds">His call hits. Fifty credits land.</div><div class="mods"><span class="pill">AI</span><span class="pill">Game-Day</span></div></div>
+          </div>
+        </div>
+
+        <div class="subband">
+          <div class="sl">After the final whistle</div>
+          <div class="track">
+            <div class="node"><div class="ic"><svg><use href="#ic-cal"/></svg></div><div class="ttl">The replay</div><div class="ds">Highlights and his pick recap on the ride home.</div><div class="mods"><span class="pill">Site</span><span class="pill">Marketing</span></div></div>
+            <div class="node"><div class="ic"><svg><use href="#ic-shirt"/></svg></div><div class="ttl">That jersey</div><div class="ds">An offer on the player who scored.</div><div class="mods"><span class="pill">Merch</span><span class="pill">AI</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST SEASON -->
+      <div class="phase-band reveal">
+        <div class="ph">Post-Season <span class="sub">the off-season, and back again</span></div>
+        <div class="track">
+          <div class="node"><div class="ic"><svg><use href="#ic-spark"/></svg></div><div class="ttl">Your year as a fan</div><div class="ds">A personal recap. Games, picks, moments.</div><div class="mods"><span class="pill">AI</span><span class="pill">Site</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-ticket"/></svg></div><div class="ttl">Early renew</div><div class="ds">Credits and a reason to come back, waiting.</div><div class="mods"><span class="pill">Marketing</span><span class="pill">Tickets</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-cal"/></svg></div><div class="ttl">Kept warm</div><div class="ds">Off-season stories so he never drifts.</div><div class="mods"><span class="pill">Site</span><span class="pill">Marketing</span></div></div>
+          <div class="node geo"><div class="ic"><svg><use href="#ic-people"/></svg></div><div class="ttl">Brings a friend</div><div class="ds">Next season starts with two seats.</div><div class="mods"><span class="pill">Identity</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col wide" style="margin-top:54px">
+      <p class="lead reveal">Eight modules. One identity. George never thinks about a single one of them. <span class="em">He just feels like the team gets him.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="paper">
+  <div class="wrap">
+    <div class="kicker reveal">The Vision</div>
+    <div class="col wide">
+      <h2 class="reveal">Everything fan. One system.</h2>
+      <p class="lead reveal">Most teams run a different vendor for every part of the fan journey. A website here, ticketing there, a separate app, CRM, merch, marketing, game-day tools. The fan feels the seams. The data never connects. Revenue leaks through the gaps.</p>
+      <p class="reveal">Envorso Sports is one platform for all of it. <strong>Eight modules. One fan profile. Zero integrations.</strong></p>
+    </div>
+    <div class="modules reveal">
+      <div class="mod"><div class="n">01</div><h3>Team Website &amp; Content</h3><p>A fast, team-branded site with a full CMS, managed inside the platform.</p></div>
+      <div class="mod"><div class="n">02</div><h3>Mobile App</h3><p>Native iOS and Android. Personalized content, push, and game-day features.</p></div>
+      <div class="mod"><div class="n">03</div><h3>Ticketing</h3><p>Easy, flexible ticketing for fans and the team, built in.</p></div>
+      <div class="mod"><div class="n">04</div><h3>Merchandise &amp; Commerce</h3><p>Store on app and web, with purchase data tied to the fan profile.</p></div>
+      <div class="mod"><div class="n">05</div><h3>Fan Identity &amp; CRM</h3><p>One identity. A single view of every fan across every touchpoint.</p></div>
+      <div class="mod"><div class="n">06</div><h3>Marketing Automation</h3><p>Personalized campaigns across email, push, and in-app, triggered by behavior.</p></div>
+      <div class="mod"><div class="n">07</div><h3>In-Stadium &amp; Game-Day</h3><p>Digital programs, live stats, concessions, and activations in the app.</p></div>
+      <div class="mod"><div class="n">08</div><h3>AI Personalization</h3><p>Feeds, recommendations, and predictive engagement on unified fan data.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="dark">
+  <div class="wrap">
+    <div class="kicker reveal">The Proof</div>
+    <div class="col">
+      <h2 class="reveal">It already works.</h2>
+      <p class="lead reveal">Live with the Seattle Seawolves of Major League Rugby. A real team, a real season, running on the platform today.</p>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="big">+145%</div><div class="lab">Mobile app engagement</div></div>
+      <div class="stat"><div class="big">62%</div><div class="lab">Tickets purchased in-app</div></div>
+      <div class="stat"><div class="big">1</div><div class="lab">Unified fan identity across every touchpoint</div></div>
+    </div>
+    <p class="src reveal">Envorso's reported results with the Seattle Seawolves.</p>
+  </div>
+</section>
+
+<!-- PARTNERSHIP -->
+<section class="dark">
+  <div class="wrap">
+    <div class="kicker reveal">The Principle</div>
+    <div class="col wide">
+      <h2 class="reveal">We do what we do best, so the team can do what they do best.</h2>
+      <p class="lead reveal">A team's job is to win. Build the roster, coach the squad, take the field. That is where their energy belongs.</p>
+      <p class="reveal">Our job is the other side of game day. Fill the seats. Deepen the relationship. Turn a casual attendee into a fan who brings a friend.</p>
+      <p class="reveal">That is the partnership. We do not sell software and walk away. We earn a share of the revenue we help create. When the team wins on the field and we fill the stands, everyone wins. When we do not deliver, we do not get paid.</p>
+    </div>
+    <p class="pull reveal em">The team builds the team. We build the fan.</p>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section>
+  <div class="wrap">
+    <div class="kicker reveal">The Strategy</div>
+    <div class="col">
+      <h2 class="reveal">Optimize for revenue per game.</h2>
+      <p class="lead reveal">Revenue follows two things working together. An experience worth coming back for, and pricing that turns loyalty into dollars without breaking trust.</p>
+      <p class="reveal muted">They compound. Better experience earns pricing power. Pricing funds better features. Better features build happier fans. That flywheel is the product.</p>
+    </div>
+    <div class="flow reveal">
+      <span class="chip">Experience</span><span class="arrow">&rarr;</span>
+      <span class="chip">Pricing power</span><span class="arrow">&rarr;</span>
+      <span class="chip">Better features</span><span class="arrow">&rarr;</span>
+      <span class="chip">Happier fans</span>
+    </div>
+    <p class="loopnote reveal">And back to the top. Every game teaches the system more.</p>
+    <div class="two reveal">
+      <div class="card"><h3>Effortless ticket purchase</h3><p>Easy on the surface, smart underneath. Behavioral-economics pricing that works the seat map like an airline.</p></div>
+      <div class="card"><h3>AI-personalized engagement</h3><p>The right pick, the right player, the right merch, fan by fan, sharper every game.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAKE YOUR PICKS -->
+<section class="paper">
+  <div class="wrap">
+    <div class="kicker reveal">The Headline Capability</div>
+    <div class="col">
+      <h2 class="reveal">Make Your Picks.</h2>
+      <p class="lead reveal">Every ticket comes with a pick. One tap, before the game. Delivered by text, because every fan has it and no one has to download a thing. Get it right, earn team credits. Credits buy tickets, concessions, merch.</p>
+    </div>
+    <div class="phone reveal">
+      <div class="hdr">Seawolves · Game Day</div>
+      <div class="bub them">Who scores first tonight? Reply 1 for Wolves, 2 for Legion.</div>
+      <div class="bub me">1</div>
+      <div class="bub win">Nice call. +50 Seawolves credits. Spend them on your next ticket.</div>
+    </div>
+    <div class="col" style="margin-top:40px">
+      <p class="reveal"><strong>For the fan</strong>, every game gets personal. Skin in the action beyond the scoreboard.</p>
+      <p class="reveal"><strong>For the team</strong>, every pick requires a ticket, and every credit earned funnels back into team spend. <span class="em">Make Your Picks does not replace ticket sales. It grows them.</span></p>
+      <p class="reveal muted">Risks designed against: friction (one tap is the whole experience) and gambling optics (no money in, credits redeem for team value only, the same shape as a punch card).</p>
+    </div>
+  </div>
+</section>
+
+<!-- MOAT -->
+<section>
+  <div class="wrap">
+    <div class="kicker reveal">The Moat</div>
+    <div class="col">
+      <h2 class="reveal">The moat is the mix.</h2>
+      <p class="lead reveal">Every fan signal flows through one platform. Tickets, picks, credits, merch, attendance, and every nudge a fan responded to or ignored.</p>
+      <p class="reveal">A standalone ticketing vendor sees tickets. A standalone app sees sessions. A standalone CRM sees campaigns. None of them sees the whole fan. We do.</p>
+      <p class="reveal muted">The more games we run, the more we learn. The more we learn, the sharper the nudges. The platform compounds. A single-feature vendor cannot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH UNLOCK -->
+<section class="paper">
+  <div class="wrap">
+    <div class="kicker reveal">The Growth Unlock</div>
+    <div class="col">
+      <h2 class="reveal">Early growth is a friction problem.</h2>
+      <p class="lead reveal">A great first product is built. The next job is making it effortless for the next team to start.</p>
+      <p class="reveal">Zero integrations already removes the integration tax. But every team still arrives with years of history living in disparate systems. Season-ticket records in one tool. Email lists in another. Merch history, CRM notes, ticketing exports, all somewhere else.</p>
+      <p class="reveal">In my experience adopting new software, that is the hardest moment. Not the demo. The migration. <span class="em">How do I get everything I already have into the new system, fast, without a six-month project?</span></p>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><div class="n">STEP 01</div><h3>Ingest</h3><p>AI-assisted import pulls a team's existing data and knowledge out of its scattered tools.</p></div>
+      <div class="step"><div class="n">STEP 02</div><h3>Seed</h3><p>That history seeds the unified fan profile automatically. No blank slate, no manual rebuild.</p></div>
+      <div class="step"><div class="n">STEP 03</div><h3>Value on day one</h3><p>The team feels the benefit immediately, not after a quarter of setup.</p></div>
+    </div>
+    <div class="col" style="margin-top:40px">
+      <p class="reveal">Get that right and landing team two, three, and ten stops being a sales problem and becomes a ramp. <span class="em">Friction down, growth up.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section>
+  <div class="wrap">
+    <div class="kicker reveal">The Shape</div>
+    <div class="col">
+      <h2 class="reveal">Prove it. Scale it. Compound it.</h2>
+      <p class="lead reveal muted">At this stage the shape matters more than the schedule. One job per phase, not a feature-by-feature guess.</p>
+    </div>
+    <div class="road reveal">
+      <div class="phase"><div class="pl">Phase 1</div><h3>Prove the loop</h3><p>Seawolves live. Deepen engagement, sharpen the picks loop, make onboarding effortless.</p></div>
+      <div class="phase"><div class="pl">Phase 2</div><h3>Scale the loop</h3><p>Land the next Major League Rugby teams. Layer new pick types. A/B test every nudge.</p></div>
+      <div class="phase"><div class="pl">Phase 3</div><h3>Compound the flywheel</h3><p>Expand across leagues and sports. Deepen the fan profile. Smarter every game.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESSURE TEST -->
+<section class="paper">
+  <div class="wrap">
+    <div class="kicker reveal">Where I Would Pressure-Test</div>
+    <div class="col">
+      <h2 class="reveal">What I would want to be wrong about.</h2>
+      <p class="lead reveal muted">Naming the soft spots is the point. Strong calls come from testing fast, not betting big.</p>
+    </div>
+    <div class="soft reveal col wide">
+      <div class="item"><h3>The SMS engagement bet</h3><p>It assumes the everyday fan taps a text pick. I would watch real fans try it before committing the whole loop to it.</p></div>
+      <div class="item"><h3>The onboarding lift</h3><p>Day-one migration is the unlock, but the real lift depends on how messy each team's existing data is. I would prototype against one real team's export first.</p></div>
+      <div class="item"><h3>The pricing model</h3><p>Revenue share aligns incentives and lowers the barrier to a yes. It is also a slower revenue curve. Worth pressure-testing with whoever owns commercial strategy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="dark">
+  <div class="wrap">
+    <div class="kicker reveal">The Work</div>
+    <div class="col wide">
+      <h2 class="reveal">Build the fan. Together.</h2>
+      <p class="lead reveal">This is the work I love. Take a real product with real traction and turn it into the system every team runs on. Do it as a partner, not a vendor. Make it effortless to adopt. Make the fan come back tomorrow.</p>
+      <div class="sig reveal">Steve Black</div>
+      <p class="reveal" style="color:#b6b1d6;margin-top:6px">Let's make stuff.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // scroll progress
+  var bar=document.getElementById('bar');
+  var nav=document.getElementById('sitenav');
+  function prog(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  }
+  function onScroll(){
+    prog();
+    var y=document.documentElement.scrollTop||document.body.scrollTop;
+    if(nav){nav.classList.toggle('scrolled', y>20);}
+  }
+  document.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',prog);onScroll();
+
+  // reveal on scroll
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    document.querySelectorAll('.reveal').forEach(function(el,i){
+      el.style.transitionDelay=(Math.min(i%6,5)*40)+'ms';io.observe(el);
+    });
+  }else{
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});
+  }
+</script>
+</body>
+</html>

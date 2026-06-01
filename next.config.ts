@@ -30,6 +30,10 @@ const nextConfig: NextConfig = {
         source: "/meet-sage",
         destination: "/meet-sage/index.html",
       },
+      {
+        source: "/envorso-vision",
+        destination: "/envorso-vision/index.html",
+      },
     ];
   },
 };
