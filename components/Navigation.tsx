@@ -33,6 +33,7 @@ export default function Navigation() {
   const navLinks = [
     { label: "Hello!", href: "/" },
     { label: "About", href: "/about" },
+    { label: "Products", href: "/products" },
     { label: "Read Me", href: "/articles" },
     { label: "Playground", href: "/playground" },
   ];
