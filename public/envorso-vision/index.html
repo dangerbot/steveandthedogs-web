@@ -205,6 +205,33 @@
   .geo-cap{text-align:center;font-size:.82rem;color:var(--muted);font-style:italic;margin-top:8px}
   @media(max-width:680px){.geo-hero{grid-template-columns:1fr;gap:22px}.geo-art{max-width:300px}}
 
+  /* phase map (high-level overview) */
+  .phasemap-wrap{margin-top:46px}
+  .pm-head{font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,1.7rem);font-weight:500}
+  .pm-sub{color:var(--muted);font-size:.95rem;margin:6px 0 0}
+  .phasemap{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+  .pm-col{border-top:2px solid var(--indigo);padding-top:16px}
+  .pm-phase{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--indigo);margin-bottom:14px}
+  .pm-row{margin-bottom:12px}
+  .pm-lab{font-size:.64rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .pm-txt{font-size:.92rem;line-height:1.4}
+  @media(max-width:680px){.phasemap{grid-template-columns:1fr 1fr;gap:18px}}
+
+  /* engagement idea cards */
+  .ideas{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
+  .idea{border:1px solid var(--line);border-radius:14px;padding:22px;background:#fff}
+  .idea h3{font-family:var(--sans);font-size:1.02rem;font-weight:600;margin-bottom:7px}
+  .idea p{font-size:.92rem;color:var(--muted);margin:0;line-height:1.5}
+  @media(max-width:680px){.ideas{grid-template-columns:1fr}}
+
+  /* strategy: ghost chip + where/how/what */
+  .chip.ghost{background:transparent;border-style:dashed;color:var(--indigo)}
+  .strat{margin-top:44px;border-top:1px solid var(--line)}
+  .srow{display:grid;grid-template-columns:190px 1fr;gap:26px;padding:22px 0;border-bottom:1px solid var(--line)}
+  .slab{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--indigo);padding-top:4px}
+  .stext{font-size:1.02rem;line-height:1.55}
+  @media(max-width:680px){.srow{grid-template-columns:1fr;gap:8px;padding:18px 0}}
+
   /* reveal */
   .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
   .js .reveal.in{opacity:1;transform:none}
@@ -258,20 +285,7 @@
     <h1 class="reveal">How do you get a fan to come back tomorrow?</h1>
     <p class="sub reveal">A vision for Envorso Sports. The operating system for the fan relationship, tuned to the real Seawolves.</p>
     <div class="byline reveal"><b>Steve Black</b><span class="dot"></span><span>20 years building products people return to</span></div>
-    <div class="stamp reveal">Working draft &middot; Last updated <b>June 1, 2026</b></div>
-  </div>
-</section>
-
-<!-- THROUGHLINE -->
-<section>
-  <div class="wrap">
-    <div class="kicker reveal">The Throughline</div>
-    <div class="col">
-      <h2 class="reveal">I have spent my career on one question.</h2>
-      <p class="lead reveal">How do you get someone to come back tomorrow? Not once. As a habit. That means finding the moments that matter, designing for clarity, and building experiences people trust.</p>
-      <p class="reveal muted">The world's first intelligent running shoe and SmartBall at Adidas. Nike Training Club. Bowflex JRNY. A connected hydration platform at FluidLogic, shipped in 90 days. Nine apps. Seventeen patents. Different products, one job: the next visit.</p>
-      <p class="reveal">Envorso Sports is that same job, for the sports fan. <span class="em">Turn one ticket into a season.</span></p>
-    </div>
+    <div class="stamp reveal">Working draft &middot; Last updated <b>June 5, 2026</b></div>
   </div>
 </section>
 
@@ -308,6 +322,33 @@
           <g class="orb"><circle cx="94" cy="99" r="17"/><use href="#ic-user" x="83" y="88" width="22" height="22"/></g>
         </svg>
         <p class="geo-cap">He has no idea how good he has it.</p>
+      </div>
+    </div>
+
+    <div class="phasemap-wrap reveal">
+      <div class="pm-head">The season in four acts.</div>
+      <p class="pm-sub">What the fan is feeling, and what the team needs, in each. The detail follows below.</p>
+      <div class="phasemap">
+        <div class="pm-col">
+          <div class="pm-phase">Pre-Season</div>
+          <div class="pm-row"><div class="pm-lab">Fan</div><div class="pm-txt">Is this my year? Who's on the squad? Worth my Fridays?</div></div>
+          <div class="pm-row"><div class="pm-lab">Team</div><div class="pm-txt">Lock in commitment early. Sell the season, not just the game.</div></div>
+        </div>
+        <div class="pm-col">
+          <div class="pm-phase">In-Season</div>
+          <div class="pm-row"><div class="pm-lab">Fan</div><div class="pm-txt">Make tonight worth it. I'm here with my crew.</div></div>
+          <div class="pm-row"><div class="pm-lab">Team</div><div class="pm-txt">Own the in-game moment. Earn the next visit, week to week.</div></div>
+        </div>
+        <div class="pm-col">
+          <div class="pm-phase">Playoffs</div>
+          <div class="pm-row"><div class="pm-lab">Fan</div><div class="pm-txt">Don't miss this. Everyone wants in.</div></div>
+          <div class="pm-row"><div class="pm-lab">Team</div><div class="pm-txt">Capture the surge. Turn the bandwagon into next year's regulars.</div></div>
+        </div>
+        <div class="pm-col">
+          <div class="pm-phase">Post-Season</div>
+          <div class="pm-row"><div class="pm-lab">Fan</div><div class="pm-txt">Season's over. What now?</div></div>
+          <div class="pm-row"><div class="pm-lab">Team</div><div class="pm-txt">Don't go dark. Keep the relationship warm to next season.</div></div>
+        </div>
       </div>
     </div>
 
@@ -358,6 +399,18 @@
         </div>
       </div>
 
+      <!-- PLAYOFFS -->
+      <div class="phase-band reveal">
+        <div class="ph">Playoffs <span class="sub">the run, when it all spikes</span></div>
+        <div class="track">
+          <div class="node"><div class="ic"><svg><use href="#ic-cal"/></svg></div><div class="ttl">Win and in</div><div class="ds">Standings watch. Every result matters now.</div><div class="mods"><span class="pill">Site</span><span class="pill">App</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-ticket"/></svg></div><div class="ttl">Seats vanish</div><div class="ds">Scarcity is real. Engaged fans get first crack.</div><div class="mods"><span class="pill">Tickets</span><span class="pill">AI</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-people"/></svg></div><div class="ttl">Everyone's a fan now</div><div class="ds">The bandwagon arrives. Onboard them fast and clean.</div><div class="mods"><span class="pill">Identity</span><span class="pill">Marketing</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-stadium"/></svg></div><div class="ttl">The biggest night</div><div class="ds">Louder, bigger, more at stake. Peak experience.</div><div class="mods"><span class="pill">Game-Day</span></div></div>
+          <div class="node"><div class="ic"><svg><use href="#ic-shirt"/></svg></div><div class="ttl">Wear the run</div><div class="ds">Playoff merch drops while the energy is high.</div><div class="mods"><span class="pill">Merch</span></div></div>
+        </div>
+      </div>
+
       <!-- POST SEASON -->
       <div class="phase-band reveal">
         <div class="ph">Post-Season <span class="sub">the off-season, and back again</span></div>
@@ -381,9 +434,10 @@
   <div class="wrap">
     <div class="kicker reveal">The Vision</div>
     <div class="col wide">
-      <h2 class="reveal">Everything fan. One system.</h2>
-      <p class="lead reveal">Most teams run a different vendor for every part of the fan journey. A website here, ticketing there, a separate app, CRM, merch, marketing, game-day tools. The fan feels the seams. The data never connects. Revenue leaks through the gaps.</p>
-      <p class="reveal">Envorso Sports is one platform for all of it. <strong>Eight modules. One fan profile. Zero integrations.</strong></p>
+      <h2 class="reveal">The magic is the bond between a team and its fans.</h2>
+      <p class="lead reveal">It is one of the most powerful relationships there is, and it is bigger than a ticket. A fan gives a team their weekends, their loyalty, their kids' first games. That bond is the whole business. Everything else flows from it.</p>
+      <p class="reveal">Today that relationship is delivered in pieces. A website owns one moment, a ticketing vendor another, an app another, each seeing only a sliver of the fan. The connection gets handed off and dropped between a dozen tools that never talk, and the magic leaks through the seams.</p>
+      <p class="reveal">Envorso Sports makes the whole relationship one thing. One platform across every moment, so the fan is never handed off and the magic never leaks. <strong>Eight modules. One fan profile. Zero integrations.</strong></p>
     </div>
     <div class="modules reveal">
       <div class="mod"><div class="n">01</div><h3>Team Website &amp; Content</h3><p>A fast, team-branded site with a full CMS, managed inside the platform.</p></div>
@@ -398,34 +452,16 @@
   </div>
 </section>
 
-<!-- PROOF -->
-<section class="dark">
-  <div class="wrap">
-    <div class="kicker reveal">The Proof</div>
-    <div class="col">
-      <h2 class="reveal">It already works.</h2>
-      <p class="lead reveal">Live with the Seattle Seawolves of Major League Rugby. A real team, a real season, running on the platform today.</p>
-    </div>
-    <div class="stats reveal">
-      <div class="stat"><div class="big">+145%</div><div class="lab">Mobile app engagement</div></div>
-      <div class="stat"><div class="big">62%</div><div class="lab">Tickets purchased in-app</div></div>
-      <div class="stat"><div class="big">1</div><div class="lab">Unified fan identity across every touchpoint</div></div>
-    </div>
-    <p class="src reveal">Envorso's reported results with the Seattle Seawolves.</p>
-  </div>
-</section>
-
 <!-- PARTNERSHIP -->
 <section class="dark">
   <div class="wrap">
     <div class="kicker reveal">The Principle</div>
     <div class="col wide">
       <h2 class="reveal">We do what we do best, so the team can do what they do best.</h2>
-      <p class="lead reveal">A team's job is to win. Build the roster, coach the squad, take the field. That is where their energy belongs.</p>
-      <p class="reveal">Our job is the other side of game day. Fill the seats. Deepen the relationship. Turn a casual attendee into a fan who brings a friend.</p>
-      <p class="reveal">That is the partnership. We do not sell software and walk away. We earn a share of the revenue we help create. When the team wins on the field and we fill the stands, everyone wins. When we do not deliver, we do not get paid.</p>
+      <p class="lead reveal">The front office already lives and breathes the fan, selling the seats, building the relationship, making game day great. That is their craft. They should not have to become technologists to do it well.</p>
+      <p class="reveal">Our job is the tools that make their job easier and more powerful. One platform instead of many, with AI doing the heavy lifting, so their energy stays on the fan, not on wrangling software.</p>
+      <p class="reveal muted">And we only win when they do. We earn a share of the revenue we help create, not a license fee.</p>
     </div>
-    <p class="pull reveal em">The team builds the team. We build the fan.</p>
   </div>
 </section>
 
@@ -434,42 +470,20 @@
   <div class="wrap">
     <div class="kicker reveal">The Strategy</div>
     <div class="col">
-      <h2 class="reveal">Optimize for revenue per game.</h2>
-      <p class="lead reveal">Revenue follows two things working together. An experience worth coming back for, and pricing that turns loyalty into dollars without breaking trust.</p>
-      <p class="reveal muted">They compound. Better experience earns pricing power. Pricing funds better features. Better features build happier fans. That flywheel is the product.</p>
+      <h2 class="reveal">Raise the value of the game.</h2>
+      <p class="lead reveal">Revenue per game is the number owners feel, and it grows one way that lasts: make the game worth more, and grow the demand for it. Not by racing to the bottom on price, and not by pricing the everyday fan out. A fan who values the night comes back, brings a friend, and spends around the game. The experience is the engine. Revenue is what it throws off.</p>
     </div>
     <div class="flow reveal">
-      <span class="chip">Experience</span><span class="arrow">&rarr;</span>
-      <span class="chip">Pricing power</span><span class="arrow">&rarr;</span>
-      <span class="chip">Better features</span><span class="arrow">&rarr;</span>
-      <span class="chip">Happier fans</span>
+      <span class="chip">Better experience</span><span class="arrow">&rarr;</span>
+      <span class="chip">More value per fan</span><span class="arrow">&rarr;</span>
+      <span class="chip">More revenue per game</span><span class="arrow">&rarr;</span>
+      <span class="chip ghost">reinvest &#8635;</span>
     </div>
-    <p class="loopnote reveal">And back to the top. Every game teaches the system more.</p>
-    <div class="two reveal">
-      <div class="card"><h3>Effortless ticket purchase</h3><p>Easy on the surface, smart underneath. Behavioral-economics pricing that works the seat map like an airline.</p></div>
-      <div class="card"><h3>AI-personalized engagement</h3><p>The right pick, the right player, the right merch, fan by fan, sharper every game.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- MAKE YOUR PICKS -->
-<section class="paper">
-  <div class="wrap">
-    <div class="kicker reveal">The Headline Capability</div>
-    <div class="col">
-      <h2 class="reveal">Make Your Picks.</h2>
-      <p class="lead reveal">Every ticket comes with a pick. One tap, before the game. Delivered by text, because every fan has it and no one has to download a thing. Get it right, earn team credits. Credits buy tickets, concessions, merch.</p>
-    </div>
-    <div class="phone reveal">
-      <div class="hdr">Seawolves · Game Day</div>
-      <div class="bub them">Who scores first tonight? Reply 1 for Wolves, 2 for Legion.</div>
-      <div class="bub me">1</div>
-      <div class="bub win">Nice call. +50 Seawolves credits. Spend them on your next ticket.</div>
-    </div>
-    <div class="col" style="margin-top:40px">
-      <p class="reveal"><strong>For the fan</strong>, every game gets personal. Skin in the action beyond the scoreboard.</p>
-      <p class="reveal"><strong>For the team</strong>, every pick requires a ticket, and every credit earned funnels back into team spend. <span class="em">Make Your Picks does not replace ticket sales. It grows them.</span></p>
-      <p class="reveal muted">Risks designed against: friction (one tap is the whole experience) and gambling optics (no money in, credits redeem for team value only, the same shape as a punch card).</p>
+    <p class="loopnote reveal">Reinvest in the experience, and the loop compounds. Every game raises the value again.</p>
+    <div class="strat reveal">
+      <div class="srow"><div class="slab">Where we win</div><div class="stext">The Seawolves first, because we own the team to prove it on. Then the rest of Major League Rugby. Then the underserved sports the big leagues left behind, like cricket and lacrosse, with the US rugby World Cup on the horizon.</div></div>
+      <div class="srow"><div class="slab">How we win</div><div class="stext">Raise the value of the game so revenue compounds, and run it all on one platform that sees the whole fan. That unified view is the moat a single-feature vendor cannot copy.</div></div>
+      <div class="srow"><div class="slab">What has to be true</div><div class="stext">The experience comes first, because without it there is nothing to monetize. Onboarding the next team has to be near-effortless. And the partnership has to stay aligned, where we win when the team wins.</div></div>
     </div>
   </div>
 </section>
@@ -492,62 +506,55 @@
   <div class="wrap">
     <div class="kicker reveal">The Growth Unlock</div>
     <div class="col">
-      <h2 class="reveal">Early growth is a friction problem.</h2>
-      <p class="lead reveal">A great first product is built. The next job is making it effortless for the next team to start.</p>
-      <p class="reveal">Zero integrations already removes the integration tax. But every team still arrives with years of history living in disparate systems. Season-ticket records in one tool. Email lists in another. Merch history, CRM notes, ticketing exports, all somewhere else.</p>
-      <p class="reveal">In my experience adopting new software, that is the hardest moment. Not the demo. The migration. <span class="em">How do I get everything I already have into the new system, fast, without a six-month project?</span></p>
+      <h2 class="reveal">Make the next team's onboarding easier than the last.</h2>
+      <p class="lead reveal">The Seawolves are not just our first customer. They are where we perfect the cutover and the ramp, so every team after them is faster and cleaner to bring on.</p>
+      <p class="reveal">The hard part of adoption was never the demo. It is the switch. Zero integrations removes the integration tax, but every team still arrives with years of history in disparate systems. Season-ticket records in one tool, email lists in another, merch and CRM and ticketing somewhere else. In my experience, that migration is the moment deals stall. <span class="em">How do I get everything I already have into the new system, fast, without a six-month project?</span></p>
     </div>
     <div class="steps reveal">
       <div class="step"><div class="n">STEP 01</div><h3>Ingest</h3><p>AI-assisted import pulls a team's existing data and knowledge out of its scattered tools.</p></div>
       <div class="step"><div class="n">STEP 02</div><h3>Seed</h3><p>That history seeds the unified fan profile automatically. No blank slate, no manual rebuild.</p></div>
-      <div class="step"><div class="n">STEP 03</div><h3>Value on day one</h3><p>The team feels the benefit immediately, not after a quarter of setup.</p></div>
+      <div class="step"><div class="n">STEP 03</div><h3>Value on day one</h3><p>The front office feels the benefit immediately, not after a quarter of setup.</p></div>
+    </div>
+    <div class="two reveal">
+      <div class="card"><h3>Win the owner</h3><p>With the value. More revenue per game, a fan base that comes back, one system instead of many.</p></div>
+      <div class="card"><h3>Win the front office</h3><p>With how easy it is to switch on, and how easy it is to use. They live in it every day. Make it lighter than what they had, and they become the advocates who sell the next team for us.</p></div>
     </div>
     <div class="col" style="margin-top:40px">
-      <p class="reveal">Get that right and landing team two, three, and ten stops being a sales problem and becomes a ramp. <span class="em">Friction down, growth up.</span></p>
+      <p class="reveal">Growth runs two ways. Every new team onboards faster than the last, because we learn with each one. And every team already on the platform is one we keep adding to, seamlessly, as the product grows. <span class="em">Easier to implement. Easier to use. More powerful every release.</span></p>
     </div>
   </div>
 </section>
 
-<!-- ROADMAP -->
+<!-- ENGAGEMENT CANVAS -->
 <section>
   <div class="wrap">
-    <div class="kicker reveal">The Shape</div>
+    <div class="kicker reveal">The Fun Stuff</div>
     <div class="col">
-      <h2 class="reveal">Prove it. Scale it. Compound it.</h2>
-      <p class="lead reveal muted">At this stage the shape matters more than the schedule. One job per phase, not a feature-by-feature guess.</p>
+      <h2 class="reveal">Now for the fun part.</h2>
+      <p class="lead reveal">A rough cut, off the top of my head, not vetted, and nowhere near a plan. Just a handful of fun ideas to show how much opens up once the platform sees the whole fan.</p>
     </div>
-    <div class="road reveal">
-      <div class="phase"><div class="pl">Phase 1</div><h3>Prove the loop</h3><p>Seawolves live. Deepen engagement, sharpen the picks loop, make onboarding effortless.</p></div>
-      <div class="phase"><div class="pl">Phase 2</div><h3>Scale the loop</h3><p>Land the next Major League Rugby teams. Layer new pick types. A/B test every nudge.</p></div>
-      <div class="phase"><div class="pl">Phase 3</div><h3>Compound the flywheel</h3><p>Expand across leagues and sports. Deepen the fan profile. Smarter every game.</p></div>
+    <div class="ideas reveal">
+      <div class="idea"><h3>Make Your Picks</h3><p>One-tap predictions before the game. Get it right, earn team credits toward tickets, concessions, and merch.</p></div>
+      <div class="idea"><h3>Live in the app</h3><p>In-game video and replays, the score as it moves, a real second screen from your seat.</p></div>
+      <div class="idea"><h3>Hear the game</h3><p>Tap to open the referee mic and hear the calls live from the field.</p></div>
+      <div class="idea"><h3>Meet the player</h3><p>Geolocate the fan in their section and bring a player up after the game. A moment they never forget.</p></div>
+      <div class="idea"><h3>Streaks &amp; drops</h3><p>Attendance streaks and limited seat and merch drops. Scarcity that rewards the loyal.</p></div>
+      <div class="idea"><h3>Credits everywhere</h3><p>One team currency, earned through engagement, spent across tickets, concessions, and merch.</p></div>
     </div>
+    <p class="reveal muted" style="margin-top:30px">None of these is the answer. They are the kind of thing we get to test once the foundation is right, and keep what lands.</p>
   </div>
 </section>
 
-<!-- PRESSURE TEST -->
-<section class="paper">
-  <div class="wrap">
-    <div class="kicker reveal">Where I Would Pressure-Test</div>
-    <div class="col">
-      <h2 class="reveal">What I would want to be wrong about.</h2>
-      <p class="lead reveal muted">Naming the soft spots is the point. Strong calls come from testing fast, not betting big.</p>
-    </div>
-    <div class="soft reveal col wide">
-      <div class="item"><h3>The SMS engagement bet</h3><p>It assumes the everyday fan taps a text pick. I would watch real fans try it before committing the whole loop to it.</p></div>
-      <div class="item"><h3>The onboarding lift</h3><p>Day-one migration is the unlock, but the real lift depends on how messy each team's existing data is. I would prototype against one real team's export first.</p></div>
-      <div class="item"><h3>The pricing model</h3><p>Revenue share aligns incentives and lowers the barrier to a yes. It is also a slower revenue curve. Worth pressure-testing with whoever owns commercial strategy.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CLOSE -->
+<!-- MY THROUGHLINE + CLOSE -->
 <section class="dark">
   <div class="wrap">
-    <div class="kicker reveal">The Work</div>
+    <div class="kicker reveal">My Throughline</div>
     <div class="col wide">
-      <h2 class="reveal">Build the fan. Together.</h2>
-      <p class="lead reveal">This is the work I love. Take a real product with real traction and turn it into the system every team runs on. Do it as a partner, not a vendor. Make it effortless to adopt. Make the fan come back tomorrow.</p>
-      <div class="sig reveal">Steve Black</div>
+      <h2 class="reveal">I have spent my career on one question.</h2>
+      <p class="lead reveal">How do you get someone to come back tomorrow? Not once. As a habit. That means finding the moments that matter, designing for clarity, and building experiences people trust.</p>
+      <p class="reveal muted">I learned the craft at Adidas, Nike, and Bowflex, and sharpened it in startups. The fundamentals never change: understand the user, get the product right, earn the next visit. What has changed is the speed. AI lets me push those fundamentals further and faster than ever.</p>
+      <p class="reveal">That is what pulls me to Envorso Sports. The same fundamentals, the same obsession with the user, now in service of the fan. <span class="em">I look forward to pushing the boundaries of what we can do, in ultimate service of the user.</span></p>
+      <div class="sig reveal" style="margin-top:30px">Steve Black</div>
       <p class="reveal" style="color:#b6b1d6;margin-top:6px">Let's make stuff.</p>
     </div>
   </div>
