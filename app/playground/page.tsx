@@ -607,6 +607,70 @@ export default function PlaygroundPage() {
         </Link>
       </section>
 
+      {/* ── Featured Exploration: The Satiation Lag ──────────────────── */}
+      <section className="px-6 pb-24 max-w-6xl mx-auto">
+        <div className="mb-10">
+          <p className="text-xs tracking-[0.3em] uppercase text-[#d4a853] font-light mb-3">
+            Product Exploration
+          </p>
+          <h2 className="text-2xl md:text-3xl font-light text-[#f5f5f5] tracking-wide">
+            The Satiation Lag
+          </h2>
+          <p className="text-[#555555] text-sm mt-2 font-light">
+            An interactive look at why we overeat at meals — and where a product could help people stop on time.
+          </p>
+        </div>
+
+        <Link
+          href="/playground/satiation-lag"
+          className="group block relative overflow-hidden rounded-2xl border border-[#222222] bg-[#0d0d0d] hover:border-[#333333] transition-all"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] items-stretch">
+            {/* Left — copy */}
+            <div className="p-8 md:p-10 flex flex-col justify-between gap-6">
+              <div>
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#1a1a1a] border border-[#222] text-[#888888] text-[11px] tracking-wide mb-5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d4a853]" />
+                  Behavior change · Interactive
+                </div>
+                <h3 className="text-2xl md:text-3xl font-extralight text-[#f5f5f5] tracking-tight leading-tight mb-4">
+                  Your body knows it&apos;s had enough before your brain feels it.
+                </h3>
+                <p className="text-[#888888] text-[15px] font-light leading-relaxed max-w-md">
+                  Calories run past a healthy amount while the full feeling catches up. Play the meal, watch the gap, and see where a nudge could land.
+                </p>
+              </div>
+              <div className="inline-flex items-center gap-2 text-sm text-[#d4a853] font-light tracking-wide">
+                Open the page
+                <span className="transition-transform group-hover:translate-x-0.5">→</span>
+              </div>
+            </div>
+
+            {/* Right — photo thumbnail */}
+            <div
+              className="relative flex items-end min-h-[240px] md:min-h-[320px] overflow-hidden bg-neutral-900"
+              style={{
+                backgroundImage: "url(/satiation-lag/eat.jpg)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.6) 100%)",
+                }}
+              />
+              <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
+                Play the meal →
+              </p>
+            </div>
+          </div>
+        </Link>
+      </section>
+
       {/* ── Experiment: Lightning Bolt Animations ────────────────────── */}
       <section className="px-6 pb-24 max-w-6xl mx-auto">
 
