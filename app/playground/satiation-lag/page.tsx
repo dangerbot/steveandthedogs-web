@@ -293,19 +293,28 @@ function Sim() {
   return (
     <div className="bg-[#141414] border border-[#222222] rounded-2xl p-4 md:p-5 my-6">
       {/* tabs */}
-      <div className="inline-flex flex-wrap gap-1 bg-[#0d0d0d] rounded-full p-1 mb-1">
-        {tabs.map((tb) => (
-          <button
-            key={tb.key}
-            onClick={() => setStyleState(tb.key)}
-            className={
-              "rounded-full px-3.5 py-2 text-[13px] font-medium transition " +
-              (style === tb.key ? "bg-[#d4a853] text-[#0a0a0a]" : "text-[#9a9a9a] hover:text-[#d0d0d0]")
-            }
-          >
-            {tb.label}
-          </button>
-        ))}
+      <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9a9a9a] mb-2">
+        Tap a way to eat
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {tabs.map((tb) => {
+          const active = style === tb.key;
+          return (
+            <button
+              key={tb.key}
+              onClick={() => setStyleState(tb.key)}
+              aria-pressed={active}
+              className={
+                "rounded-full px-4 py-2 text-[13px] font-medium border cursor-pointer transition " +
+                (active
+                  ? "bg-[#d4a853] text-[#0a0a0a] border-[#d4a853] shadow-[0_0_0_3px_rgba(212,168,83,0.18)]"
+                  : "bg-[#1c1c1c] text-[#cfcfcf] border-[#3a3a3a] hover:border-[#d4a853] hover:text-[#f5f5f5]")
+              }
+            >
+              {tb.label}
+            </button>
+          );
+        })}
       </div>
       <div className="text-[13px] text-[#777777] font-medium my-2.5 min-h-[20px]">{note}</div>
 
