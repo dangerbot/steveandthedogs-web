@@ -146,6 +146,46 @@ const prototypes: Prototype[] = [
     ),
   },
   {
+    href: "/articles/one-sensor-two-prototypes",
+    category: "Technology Exploration",
+    title: "NIR Skin Intelligence",
+    badge: { label: "Concept test · Skin vs. kitchen", dotClass: "bg-[#d4a853]" },
+    description:
+      "Near-infrared sensors are shrinking toward consumer devices. Two quick Lovable concepts — a skin analyzer and a food analyzer — went hunting for the use case before the tech was even ready.",
+    question:
+      "Where would a consumer actually want an NIR sensor in their routine — on their skin or on their plate — and is either worth pursuing?",
+    found:
+      "Skin won, decisively. Testers tied collagen, dryness, and sun damage straight to product decisions and wanted it at home, not in a store. The food analyzer never found a place in anyone's routine.",
+    next:
+      "The sensor hardware isn't ready for a works-like pass — but when it is, the direction is already picked: skin care, at home, connected to the products you buy.",
+    visual: (
+      <div
+        className="relative flex items-end min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-neutral-900"
+        style={{
+          backgroundImage: "url(/images/articles/one-sensor-two-prototypes-cover.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* bottom-weighted darkening so the white captions stay readable on the bright photo */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%)",
+          }}
+        />
+        <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
+          Scan, then decide →
+        </p>
+        <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
+          Skin age · 36.2
+        </p>
+      </div>
+    ),
+  },
+  {
     href: "/playground/openai-families",
     category: "Concept Prototype",
     title: "ChatGPT Families",
