@@ -28,6 +28,45 @@ type Prototype = {
 
 const prototypes: Prototype[] = [
   {
+    href: "/articles/project-sub-three",
+    category: "Passion Project",
+    title: "Project Sub Three",
+    badge: { label: "Live product · Early days", dotClass: "bg-emerald-500" },
+    description:
+      "A standalone AI training companion for runners chasing a sub-three marathon — a full product with accounts, a Supabase backend, and Claude doing the coaching. Decades in the making.",
+    question:
+      "Could AI finally crack what heuristic training plans never could — real coaching from messy, incomplete runner data — and how far can I take a full AI-native build solo?",
+    found:
+      "Separate the brains from the machinery: Claude holds the conversation and makes the coaching decisions; a deterministic plan engine rebuilds the entire 56-week plan in milliseconds via tool use.",
+    next:
+      "Sync real running data (Strava, Garmin, Apple Health) and split the single model into specialists — chat, context, coach, reasoner.",
+    visual: (
+      <div
+        className="relative flex items-end min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-neutral-900"
+        style={{
+          backgroundImage: "url(/images/articles/project-sub-three.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.55) 100%)",
+          }}
+        />
+        <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
+          Join the chase →
+        </p>
+        <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
+          2:59:59
+        </p>
+      </div>
+    ),
+  },
+  {
     href: "/playground/openai-families",
     category: "Concept Prototype",
     title: "ChatGPT Families",

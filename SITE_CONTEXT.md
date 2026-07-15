@@ -25,7 +25,7 @@ Personal branding site for Steve Black, Head of Digital Product. Dark, premium a
 | `/articles` | MDX listing with category filter pills (server page + client `ArticlesGrid`) |
 | `/articles/[slug]` | MDX detail pages; honors `customHref` frontmatter redirect |
 | `/articles/wearables-landscape-2026` | Fully custom interactive report page (own components: Charts, ProductExplorer, ThreatsGrid, TocSidebar, data.ts) |
-| `/playground` | Prototype showcase — "Why I Prototype" intro + data-driven cards (`prototypes` array) with purpose framework: question / found / next. Current: ChatGPT Families, Satiation Lag, Lightning Bolts, This Website (links to the rebuild article) |
+| `/playground` | Prototype showcase — "Why I Prototype" intro + data-driven cards (`prototypes` array) with purpose framework: question / found / next. Current order: Project Sub Three (links to its article → projectsubthree.com), ChatGPT Families, Satiation Lag, Lightning Bolts, This Website (links to the rebuild article) |
 | `/playground/lightning-bolts` | Bolt motion-graphics lab: experiments 01–05 (bolt animations, animated divider, bolt light-up, LinkedIn thumbnail, LinkedIn banner) |
 | `/playground/openai-families` | ChatGPT for Families concept page |
 | `/playground/babylist-ai` | Babylist AI concepts |
@@ -41,7 +41,7 @@ Nav: Hello! | About | Products | Read Me | Playground (Products link added since
 - `/public/wearables-2026-hero/` — hero assets incl. standalone index.html
 
 ## Articles system
-- 14 articles in `content/articles/[slug]/index.mdx`; frontmatter: title, date, category, description, coverImage, gradient, readTime, `animatedCover` ("electric-bolt"), `customHref` (card links elsewhere, e.g. a playground page — detail route redirects)
+- 15 articles in `content/articles/[slug]/index.mdx` (newest: project-sub-three, 2026-07-15); frontmatter: title, date, category, description, coverImage, gradient, readTime, `animatedCover` ("electric-bolt"), `customHref` (card links elsewhere, e.g. a playground page — detail route redirects)
 - Cover priority: animatedCover → coverImage → gradient
 - Categories in use: Strategy & Execution, Innovation & Technology, UX & Behavior, Hardware & Software, Sport & Wellness, Leadership, About Me
 - `lib/articles.ts` = data layer (fs + gray-matter); designed for future Supabase swap

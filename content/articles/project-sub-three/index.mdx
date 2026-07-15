@@ -1,0 +1,71 @@
+---
+title: "Project Sub Three: The Coach I Couldn't Build for 20 Years"
+date: "2026-07-15"
+category: "Sport & Wellness"
+description: "A weekend passion project decades in the making — an AI training companion for runners chasing the sub-three marathon, and a test of how far one product person can take an AI-native build."
+coverImage: "/images/articles/project-sub-three.jpg"
+gradient: "from-amber-500/50 via-orange-700/30 to-neutral-950"
+readTime: "5 min read"
+---
+
+I have a side project. It's called [Project Sub Three](https://www.projectsubthree.com), and it does one thing: help runners break a three-hour marathon.
+
+It's a weekend project. It's also decades in the making.
+
+---
+
+## Twelve attempts
+
+My first marathon started at a blazing sub-three pace. Until mile 18. The wall. I finished in four hours, the hardest way possible.
+
+I tried eleven more times. All failures.
+
+Here's the strange part: during those years I was at Adidas building miCoach, working alongside some of the top running coaches in the world. Later Nike, later Bowflex. I was literally building the coaching tools while failing to coach myself.
+
+On attempt #12, after a year of focused, honest training, I broke through. 2:58.
+
+---
+
+## The wall every training tool hits
+
+Every training-plan product I worked on hit the same wall, and it wasn't the science. The science is solid — Jack Daniels' VDOT system has been getting runners to the line for decades.
+
+The wall was the inputs.
+
+Heuristic algorithms need clean data. Runners don't have clean data. They have skipped days, self-reported paces, a lingering calf, a marathon PR from ten years ago with no context, and a long tennis match the night before a long-run day.
+
+A good coach handles all of that with one question: "How are you feeling this week?" An algorithm can't ask it — and can't use the answer.
+
+---
+
+## Why now
+
+Modern language models change the math. They accept messy, partial, natural-language input and produce useful output. They can hold context. They can follow real training philosophy instead of flattening it into rules.
+
+A prototype that would have taken a team of five and a research budget a decade ago is now something one product person can build in evenings.
+
+So I built it. Not a chatbot — a companion. It knows your training history, adapts when life happens, and takes action: log a run, rebuild a taper week, recalculate your probability of breaking three. The plan bends. The goal doesn't.
+
+---
+
+## How it works
+
+The architecture came out of getting it wrong first. Version one asked the AI to do everything — conversation, coaching, and generating a full 56-week plan in one streaming response. It fell apart at scale.
+
+The fix: **AI decides, tools execute.** Claude handles the conversation and the coaching decisions. A deterministic plan engine — plain TypeScript — builds and rebuilds the entire plan in milliseconds via tool use. Change one thing, and the ripple effect shows up everywhere: probability, injury risk, phase transitions.
+
+Underneath it all sits a single **runner context** — a structured-but-forgiving record of who you are as a runner right now, read and written by every conversation.
+
+The stack is a real product, not a demo: Next.js on Vercel, Claude doing the reasoning and tool orchestration, Supabase for accounts and persistence. That's the other half of why this project exists — testing how far I can take a full AI-native build solo: auth, backend, APIs, context, tools, skills.
+
+The full breakdowns live on the site: [the method](https://www.projectsubthree.com/method) and [the tech](https://www.projectsubthree.com/tech).
+
+---
+
+## Early days
+
+It's early. It's rough in places. That's the point — it's a living prototype, and every conversation with a real runner teaches it (and me) something.
+
+If it helps even one runner get to 2:59:59 in fewer than twelve attempts, it's worth every hour spent building it.
+
+**[Join the chase → projectsubthree.com](https://www.projectsubthree.com)**
