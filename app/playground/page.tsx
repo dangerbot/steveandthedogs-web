@@ -83,17 +83,18 @@ const prototypes: Prototype[] = [
       <div
         className="relative flex items-end min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-neutral-900"
         style={{
-          backgroundImage: "url(/images/articles/hoop-rhythm/app.jpg)",
+          backgroundImage: "url(/images/articles/hoop-rhythm/scoreboard.jpg)",
           backgroundSize: "cover",
-          backgroundPosition: "center 22%",
+          backgroundPosition: "center",
         }}
       >
+        {/* bottom-weighted darkening so the white captions stay readable */}
         <div
           aria-hidden="true"
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0.5) 100%)",
+              "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%)",
           }}
         />
         <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
