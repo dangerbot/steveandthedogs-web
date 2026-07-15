@@ -67,6 +67,45 @@ const prototypes: Prototype[] = [
     ),
   },
   {
+    href: "/articles/hoop-rhythm",
+    category: "Rapid Prototype",
+    title: "Hoop Rhythm",
+    badge: { label: "In testing · 4 summer games", dotClass: "bg-[#d4a853]" },
+    description:
+      "A one-handed basketball stat tracker and a post-game report coaches open minutes after the buzzer — born from a season of pen-and-paper versions at my son's JV games.",
+    question:
+      "Could I track the stats coaches actually want — turnovers, rebounds, possessions — without taking my eyes off the game, and get a useful report into their hands before they leave the gym?",
+    found:
+      "The possession-by-possession view is the unlock — runs, momentum, and control jump out in ways a scorebook never shows. Four games in, the coaches keep asking for it.",
+    next:
+      "A few more games of testing. If it sticks, automate the manual workflow — now a known gap I can design to instead of a guess.",
+    visual: (
+      <div
+        className="relative flex items-end min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-neutral-900"
+        style={{
+          backgroundImage: "url(/images/articles/hoop-rhythm/app.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center 22%",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0.5) 100%)",
+          }}
+        />
+        <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
+          Live from the bench →
+        </p>
+        <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
+          Hoop Rhythm Tracker
+        </p>
+      </div>
+    ),
+  },
+  {
     href: "/playground/openai-families",
     category: "Concept Prototype",
     title: "ChatGPT Families",
