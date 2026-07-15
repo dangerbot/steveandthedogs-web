@@ -1,0 +1,58 @@
+---
+title: "How to Interrupt a Pilot"
+date: "2026-07-10"
+category: "UX & Behavior"
+description: "Pilots couldn't wear the hydration pack, so drink reminders had to reach them through their aviation headsets — without stepping on the sounds that keep a helicopter in the air. A utilitarian prototype tuned the tones."
+coverImage: "/images/articles/how-to-interrupt-a-pilot-cover.jpg"
+readTime: "5 min read"
+ctaHref: "https://chime-tune-test.lovable.app"
+ctaLabel: "Try the chime tuner"
+---
+
+A hydration pack that buzzes you when it's time to drink works great — until your customer is strapped into a helicopter seat.
+
+Talking with a new kind of customer — pilots — we hit two walls at once. They're seated, so a pack on the back was out. And regulations bar anything worn that affects how they fit in the seat or get out of it. So the system they were developing went vehicle-mounted, race-car style, built into the aircraft itself.
+
+Which quietly broke the reminder model. No pack on your body, no haptic buzz. How do you remind a pilot to drink?
+
+---
+
+## The channel already exists
+
+Pilots fly inside a sophisticated audio system: tower communications, intercom between crew, and auxiliary inputs — including Bluetooth. That was the opening. Our app could connect to the headset and deliver the reminder as sound.
+
+But a cockpit's audio channel is spoken for. Alert tones mean things. System warnings mean things. Radio traffic is sacred. A drink reminder has to land clearly — and absolutely cannot step on, mask, or resemble the signals that matter for flying the aircraft safely.
+
+And here's the kicker: the pilots themselves couldn't tell us in advance what would work. Different tones, system errors, competing sounds — "until it's in our headsets, we won't know."
+
+---
+
+## A deliberately ugly prototype
+
+So I built the least glamorous prototype on this playground: an interval timer that plays notification sounds.
+
+<img
+  src="/images/articles/how-to-interrupt-a-pilot/tuner.jpg"
+  alt="The tuner — reminder interval, tone options, voice options, volume"
+  style={{ display: "block", maxWidth: "min(100%, 420px)", margin: "2rem auto", borderRadius: "16px" }}
+/>
+
+Set an interval. Pick a tone — bells, chimes, beeps, candidate sound files. Pick a voice option and volume. Press start, put it in the headset, and listen.
+
+The plainness is the point. This was purposefully **not** the app's UX — nothing new to react to, nothing competing for opinion. When you're testing sound, the screen should disappear. It existed to answer exactly one question: what should a drink reminder sound like in that environment?
+
+Just as important, it made iteration instant. A pilot says "that reads as a system error" — swap the sound, test again, same session.
+
+---
+
+## Office, hangar, air
+
+Testing climbed a ladder. First the office, for cheap first reactions. Then a hangar, in the real acoustic setting. Then in the air with pilots, tuning tones and voice against actual cockpit audio traffic — the only place the answer really lived.
+
+---
+
+## Small scope, on purpose
+
+This was never a "pilot system prototype." No accounts, no flows, no design language. One specific question, answered quickly, so the larger project could keep moving with confidence instead of waiting on a guess.
+
+That's a face of prototyping that doesn't get enough credit: not testing a product concept, but de-risking one decision that everything else depends on. When the question lives somewhere you can't simulate at a desk — a cockpit, at altitude, in a headset — the prototype's job is to get the question there fast.

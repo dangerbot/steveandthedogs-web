@@ -226,6 +226,45 @@ const prototypes: Prototype[] = [
     ),
   },
   {
+    href: "/articles/how-to-interrupt-a-pilot",
+    category: "Field Test",
+    title: "Cockpit Chime Test",
+    badge: { label: "Utility build · Tuned in flight", dotClass: "bg-[#d4a853]" },
+    description:
+      "Pilots couldn't wear the hydration pack — seat fit and regulations ruled it out — so drink reminders had to reach them through their aviation headsets. A bare-bones tool tuned the tones and voices.",
+    question:
+      "What does a drink reminder sound like in a pilot's headset — clear enough to land, without stepping on the signals that matter for flying safely?",
+    found:
+      "Nobody, pilots included, could judge a sound until it played in their actual headsets. Testing climbed from office to hangar to in-flight, swapping tones and voices live against real cockpit audio.",
+    next:
+      "The tuned tones and voice went into the app's reminder system — one blocking question answered fast, project on track.",
+    visual: (
+      <div
+        className="relative flex items-end min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-neutral-900"
+        style={{
+          backgroundImage: "url(/images/articles/how-to-interrupt-a-pilot-cover.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%)",
+          }}
+        />
+        <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
+          Tune the reminder →
+        </p>
+        <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
+          Office → hangar → air
+        </p>
+      </div>
+    ),
+  },
+  {
     href: "/playground/openai-families",
     category: "Concept Prototype",
     title: "ChatGPT Families",
@@ -410,6 +449,45 @@ const prototypes: Prototype[] = [
         </div>
         <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
           The site, in the site
+        </p>
+      </div>
+    ),
+  },
+  {
+    href: "/articles/micoach-on-glass",
+    category: "From the Archive",
+    title: "miCoach on Google Glass",
+    badge: { label: "Paper prototype · Glass era", dotClass: "bg-[#d4a853]" },
+    description:
+      "Just after Google Glass launched, Adidas and Google went hunting for use cases. The first miCoach-on-Glass prototype wasn't an app — a slideshow of static screens, worn on runs and rides.",
+    question:
+      "Could real-time coaching live in the corner of your eye — and what could a runner actually read and use mid-workout?",
+    found:
+      "Glanceable data thrills, then distracts. Runners needed to pull info with a tap, not have it pushed — except pace-zone moments, which earned the interruption by behaving like a real coach.",
+    next:
+      "Those findings shaped the miCoach Glass app before a line of code was written — screens that sleep, wake on workout landmarks, and say only what a coach would say.",
+    visual: (
+      <div
+        className="relative flex items-end min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-neutral-900"
+        style={{
+          backgroundImage: "url(/images/articles/micoach-on-glass-cover.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "right center",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%)",
+          }}
+        />
+        <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
+          Run first, design after →
+        </p>
+        <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
+          No code · Just JPEGs
         </p>
       </div>
     ),
