@@ -25,7 +25,7 @@ Personal branding site for Steve Black, Head of Digital Product. Dark, premium a
 | `/articles` | MDX listing with category filter pills (server page + client `ArticlesGrid`) |
 | `/articles/[slug]` | MDX detail pages; honors `customHref` frontmatter redirect |
 | `/articles/wearables-landscape-2026` | Fully custom interactive report page (own components: Charts, ProductExplorer, ThreatsGrid, TocSidebar, data.ts) |
-| `/playground` | Prototype showcase — featured cards only (ChatGPT Families, Satiation Lag, Lightning Bolts) |
+| `/playground` | Prototype showcase — "Why I Prototype" intro + data-driven cards (`prototypes` array) with purpose framework: question / found / next. Current: ChatGPT Families, Satiation Lag, Lightning Bolts |
 | `/playground/lightning-bolts` | Bolt motion-graphics lab: experiments 01–05 (bolt animations, animated divider, bolt light-up, LinkedIn thumbnail, LinkedIn banner) |
 | `/playground/openai-families` | ChatGPT for Families concept page |
 | `/playground/babylist-ai` | Babylist AI concepts |

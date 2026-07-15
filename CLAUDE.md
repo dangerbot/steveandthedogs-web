@@ -151,7 +151,8 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 - "Playground" in the same large thin type as the Articles page
 - Subtitle: "Experiments, prototypes, and things I'm tinkering with."
 - Amber gradient divider below the header (matches Articles/About page style)
-- The page is the **prototype showcase**: a stack of featured cards, each linking to its own sub-page. To add a prototype, copy a card section in `app/playground/page.tsx` and point it at a new `/playground/<slug>` page.
+- The page is the **prototype showcase**: a "Why I Prototype" intro blurb (every prototype starts with a question; deliberately small builds; opportunity cost) followed by a stack of self-contained cards.
+- Cards are **data-driven**: a `prototypes` array at the top of `app/playground/page.tsx`. Each entry: `href`, `category` (eyebrow), `title`, `badge`, `description`, plus the **purpose framework** — `question` (why I built this), `found` (what I learned), `next` (what happened next) — and a `visual` (right-side panel JSX). To add a prototype: build its sub-page at `/playground/<slug>`, then add one object to the array.
 - **Current cards:** ChatGPT Families (`/playground/openai-families`), The Satiation Lag (`/playground/satiation-lag`), Lightning Bolts (`/playground/lightning-bolts`)
 - `/playground/lightning-bolts` holds the five bolt/motion-graphics experiments formerly inline on the playground page: 01 Lightning Bolt Animations (Pulse Glow, Draw On, Electric Crackle), 02 Animated Divider, 03 Bolt Light-Up Divider, 04 LinkedIn Thumbnail, 05 LinkedIn Banner
 - Other sub-pages: `/playground/empowered-teams-ai` (reached from its article via `customHref`), `/playground/babylist-ai` (unlisted, direct URL only)
