@@ -187,6 +187,45 @@ const prototypes: Prototype[] = [
     ),
   },
   {
+    href: "/articles/one-button-one-light",
+    category: "Internal Tool",
+    title: "Squirtle Light Lab",
+    badge: { label: "Firmware sim · Hallway tested", dotClass: "bg-[#d4a853]" },
+    description:
+      "One button and one multicolor LED had to communicate power, pairing, connection, errors, and resets. A browser simulator — built with the firmware engineer, carried around on an iPad — became the spec.",
+    question:
+      "Could we tune every LED color, blink, and press behavior — and catch what confuses people — before the firmware was written or the hardware existed?",
+    found:
+      "Walking an iPad around beat iterating in firmware: colors, timing, and messaging tuned live, and testing surfaced cases nobody specced — like an extra-long press for a full hardware reset.",
+    next:
+      "The tuned spec went straight to firmware, built once with confidence — and the simulator-first pattern is now the template for the next weakest link.",
+    visual: (
+      <div
+        className="relative flex items-end min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-neutral-900"
+        style={{
+          backgroundImage: "url(/images/articles/one-button-one-light-cover.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%)",
+          }}
+        />
+        <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
+          Enter the simulator →
+        </p>
+        <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
+          One button · One LED
+        </p>
+      </div>
+    ),
+  },
+  {
     href: "/playground/openai-families",
     category: "Concept Prototype",
     title: "ChatGPT Families",
