@@ -161,6 +161,61 @@ const prototypes: Prototype[] = [
       </div>
     ),
   },
+  {
+    href: "/articles/what-rebuilding-my-website-with-ai-taught-me",
+    category: "Living Prototype",
+    title: "This Website",
+    badge: { label: "Live · You're inside it", dotClass: "bg-emerald-500" },
+    description:
+      "The site you're on right now. After years of Bluehost and Squarespace templates, rebuilt as a hand-built Next.js product — designed, written, and shipped with AI.",
+    question:
+      "How far past template builders could I take a personal site with AI — and could the workflow keep it genuinely current?",
+    found:
+      "The workflow evolved with the tools: Claude Code inside Cursor at first, now a Cowork loop — talk it through, build, review locally, ship. Updating the site went from chore to fun.",
+    next:
+      "It's never done — every new prototype, article, and experiment lands here first.",
+    visual: (
+      <div className="relative flex flex-col min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-[#0a0a0a]">
+        {/* Faux browser chrome */}
+        <div className="relative z-10 flex items-center gap-2 px-4 h-9 bg-[#141414] border-b border-[#222222] shrink-0">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a3a]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a3a]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#3a3a3a]" />
+          <p className="flex-1 text-center text-[10px] tracking-wide text-[#555555] font-light truncate pr-8">
+            www.steveandthedogs.com
+          </p>
+        </div>
+        {/* Mini live hero */}
+        <div className="relative flex-1 flex items-center justify-center">
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse 60% 70% at 50% 45%, #d4a85312 0%, transparent 70%)",
+            }}
+          />
+          <div className="relative z-10 flex flex-col items-center text-center px-6 py-10">
+            <p
+              className="font-thin text-[#f5f5f5] tracking-[-0.03em] leading-[0.92]"
+              style={{ fontSize: "clamp(34px, 4vw, 52px)" }}
+            >
+              Steve Black
+            </p>
+            <p className="text-[10px] font-light text-[#888888] tracking-[0.15em] uppercase mt-3">
+              Building What Matters
+            </p>
+            <p className="text-xs italic font-light text-[#d4a853] tracking-wide mt-2">
+              Clarity. Creativity. Impact.
+            </p>
+          </div>
+        </div>
+        <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
+          The site, in the site
+        </p>
+      </div>
+    ),
+  },
 ];
 
 // One row of the purpose framework: micro-label + one-line answer
