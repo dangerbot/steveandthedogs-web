@@ -1,7 +1,9 @@
 # CLAUDE.md — Steve Black Personal Brand Website
 
 ## About This Project
-Personal branding website for Steve Black, Head of Digital Product. Built with Next.js 14+ (App Router), Tailwind CSS, and deployed on Vercel. The design is based on Steve's existing Framer prototype with enhancements.
+Personal branding website for Steve Black, Head of Digital Product. Built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, and Framer Motion; deployed on Vercel (GitHub repo, `main` auto-deploys). The design is based on Steve's existing Framer prototype with enhancements.
+
+> Companion file: `SITE_CONTEXT.md` is a current-state snapshot of the repo. Keep both files updated when site structure changes.
 
 ## Design Philosophy
 - Dark, premium aesthetic (near-black backgrounds)
@@ -31,7 +33,7 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 ### Navigation
 - Fixed top bar, transparent initially, gains subtle background on scroll
 - Left: Lightning bolt logo (⚡ or SVG) + email (steve.and.the.dogs@gmail.com with copy button)
-- Right: Hello! | About | Read Me | Playground
+- Right: Hello! | About | Products | Read Me | Playground
 
 ### Home Page (Hello!)
 **Hero Section (full viewport)**
@@ -90,12 +92,11 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 **Quick Stats card:**
 - 15+ years building digital products
 - 17 patents in sport, fitness & tech
-- 9 products launched across mobile, web & hardware
+- 15 products launched across mobile, web & hardware
 - Experience in AI, health, wellness & performance
 - Data-driven leader driving growth & retention
 
 **Products list:**
-- Matter [iOS, Android, Web, Kiosk]
 - FluidLogic GPR50 [iOS, Android, Hardware]
 - FluidLogic VMR [iOS]
 - All Points North Virtual [iOS, Android, Web]
@@ -112,14 +113,12 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 - Adidas Track Rabbit [iOS, Web, Hardware]
 - Adidas 1 Running [Hardware]
 
-**Experience Timeline:**
-- Dec 2025 – Present: Head of Digital Product, Matter
-- Oct 2024 – Dec 2025: Principle Product Manager, FluidLogic
+**Experience Timeline:** (the built About page condenses this into a company-level list: FluidLogic Oct 2024 – May 2026, APN, Bowflex, Nike, Adidas)
+- Oct 2024 – May 2026: Principle Product Manager, FluidLogic
 - May 2023 – Oct 2024: Principle Product Manager, All Points North
 - May 2021 – May 2023: Lead Product Manager, Bowflex
 - Dec 2019 – May 2021: Sr. Product Manager, Nike | NTC
 - Oct 2014 – Jul 2019: Lead Product Manager, Adidas | AllDay
-- Nov 2010 – Oct 2014: Sr Product Manager, Adidas | SmartBall
 - Nov 2010 – Oct 2014: Sr Product Manager, Adidas | SmartBall
 - Sep 2009 – Nov 2010: Product Manager, Adidas | miCoach
 - Aug 2008 – Sep 2009: Director Data Science, Adidas | Innovation Team
@@ -135,6 +134,12 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 
 **Company logos section** (left side): FluidLogic, APN, Adidas logos
 
+### Products Page
+- "Products" hero in the same large thin type as other pages
+- Mobile experience overview: featured products with descriptions + phone-frame screenshots from `/public/products/`
+- Current products: FluidLogic, All Points North, JRNY, Nike Training Club, AllDay
+- Data lives in a `products` array at the top of `app/products/page.tsx`
+
 ### Articles Page (Read Me)
 - "Articles" in large thin type (matching Framer)
 - "Stories & Insights" subtitle
@@ -146,10 +151,21 @@ Personal branding website for Steve Black, Head of Digital Product. Built with N
 - "Playground" in the same large thin type as the Articles page
 - Subtitle: "Experiments, prototypes, and things I'm tinkering with."
 - Amber gradient divider below the header (matches Articles/About page style)
-- Each experiment is a numbered section (Experiment 01, 02, etc.) with a label, title, and brief description
-- Sections stack vertically and can grow over time without any structural changes
-- **Current experiments:**
-  - Experiment 01 — Lightning Bolt Animations: Three animation variations of the site logo mark side by side (Pulse Glow, Draw On, Electric Crackle)
+- The page is the **prototype showcase**: a stack of featured cards, each linking to its own sub-page. To add a prototype, copy a card section in `app/playground/page.tsx` and point it at a new `/playground/<slug>` page.
+- **Current cards:** ChatGPT Families (`/playground/openai-families`), The Satiation Lag (`/playground/satiation-lag`), Lightning Bolts (`/playground/lightning-bolts`)
+- `/playground/lightning-bolts` holds the five bolt/motion-graphics experiments formerly inline on the playground page: 01 Lightning Bolt Animations (Pulse Glow, Draw On, Electric Crackle), 02 Animated Divider, 03 Bolt Light-Up Divider, 04 LinkedIn Thumbnail, 05 LinkedIn Banner
+- Other sub-pages: `/playground/empowered-teams-ai` (reached from its article via `customHref`), `/playground/babylist-ai` (unlisted, direct URL only)
+
+### Custom Article Pages
+Some "articles" are fully custom Next.js pages rather than MDX. Example: `/articles/wearables-landscape-2026` — an interactive report with its own components (`Charts.tsx`, `ProductExplorer.tsx`, `ThreatsGrid.tsx`, `TocSidebar.tsx`, `data.ts`) in `app/articles/wearables-landscape-2026/`. The matching MDX entry supplies card metadata and points here via `customHref`.
+
+### Hidden Prototype Pages (unlisted)
+Standalone static HTML prototypes live in `/public/<name>/index.html` and are served at clean URLs via rewrites in `next.config.ts`. Not linked from navigation — shared by direct URL only:
+- `/meet-kelby`, `/meet-sage`
+- `/gardyn-onboarding`, `/gardyn-review`
+- `/envorso-vision` (private vision deck — keep unlisted)
+
+All prototype pages include Vercel Analytics.
 
 ## Blog / Articles System
 
@@ -176,11 +192,14 @@ coverImage: "/articles/your-slug/cover.jpg"    # optional, relative to /public
 gradient: "from-[#...] via-[#...] to-[#...]"  # fallback if no coverImage
 readTime: "5 min read"                # optional
 animatedCover: "electric-bolt"        # optional — use a live animation instead of a static image
+customHref: "/playground/your-page"   # optional — card links here instead of /articles/[slug]
 ---
 ```
 
 **Cover priority order:** `animatedCover` → `coverImage` → `gradient` → nothing.
 Currently the only supported value for `animatedCover` is `"electric-bolt"`, which renders the `ElectricBolt` component (see below) as the card thumbnail and the article hero banner.
+
+**`customHref`:** when set, the article card links there instead of the MDX detail page, and `/articles/[slug]` redirects to it. Used for entries whose real content is a custom page — currently `/playground/openai-families`, `/playground/satiation-lag`, `/playground/empowered-teams-ai`, and `/articles/wearables-landscape-2026`.
 
 ### Valid Categories
 All, Strategy & Execution, Innovation & Technology, UX & Behavior, Data-Driven, Hardware & Software, Sport & Wellness, Leadership, About Me
@@ -259,18 +278,23 @@ A self-contained Framer Motion animation of the site's lightning bolt logo mark.
 ```
 steveandthedogs-web/
 ├── app/
-│   ├── layout.tsx                   (root layout with nav + footer)
+│   ├── layout.tsx                   (root layout with nav + footer + Vercel Analytics)
 │   ├── page.tsx                     (home/hello page)
 │   ├── globals.css                  (global styles + CSS variables)
-│   ├── about/
-│   │   └── page.tsx                 (about page)
+│   ├── about/page.tsx               (about page — stats, products list, experience, skills ticker inlined here)
+│   ├── products/page.tsx            (products page — `products` data array at top of file)
 │   ├── articles/
 │   │   ├── page.tsx                 (articles listing — server component)
 │   │   ├── ArticlesGrid.tsx         (client component: filter + card grid)
-│   │   └── [slug]/
-│   │       └── page.tsx             (article detail — server component)
+│   │   ├── [slug]/page.tsx          (article detail — server component, honors customHref redirect)
+│   │   └── wearables-landscape-2026/ (custom interactive report page + its own components)
 │   └── playground/
-│       └── page.tsx                 (playground page — experiments & prototypes)
+│       ├── page.tsx                 (featured prototype cards)
+│       ├── lightning-bolts/page.tsx (bolt motion-graphics experiments 01–05)
+│       ├── openai-families/page.tsx
+│       ├── babylist-ai/page.tsx     (unlisted)
+│       ├── empowered-teams-ai/page.tsx
+│       └── satiation-lag/page.tsx
 ├── components/
 │   ├── Navigation.tsx               (fixed top nav: logo, email, links)
 │   ├── Footer.tsx
@@ -280,10 +304,9 @@ steveandthedogs-web/
 │   ├── WhatICanDo.tsx
 │   ├── ExpertiseSection.tsx
 │   ├── ConnectSection.tsx
-│   ├── Timeline.tsx
-│   ├── QuickStats.tsx
-│   ├── ProductsList.tsx
 │   ├── SkillsTicker.tsx
+│   ├── AnimatedDivider.tsx
+│   ├── BoltDivider.tsx
 │   └── ElectricBolt.tsx             (reusable animated lightning bolt SVG)
 ├── content/
 │   └── articles/
@@ -293,12 +316,19 @@ steveandthedogs-web/
 ├── lib/
 │   └── articles.ts                  (getAllArticles / getArticle utilities)
 ├── public/
-│   └── images/
-│       ├── steve.avif               (headshot)
-│       └── articles/                (article cover images)
-├── CLAUDE.md                        (this file)
+│   ├── images/                      (headshot + article covers)
+│   ├── products/                    (products page screenshots)
+│   ├── meet-kelby/ meet-sage/ gardyn-onboarding/ gardyn-review/ envorso-vision/
+│   │                                (hidden static HTML prototypes, served via rewrites)
+│   └── openai-families/ empowered-teams-ai/ satiation-lag/ wearables-2026-hero/ babylist-ai/
+│                                    (assets for playground & article pages)
+├── next.config.ts                   (commit-hash env var + prototype rewrites)
+├── CLAUDE.md                        (this file — design spec + conventions)
+├── SITE_CONTEXT.md                  (current-state snapshot)
 └── package.json
 ```
+
+Note: `Demo_Screenshots/` and `Steve_Family_Phtoso_For_OpenAI/` are local-only working folders (gitignored).
 
 ## Enhancement Ideas (for later)
 - Subtle cursor-following glow effect on hero (from concept 1)
