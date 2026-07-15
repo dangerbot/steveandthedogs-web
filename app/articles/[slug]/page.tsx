@@ -151,6 +151,26 @@ export default async function ArticlePage({
         ) : null}
       </div>
 
+      {/* ── Prototype CTA (optional, frontmatter-driven) ─────────────── */}
+      {meta.ctaHref && (
+        <div className="px-6 mb-14 max-w-3xl mx-auto flex justify-center">
+          <a
+            href={meta.ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 rounded-full bg-[#d4a853] px-7 py-3.5 text-[15px] font-medium tracking-wide text-[#0a0a0a] transition-all hover:bg-[#e0b967] hover:shadow-[0_0_24px_#d4a85340]"
+          >
+            {meta.ctaLabel ?? "Open the prototype"}
+            <span
+              aria-hidden="true"
+              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            >
+              ↗
+            </span>
+          </a>
+        </div>
+      )}
+
       {/* ── MDX body ───────────────────────────────────────────────── */}
       <article className="px-6 pb-32 max-w-3xl mx-auto">
         <div className="prose-dark">

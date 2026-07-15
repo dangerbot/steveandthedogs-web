@@ -1,0 +1,80 @@
+---
+title: "Smoke and Mirrors, On Purpose"
+date: "2026-07-13"
+category: "UX & Behavior"
+description: "A looks-like prototype built in a day with Lovable: can a conversation replace the one-size-fits-all onboarding wizard? Testing with real people said yes — and exposed the hole I'd missed."
+coverImage: "/images/articles/looks-like-prototype-cover.jpg"
+readTime: "6 min read"
+ctaHref: "https://ee-quick-onboard.lovable.app"
+ctaLabel: "Try the Bee prototype"
+---
+
+This is the smallest prototype on my playground. It might be the best example of how prototyping fits into daily product work.
+
+The question: can a conversation replace the onboarding wizard?
+
+---
+
+## The wizard problem
+
+Traditional onboarding is a chain of wizard questions herding users toward a journey. You design the happy path, and then reality shows up: the edge cases either don't fit, or the happy path gets generalized until it serves everyone equally badly. One size fits all — which means it fits no one particularly well.
+
+Take a baby registry. I might be having the baby. Someone I love might be having the baby. I might just be hunting for the registry of someone who already had the baby. Good luck building one wizard for all of that.
+
+---
+
+## Meet people where they are
+
+A chat can do what a wizard can't: flex.
+
+Tired of answering questions? Say "that's it, I'm done" and move on. Have a complicated situation? Type it. People will offer up context a wizard has no field for — including things you never thought to ask.
+
+<img
+  src="/images/articles/looks-like-prototype/welcome.jpg"
+  alt="Bee's Registry — the welcome screen"
+  style={{ display: "block", maxWidth: "min(100%, 460px)", margin: "2rem auto", borderRadius: "16px" }}
+/>
+
+So I built **Bee**, a chat-first onboarding concept for a baby registry. [Try it here](https://ee-quick-onboard.lovable.app) — it takes about two minutes.
+
+---
+
+## Looks-like, then works-like
+
+Here's the part that matters: the AI is fake.
+
+When I prompted this up in Lovable, I set the ground rule in advance — this is a prototype, mock the full AI experience. That takes the entire hard problem off the table. No model calls, no backend, just smoke and mirrors staged well enough to test whether the concept is worth pursuing at all.
+
+Hardware teams have named this forever: a **looks-like** prototype shows the feel; a **works-like** prototype proves the guts. This is a looks-like. If the concept earns it, the next prototype is a works-like feasibility test — real AI, zero polish, different question.
+
+Same discipline on the design side. This isn't pixel-perfect and isn't trying to be — it captures the feel, not the spec. It's what black-and-white wireframes used to do, except interactive and built in a day. If testing came back positive, this goes to design as a framework to react to, not a comp to match. And with Lovable and Figma Make getting better at taking design direction, it can be a genuine jumping-off point either way — rebuild manually or layer polish on top.
+
+---
+
+## Small on purpose
+
+The prototype doesn't do account signup. It stops before the actual registry experience. Not because those don't matter — because they're not what this prototype is testing.
+
+Like a good MVP, you build just enough to inch up on the question and get signal. If a prototype gets too big it starts testing too many things at once: more burden to build, more burden to test, and mushier signal about what to act on. Some questions need a bigger build. This one didn't.
+
+---
+
+## What testing found
+
+I ran it past parents, non-parents, and people with no connection to kids at all. Everyone got through easily. Some went deep and chatty, some answered the minimum and bailed — exactly the range the concept predicts.
+
+Testing also caught my favorite kind of bug: a hole in my own thinking. Early on, choosing "start a new registry" dropped you straight into new-parent options. One tester wanted to start a registry *on behalf of* someone else — not a parent themselves. Never occurred to me. Found in one session, fixed in minutes.
+
+<img
+  src="/images/articles/looks-like-prototype/journey.jpg"
+  alt="The journey question — including the path I originally missed"
+  style={{ display: "block", maxWidth: "min(100%, 460px)", margin: "2rem auto", borderRadius: "16px" }}
+/>
+
+Two learnings to carry into feasibility: response speed is critical, and the suggested quick-answers need real tuning. Those are the make-or-break for the works-like phase.
+
+Clear signal. Concept validated. On to works-like.
+
+---
+
+That's the loop this whole [playground](/playground) is about: a sharp question, the smallest build that can answer it, real people, and a decision at the end.

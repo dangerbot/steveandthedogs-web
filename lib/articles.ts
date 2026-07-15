@@ -20,6 +20,11 @@ export interface ArticleMeta {
    *  Use for entries that point to a custom landing page (e.g. /playground/openai-families).
    *  External (http*) URLs open in a new tab automatically. */
   customHref?: string;
+  /** Optional prototype call-to-action rendered as a button under the article hero.
+   *  Opens in a new tab. Use on any article whose subject has a live prototype. */
+  ctaHref?: string;
+  /** Button label for ctaHref, e.g. "Try the Bee prototype". Defaults to "Open the prototype". */
+  ctaLabel?: string;
 }
 
 export interface Article {

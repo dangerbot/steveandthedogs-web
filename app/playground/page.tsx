@@ -106,6 +106,46 @@ const prototypes: Prototype[] = [
     ),
   },
   {
+    href: "/articles/looks-like-prototype",
+    category: "Concept Test",
+    title: "AI-First Onboarding",
+    badge: { label: "Looks-like · User tested", dotClass: "bg-[#d4a853]" },
+    description:
+      "A chat-first onboarding concept for a baby registry, built in a day with Lovable and the AI fully mocked — smoke and mirrors on purpose, to test the concept before the tech.",
+    question:
+      "Can a conversation replace the one-size-fits-all onboarding wizard — meeting people where they are instead of forcing every edge case down a happy path?",
+    found:
+      "Parents, non-parents, people with no kids at all — everyone flowed through. Some went deep, some bailed early, both fine. And testing exposed a path I'd missed: starting a registry for someone else.",
+    next:
+      "Clear signal — it earned a works-like feasibility pass, where response speed and tuned suggested answers are the make-or-break.",
+    visual: (
+      <div
+        className="relative flex items-end min-h-[240px] md:min-h-full md:h-full overflow-hidden bg-neutral-900"
+        style={{
+          backgroundImage: "url(/images/articles/looks-like-prototype-cover.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* bottom-weighted darkening so the white captions stay readable on the bright photo */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%)",
+          }}
+        />
+        <p className="relative z-10 m-5 text-[11px] tracking-[0.2em] uppercase text-white/85 font-medium">
+          Say hi to Bee →
+        </p>
+        <p className="absolute bottom-3 right-4 z-10 text-[9px] tracking-[0.18em] uppercase text-white/40 font-medium">
+          AI mocked · On purpose
+        </p>
+      </div>
+    ),
+  },
+  {
     href: "/playground/openai-families",
     category: "Concept Prototype",
     title: "ChatGPT Families",
