@@ -538,8 +538,8 @@ export default function PlaygroundPage() {
         <div className="max-w-3xl flex flex-col gap-5">
           <p className="text-[#f5f5f5] text-lg md:text-xl font-light leading-relaxed">
             I&apos;ve always believed in prototypes. The fastest way to answer a product
-            question isn&apos;t a document or a debate — it&apos;s the smallest build that
-            lets you feel the answer. And with AI in the toolkit, that build has never
+            question is the smallest build that makes it real — something you can feel,
+            test, and pull signal from. And with AI in the toolkit, that build has never
             been faster or cheaper.
           </p>
           <p className="text-[#888888] text-[15px] font-light leading-relaxed">
